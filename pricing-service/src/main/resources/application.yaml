@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: pricing-service
+
+grpc:
+  server:
+    port: ${PRICING_SERVICE_PORT:9090}
+
+pricing:
+  base-rate-per-km: ${BASE_RATE_PER_KM:2.0}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
