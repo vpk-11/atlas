@@ -5,6 +5,7 @@ import com.atlas.dispatchservice.driver.DriverStatus;
 public record CandidateScore(
         String driverId,
         DriverStatus effectiveStatus,
-        double totalTimeToPickupMinutes
+        double totalTimeToPickupMinutes,
+        Double currentTripRemainingMinutes
 ) {
 }

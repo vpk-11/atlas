@@ -50,12 +50,12 @@ public class TripClient {
         }
     }
 
-    public void cancelTrip(String tripId) {
+    public String cancelTrip(String tripId) {
         var request = com.atlas.dispatchservice.grpc.trip.CancelTripRequest.newBuilder()
                 .setTripId(tripId)
                 .build();
         try {
-            tripStub.cancelTrip(request);
+            return tripStub.cancelTrip(request).getDriverId();
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }

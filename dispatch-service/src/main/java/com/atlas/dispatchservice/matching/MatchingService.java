@@ -62,7 +62,7 @@ public class MatchingService {
             double lng = expiredOnTrip && driver.getDestinationLng() != null
                     ? driver.getDestinationLng() : driver.getCurrentLng();
             double timeToPickup = RoadDistanceEstimator.estimateMinutes(lat, lng, pickup.lat(), pickup.lng());
-            return new CandidateScore(driver.getDriverId(), DriverStatus.AVAILABLE, timeToPickup);
+            return new CandidateScore(driver.getDriverId(), DriverStatus.AVAILABLE, timeToPickup, null);
         }
 
         // still genuinely on trip: time remaining until free, plus destination -> pickup leg
@@ -70,6 +70,6 @@ public class MatchingService {
         double destLat = driver.getDestinationLat() != null ? driver.getDestinationLat() : driver.getCurrentLat();
         double destLng = driver.getDestinationLng() != null ? driver.getDestinationLng() : driver.getCurrentLng();
         double legMinutes = RoadDistanceEstimator.estimateMinutes(destLat, destLng, pickup.lat(), pickup.lng());
-        return new CandidateScore(driver.getDriverId(), DriverStatus.ON_TRIP, remainingMinutes + legMinutes);
+        return new CandidateScore(driver.getDriverId(), DriverStatus.ON_TRIP, remainingMinutes + legMinutes, remainingMinutes);
     }
 }

@@ -39,7 +39,10 @@ message CancelTripRequest {
   string trip_id = 1;
 }
 
+// driver_id lets Dispatch (owner of the Driver table) free the right driver;
+// Trip is the only service that knows which driver a given trip_id belongs to.
 message CancelTripResponse {
   string trip_id = 1;
   TripStatus status = 2;
+  string driver_id = 3;
 }
