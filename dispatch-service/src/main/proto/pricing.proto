@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package atlas.pricing;
+
+import "common.proto";
+
+option java_package = "com.atlas.dispatchservice.grpc.pricing";
+option java_multiple_files = true;
+
+service PricingService {
+  rpc GetQuote(QuoteRequest) returns (QuoteResponse);
+}
+
+message QuoteRequest {
+  atlas.common.Coordinate pickup = 1;
+  atlas.common.Coordinate drop = 2;
+}
+
+message QuoteResponse {
+  double price = 1;
+  double distance_km = 2;
+  double duration_minutes = 3;
+  atlas.common.DistanceSource distance_source = 4;
+}

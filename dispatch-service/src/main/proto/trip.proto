@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package atlas.trip;
+
+import "common.proto";
+
+option java_package = "com.atlas.dispatchservice.grpc.trip";
+option java_multiple_files = true;
+
+service TripService {
+  rpc RecordTrip(RecordTripRequest) returns (RecordTripResponse);
+  rpc CancelTrip(CancelTripRequest) returns (CancelTripResponse);
+}
+
+enum TripStatus {
+  TRIP_STATUS_UNSPECIFIED = 0;
+  MATCHED = 1;
+  FAILED_NO_MATCH = 2;
+  CANCELLED = 3;
+}
+
+message RecordTripRequest {
+  string rider_id = 1;
+  string driver_id = 2;
+  atlas.common.Coordinate pickup = 3;
+  atlas.common.Coordinate drop = 4;
+  double price = 5;
+  double distance_km = 6;
+  double duration_minutes = 7;
+  TripStatus status = 8;
+  atlas.common.DistanceSource distance_source = 9;
+}
+
+message RecordTripResponse {
+  string trip_id = 1;
+}
+
+message CancelTripRequest {
+  string trip_id = 1;
+}
+
+message CancelTripResponse {
+  string trip_id = 1;
+  TripStatus status = 2;
+}
