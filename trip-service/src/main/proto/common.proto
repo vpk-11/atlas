@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package atlas.common;
+
+option java_package = "com.atlas.tripservice.grpc.common";
+option java_multiple_files = true;
+
+message Coordinate {
+  double lat = 1;
+  double lng = 2;
+}
+
+enum DistanceSource {
+  DISTANCE_SOURCE_UNSPECIFIED = 0;
+  OSRM = 1;
+  FALLBACK = 2;
+}

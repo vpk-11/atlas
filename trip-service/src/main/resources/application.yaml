@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: trip-service
+  datasource:
+    url: jdbc:mysql://${TRIP_DB_HOST:localhost}:${TRIP_DB_PORT:3306}/${TRIP_DB_NAME:atlas_trip}?createDatabaseIfNotExist=true
+    username: ${TRIP_DB_USER:root}
+    password: ${TRIP_DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: ${TRIP_SERVICE_HTTP_PORT:8091}
+
+grpc:
+  server:
+    port: ${TRIP_SERVICE_PORT:9091}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
