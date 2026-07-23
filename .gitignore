@@ -1,0 +1,6 @@
+.DS_Store
+
+# claude project files, not for remote
+.claude/
+CLAUDE.md
+.env
