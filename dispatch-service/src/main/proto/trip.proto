@@ -17,6 +17,7 @@ enum TripStatus {
   MATCHED = 1;
   FAILED_NO_MATCH = 2;
   CANCELLED = 3;
+  SYSTEM_ERROR = 4;
 }
 
 message RecordTripRequest {

@@ -44,6 +44,7 @@ public class RideService {
             ranked = matchingService.rankCandidates(pickup);
         } catch (Exception e) {
             log.error("Driver DB unreachable while ranking candidates for rider {}: {}", request.riderId(), e.toString());
+            logSystemError(request.riderId(), pickup, drop);
             return RideResponse.systemError("Unable to process this ride, try again shortly");
         }
 
@@ -59,6 +60,7 @@ public class RideService {
             price = pricingClient.getQuote(pickup, drop, tripDistance);
         } catch (PricingClient.PricingUnavailableException e) {
             log.error("Pricing unreachable for rider {}: {}", request.riderId(), e.toString());
+            logSystemError(request.riderId(), pickup, drop);
             return RideResponse.systemError("Unable to price this ride, try again shortly");
         }
 
@@ -67,6 +69,7 @@ public class RideService {
         } catch (Exception e) {
             log.error("Driver DB unreachable while assigning driver {} for rider {}: {}",
                     winner.driverId(), request.riderId(), e.toString());
+            logSystemError(request.riderId(), pickup, drop);
             return RideResponse.systemError("Unable to process this ride, try again shortly");
         }
 
@@ -97,6 +100,14 @@ public class RideService {
             return RideResponse.systemError("Unable to process this ride, try again shortly");
         }
         return RideResponse.failedNoMatch("No available or soon-to-be-available drivers found");
+    }
+
+    private void logSystemError(String riderId, Coordinate pickup, Coordinate drop) {
+        try {
+            tripClient.recordSystemError(riderId, pickup, drop);
+        } catch (TripClient.TripUnavailableException e) {
+            log.error("Trip also unreachable while logging SYSTEM_ERROR for rider {}: {}", riderId, e.toString());
+        }
     }
 
     public CancelResponse cancelTrip(String tripId) {

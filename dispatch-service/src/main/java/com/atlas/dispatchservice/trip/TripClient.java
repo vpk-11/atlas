@@ -24,6 +24,12 @@ public class TripClient {
                 com.atlas.dispatchservice.grpc.trip.TripStatus.FAILED_NO_MATCH);
     }
 
+    public String recordSystemError(String riderId, Coordinate pickup, Coordinate drop) {
+        return record(riderId, "", pickup, drop, 0.0,
+                new DistanceResult(0.0, 0.0, DistanceSource.FALLBACK),
+                com.atlas.dispatchservice.grpc.trip.TripStatus.SYSTEM_ERROR);
+    }
+
     private String record(String riderId, String driverId, Coordinate pickup, Coordinate drop,
                            double price, DistanceResult distance,
                            com.atlas.dispatchservice.grpc.trip.TripStatus status) {

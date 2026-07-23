@@ -62,6 +62,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
             case MATCHED -> TripStatus.MATCHED;
             case FAILED_NO_MATCH -> TripStatus.FAILED_NO_MATCH;
             case CANCELLED -> TripStatus.CANCELLED;
+            case SYSTEM_ERROR -> TripStatus.SYSTEM_ERROR;
             default -> throw new IllegalArgumentException("Unsupported trip status on record: " + status);
         };
     }
