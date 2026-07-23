@@ -1,3 +1,33 @@
 spring:
   application:
     name: dispatch-service
+  datasource:
+    url: jdbc:mysql://${DRIVER_DB_HOST:localhost}:${DRIVER_DB_PORT:3306}/${DRIVER_DB_NAME:atlas_driver}?createDatabaseIfNotExist=true
+    username: ${DRIVER_DB_USER:root}
+    password: ${DRIVER_DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: ${DISPATCH_PORT:8080}
+
+grpc:
+  client:
+    pricing-service:
+      address: static://${PRICING_SERVICE_HOST:localhost}:${PRICING_SERVICE_PORT:9090}
+      negotiation-type: plaintext
+    trip-service:
+      address: static://${TRIP_SERVICE_HOST:localhost}:${TRIP_SERVICE_PORT:9091}
+      negotiation-type: plaintext
+
+osrm:
+  base-url: ${OSRM_BASE_URL:https://router.project-osrm.org}
+  timeout-ms: ${OSRM_TIMEOUT_MS:500}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
