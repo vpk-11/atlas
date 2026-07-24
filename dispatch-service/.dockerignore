@@ -1,0 +1,8 @@
+.git
+.idea
+.claude
+target
+*.md
+.env
+.env.example
+.DS_Store
