@@ -1,19 +1,24 @@
 # Atlas
 
+<!-- version: v1.0.0 -->
+![Version](https://img.shields.io/badge/version-v1.0.0-blue)
+
 A distributed rider-driver dispatch system in Java/Spring Boot. Three gRPC
 microservices: **dispatch-service** (orchestrator, REST + quad-tree matching),
 **pricing-service** (pure calculator), and **trip-service** (system of
-record, MySQL).
+record, MySQL). Deployed to Kubernetes (Kind), load-tested with k6, observed
+with Prometheus/Grafana, and chaos-tested by killing a live pod mid-load.
 
 See `.claude/CLAUDE.md` (not tracked in git) for the full design spec. This
-file covers local setup and running the current build.
+file covers running the current build, either as local processes or as a
+full Kubernetes deployment.
 
 ## Current stage
 
-Application logic for all three services is done and tested. Docker/Kubernetes
-deployment, the load test, and the chaos-test/Grafana demo (root spec's
-"Phase 10") are **not built yet** — everything below runs the three services
-as plain local Spring Boot processes.
+All application logic (three services) and all shared infrastructure (Docker,
+Kubernetes/Kind, k6 load test, Prometheus/Grafana, chaos test) are built and
+verified against a real local Kind cluster. See `.claude/CLAUDE.md`'s
+Phase 10 changelog entry for what was found and fixed getting there.
 
 ## Architecture
 
@@ -25,7 +30,81 @@ Rider (REST) ──> dispatch-service ──gRPC──> pricing-service (no DB)
                        └── own Driver DB (MySQL: atlas_driver, quad-tree scan)
 ```
 
-## Prerequisites
+In Kubernetes: dispatch-service runs 2 replicas behind a Service, pricing and
+trip run 1 each, MySQL runs in-cluster (one instance, two schemas), and
+Prometheus/Grafana scrape all three services' Actuator endpoints.
+
+## Running it in Kubernetes (Kind) — recommended
+
+### Prerequisites
+
+```
+brew install colima docker kind kubectl k6
+colima start --cpu 6 --memory 12 --disk 60
+```
+
+Java 26 and Maven are also required for the build step (see "Running it
+locally" below for details on those).
+
+### One command
+
+```
+./scripts/start.sh
+```
+
+Builds all three jars, builds Docker images, creates (or reuses) the `atlas`
+Kind cluster, deploys MySQL/dispatch/pricing/trip/Prometheus/Grafana, and
+smoke-tests `POST /rides`. Fails loud (non-zero exit) on any step failure.
+
+### Using it
+
+```
+kubectl -n atlas port-forward svc/dispatch-service 8080:8080
+curl -X POST http://localhost:8080/rides \
+  -H "Content-Type: application/json" \
+  -d '{"riderId":"R-001","pickup":{"lat":37.7749,"lng":-122.4194},"drop":{"lat":37.7849,"lng":-122.4094}}'
+```
+
+### Grafana dashboard
+
+```
+kubectl -n atlas port-forward svc/grafana 3000:3000
+```
+Open `http://localhost:3000` (anonymous access enabled, no login needed).
+The **Atlas Overview** dashboard is provisioned automatically: request
+throughput, p50/p99 latency, error rate, and dispatch pod count over time.
+
+### Prometheus (raw metrics / scrape targets)
+
+```
+kubectl -n atlas port-forward svc/prometheus 9090:9090
+```
+Open `http://localhost:9090/targets` to confirm all three services are `UP`.
+
+### Load test
+
+```
+BASE_URL=http://localhost:8080 k6 run load-testing/rides-load-test.js
+```
+Ramps to 500 req/sec sustained against `POST /rides`. On this local single-
+node Kind setup, sustained 500 req/sec saturates the system past the JVM's
+default connection-pool sizing — see `.claude/CLAUDE.md` Phase 10 entry for
+the honest result and why it's flagged as app-level follow-up, not an infra
+problem.
+
+### Chaos test
+
+```
+./load-testing/chaos-test.sh
+```
+Runs the load test as an in-cluster k6 Job, kills a dispatch-service pod
+20 seconds in, and shows requests continuing to be served by the surviving
+replica. Watch the Grafana "Dispatch Pod Count Over Time" panel live to see
+the dip and recovery.
+
+## Running it locally (no Kubernetes)
+
+### Prerequisites
 
 - Java 26 (`java -version` to check)
 - MySQL, running locally
@@ -53,7 +132,7 @@ No other manual installs — each service's Maven wrapper (`./mvnw`) downloads
 everything else it needs (protoc, the gRPC plugin, all dependencies) on
 first build.
 
-## Environment
+### Environment
 
 Each service reads its config from env vars with built-in defaults matching
 local MySQL (`root`, no password) — so you can run everything below with zero
@@ -66,19 +145,19 @@ the variables yourself if you want to override a default, e.g.:
 export OSRM_TIMEOUT_MS=1000
 ```
 
-## Running it: three terminals
+### Three terminals
 
 Each service is its own Maven project. Start each in its own terminal tab,
 in this order (pricing and trip have no dependencies on each other; dispatch
 depends on both being up):
 
-**Terminal 1 — pricing-service** (gRPC on :9090)
+**Terminal 1 — pricing-service** (gRPC on :9090, actuator on :8090)
 ```
 cd pricing-service
 ./mvnw spring-boot:run
 ```
 
-**Terminal 2 — trip-service** (gRPC on :9091, HTTP actuator on :8091)
+**Terminal 2 — trip-service** (gRPC on :9091, actuator on :8091)
 ```
 cd trip-service
 ./mvnw spring-boot:run
@@ -137,27 +216,28 @@ close match.
 
 ```
 curl http://localhost:8080/actuator/health   # dispatch
+curl http://localhost:8090/actuator/health   # pricing
 curl http://localhost:8091/actuator/health   # trip
 ```
-(pricing-service has no HTTP port — it's gRPC-only. Check it's up via
-`lsof -i :9090` or just watch its terminal for the "Started" line.)
 
 ## Known limitation: local same-port restarts of pricing/trip
 
-Every gRPC call from dispatch-service now carries a 2s deadline
+Every gRPC call from dispatch-service carries a 2s deadline
 (`PricingClient`/`TripClient`), so a downstream outage always fails fast into
-`SYSTEM_ERROR` instead of hanging — confirmed, no more indefinite hangs.
+`SYSTEM_ERROR` instead of hanging.
 
-One remaining quirk, local-dev only: if you kill and restart pricing-service
-or trip-service on the same port while dispatch-service keeps running,
-dispatch's gRPC channel to it can get stuck failing with `"Too many
-transparent retries. Might be a bug in gRPC"` — a documented grpc-java issue
-tied to reconnecting to the exact same host:port in quick succession.
-Workaround: restart dispatch-service too after restarting a downstream
-dependency locally. This is expected to be a non-issue in the actual
-Kubernetes chaos-test (Phase 10): a restarted pod gets a new IP, and traffic
-goes through a Service, not a direct reconnect to the same socket — but it's
-worth re-verifying once that's built rather than assuming.
+One remaining quirk, local-dev only (running services as plain processes,
+not in Kubernetes): if you kill and restart pricing-service or trip-service
+on the same port while dispatch-service keeps running, dispatch's gRPC
+channel to it can get stuck failing with `"Too many transparent retries.
+Might be a bug in gRPC"` — a documented grpc-java issue tied to reconnecting
+to the exact same host:port in quick succession. Workaround: restart
+dispatch-service too after restarting a downstream dependency locally.
+
+**Confirmed not an issue in Kubernetes**: the chaos test kills and replaces
+dispatch-service pods repeatedly with no channel-wedge errors, because a
+restarted pod gets a new IP and traffic goes through a Service rather than
+reconnecting to the same socket.
 
 ## Running tests
 
@@ -166,3 +246,5 @@ cd dispatch-service && ./mvnw test
 cd pricing-service && ./mvnw test
 cd trip-service && ./mvnw test
 ```
+
+## Changelog
