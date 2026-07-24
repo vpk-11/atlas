@@ -2,6 +2,9 @@ spring:
   application:
     name: pricing-service
 
+server:
+  port: ${PRICING_SERVICE_HTTP_PORT:8090}
+
 grpc:
   server:
     port: ${PRICING_SERVICE_PORT:9090}

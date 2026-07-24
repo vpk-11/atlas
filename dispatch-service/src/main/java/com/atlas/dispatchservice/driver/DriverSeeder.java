@@ -2,7 +2,10 @@ package com.atlas.dispatchservice.driver;
 
 import com.atlas.dispatchservice.domain.BoundingBox;
 import com.atlas.dispatchservice.matching.QuadTreeIndex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ import java.util.Random;
 @Component
 public class DriverSeeder implements CommandLineRunner {
 
+    private static final Logger log = LoggerFactory.getLogger(DriverSeeder.class);
     private static final int DRIVER_COUNT = 999;
     private static final BoundingBox BOUNDS = BoundingBox.SAN_FRANCISCO;
 
@@ -26,7 +30,14 @@ public class DriverSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (driverRepository.count() == 0) {
-            seed();
+            try {
+                seed();
+            } catch (DataIntegrityViolationException e) {
+                // Two replicas can both pass the count()==0 check before either
+                // commits (startup race with 2+ dispatch pods against one MySQL).
+                // Whoever loses just uses the rows the winner already wrote.
+                log.info("Driver table already seeded by another replica, skipping.");
+            }
         }
         quadTreeIndex.rebuild(driverRepository.findAll());
     }
