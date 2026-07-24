@@ -1,0 +1,32 @@
+# k6 runs as an in-cluster Job, not from the host via port-forward.
+# kubectl port-forward binds to one specific backing pod, not the Service's
+# load-balanced endpoint set - killing that pod during the chaos test kills
+# the whole connection instead of failing over. Running k6 in-cluster against
+# the ClusterIP goes through kube-proxy like any real client would, so pod
+# failover during the chaos test actually gets exercised.
+# script.js is created as a ConfigMap by scripts/start.sh / chaos-test.sh from
+# load-testing/rides-load-test.js (single source of truth).
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-load-test
+  namespace: atlas
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: k6
+          image: grafana/k6:1.0.0
+          args: ["run", "/scripts/rides-load-test.js"]
+          env:
+            - name: BASE_URL
+              value: "http://dispatch-service:8080"
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+      volumes:
+        - name: script
+          configMap:
+            name: k6-script

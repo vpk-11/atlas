@@ -1,0 +1,86 @@
+# MySQL runs in-cluster (single instance, two schemas: atlas_driver, atlas_trip).
+# Storage is emptyDir, not a PVC: this project's own convention is drop-and-reseed
+# for schema changes (see root CLAUDE.md), dispatch-service reseeds the Driver
+# table in-app on every startup, and trip records are disposable load-test/demo
+# data. Tradeoff: MySQL pod restart loses all data. Acceptable here; would not
+# be for a real system of record.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init
+  namespace: atlas
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS atlas_driver;
+    CREATE DATABASE IF NOT EXISTS atlas_trip;
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: atlas
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.4.3
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: root-password
+          volumeMounts:
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+            - name: data
+              mountPath: /var/lib/mysql
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 1Gi
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$(MYSQL_ROOT_PASSWORD)"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$(MYSQL_ROOT_PASSWORD)"]
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+      volumes:
+        - name: init-scripts
+          configMap:
+            name: mysql-init
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: atlas
+spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306

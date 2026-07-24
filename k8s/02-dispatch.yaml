@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dispatch-config
+  namespace: atlas
+data:
+  DISPATCH_PORT: "8080"
+  DRIVER_DB_HOST: "mysql"
+  DRIVER_DB_PORT: "3306"
+  DRIVER_DB_NAME: "atlas_driver"
+  DRIVER_DB_USER: "root"
+  PRICING_SERVICE_HOST: "pricing-service"
+  PRICING_SERVICE_PORT: "9090"
+  TRIP_SERVICE_HOST: "trip-service"
+  TRIP_SERVICE_PORT: "9091"
+  OSRM_BASE_URL: "https://router.project-osrm.org"
+  OSRM_TIMEOUT_MS: "500"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dispatch-service
+  namespace: atlas
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: dispatch-service
+  template:
+    metadata:
+      labels:
+        app: dispatch-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "8080"
+    spec:
+      containers:
+        - name: dispatch-service
+          image: atlas/dispatch-service:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: dispatch-config
+          env:
+            - name: DRIVER_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: root-password
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 2
+              memory: 1Gi
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dispatch-service
+  namespace: atlas
+spec:
+  selector:
+    app: dispatch-service
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: NodePort
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: dispatch-service-pdb
+  namespace: atlas
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: dispatch-service
