@@ -142,17 +142,22 @@ curl http://localhost:8091/actuator/health   # trip
 (pricing-service has no HTTP port — it's gRPC-only. Check it's up via
 `lsof -i :9090` or just watch its terminal for the "Started" line.)
 
-## Known issue: gRPC client channels don't self-heal on restart
+## Known limitation: local same-port restarts of pricing/trip
 
-If you restart pricing-service or trip-service while dispatch-service keeps
-running, dispatch's gRPC client channel to that service can get stuck
-(`GOAWAY` / stale HTTP/2 connection) instead of reconnecting — the request
-either fails or, if it's trip-service without a request deadline configured,
-hangs. Workaround: restart dispatch-service too after restarting a
-downstream dependency. Root cause and a real deadline/timeout fix are still
-open, flagged for follow-up before the chaos-test phase (killing pods and
-relying on the client to recover is the actual point of that demo, so this
-needs solving before then, not glossed over).
+Every gRPC call from dispatch-service now carries a 2s deadline
+(`PricingClient`/`TripClient`), so a downstream outage always fails fast into
+`SYSTEM_ERROR` instead of hanging — confirmed, no more indefinite hangs.
+
+One remaining quirk, local-dev only: if you kill and restart pricing-service
+or trip-service on the same port while dispatch-service keeps running,
+dispatch's gRPC channel to it can get stuck failing with `"Too many
+transparent retries. Might be a bug in gRPC"` — a documented grpc-java issue
+tied to reconnecting to the exact same host:port in quick succession.
+Workaround: restart dispatch-service too after restarting a downstream
+dependency locally. This is expected to be a non-issue in the actual
+Kubernetes chaos-test (Phase 10): a restarted pod gets a new IP, and traffic
+goes through a Service, not a direct reconnect to the same socket — but it's
+worth re-verifying once that's built rather than assuming.
 
 ## Running tests
 

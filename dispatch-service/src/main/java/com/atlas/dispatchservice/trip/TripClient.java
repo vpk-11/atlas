@@ -6,8 +6,12 @@ import com.atlas.dispatchservice.domain.DistanceSource;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 @Component
 public class TripClient {
+
+    private static final long DEADLINE_MS = 2000; // [ASSUMED] fail fast rather than hang on a wedged channel
 
     @GrpcClient("trip-service")
     private com.atlas.dispatchservice.grpc.trip.TripServiceGrpc.TripServiceBlockingStub tripStub;
@@ -50,7 +54,7 @@ public class TripClient {
                 .build();
 
         try {
-            return tripStub.recordTrip(request).getTripId();
+            return tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).recordTrip(request).getTripId();
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }
@@ -61,7 +65,7 @@ public class TripClient {
                 .setTripId(tripId)
                 .build();
         try {
-            return tripStub.cancelTrip(request).getDriverId();
+            return tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).cancelTrip(request).getDriverId();
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }

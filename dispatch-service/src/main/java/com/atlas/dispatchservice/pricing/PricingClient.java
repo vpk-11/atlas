@@ -10,10 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 @Component
 public class PricingClient {
 
     private static final Logger log = LoggerFactory.getLogger(PricingClient.class);
+    private static final long DEADLINE_MS = 2000; // [ASSUMED] fail fast rather than hang on a wedged channel
 
     @GrpcClient("pricing-service")
     private PricingServiceGrpc.PricingServiceBlockingStub pricingStub;
@@ -41,7 +44,7 @@ public class PricingClient {
     }
 
     private double callQuote(QuoteRequest request) {
-        QuoteResponse response = pricingStub.getQuote(request);
+        QuoteResponse response = pricingStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).getQuote(request);
         return response.getPrice();
     }
 
