@@ -65,6 +65,22 @@
         "defaults": { "min": 0 },
         "overrides": []
       }
+    },
+    {
+      "id": 5,
+      "title": "Match Rate (MATCHED / MATCHED+FAILED_NO_MATCH)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "targets": [
+        {
+          "expr": "sum(rate(ride_match_outcomes_total{outcome=\"matched\"}[5m])) / sum(rate(ride_match_outcomes_total{outcome=~\"matched|failed_no_match\"}[5m]))",
+          "legendFormat": "match rate"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "percentunit", "min": 0, "max": 1 },
+        "overrides": []
+      }
     }
   ]
 }
