@@ -5,6 +5,8 @@ import com.atlas.tripservice.grpc.trip.CancelTripResponse;
 import com.atlas.tripservice.grpc.trip.RecordTripRequest;
 import com.atlas.tripservice.grpc.trip.RecordTripResponse;
 import com.atlas.tripservice.grpc.trip.TripServiceGrpc;
+import com.atlas.tripservice.grpc.trip.UpdateTripStatusRequest;
+import com.atlas.tripservice.grpc.trip.UpdateTripStatusResponse;
 import com.atlas.tripservice.trip.DistanceSource;
 import com.atlas.tripservice.trip.Trip;
 import com.atlas.tripservice.trip.TripNotFoundException;
@@ -43,6 +45,24 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
     }
 
     @Override
+    public void updateTripStatus(UpdateTripStatusRequest request, StreamObserver<UpdateTripStatusResponse> responseObserver) {
+        try {
+            Trip trip = tripRecordService.updateTripStatus(
+                    request.getTripId(),
+                    request.getDriverId(),
+                    request.getPrice(),
+                    request.getDistanceKm(),
+                    request.getDurationMinutes(),
+                    toDomainDistanceSource(request.getDistanceSource()),
+                    toDomainStatus(request.getStatus()));
+            responseObserver.onNext(UpdateTripStatusResponse.newBuilder().setTripId(trip.getTripId()).build());
+            responseObserver.onCompleted();
+        } catch (TripNotFoundException e) {
+            responseObserver.onError(Status.NOT_FOUND.withDescription(e.getMessage()).asRuntimeException());
+        }
+    }
+
+    @Override
     public void cancelTrip(CancelTripRequest request, StreamObserver<CancelTripResponse> responseObserver) {
         try {
             Trip trip = tripRecordService.cancelTrip(request.getTripId());
@@ -59,6 +79,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
 
     private TripStatus toDomainStatus(com.atlas.tripservice.grpc.trip.TripStatus status) {
         return switch (status) {
+            case REQUESTED -> TripStatus.REQUESTED;
             case MATCHED -> TripStatus.MATCHED;
             case FAILED_NO_MATCH -> TripStatus.FAILED_NO_MATCH;
             case CANCELLED -> TripStatus.CANCELLED;

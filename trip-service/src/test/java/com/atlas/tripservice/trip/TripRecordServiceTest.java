@@ -50,6 +50,32 @@ class TripRecordServiceTest {
     }
 
     @Test
+    void updateTripStatusMutatesExistingRowInsteadOfCreatingANewOne() {
+        Trip trip = new Trip("R-001", null, 1.0, 2.0, 3.0, 4.0, 0.0, 0.0, 0.0,
+                null, TripStatus.REQUESTED);
+        ReflectionTestUtils.setField(trip, "id", 9L);
+        ReflectionTestUtils.invokeMethod(trip, "assignTripId");
+        when(tripRepository.findByTripId("T-00000009")).thenReturn(Optional.of(trip));
+
+        Trip result = tripRecordService.updateTripStatus("T-00000009", "D-042", 14.5, 5.0, 8.0,
+                DistanceSource.OSRM, TripStatus.MATCHED);
+
+        assertThat(result.getStatus()).isEqualTo(TripStatus.MATCHED);
+        assertThat(result.getDriverId()).isEqualTo("D-042");
+        assertThat(result.getPrice()).isEqualTo(14.5);
+        org.mockito.Mockito.verify(tripRepository, org.mockito.Mockito.never()).save(any());
+    }
+
+    @Test
+    void updateTripStatusThrowsWhenTripNotFound() {
+        when(tripRepository.findByTripId("T-999")).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> tripRecordService.updateTripStatus("T-999", "D-001", 0.0, 0.0, 0.0,
+                DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR))
+                .isInstanceOf(TripNotFoundException.class);
+    }
+
+    @Test
     void cancelTripSetsStatusCancelledAndReturnsTrip() {
         Trip trip = new Trip("R-001", "D-042", 1.0, 2.0, 3.0, 4.0, 10.0, 5.0, 8.0,
                 DistanceSource.OSRM, TripStatus.MATCHED);

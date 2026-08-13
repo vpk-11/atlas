@@ -9,6 +9,7 @@ option java_multiple_files = true;
 
 service TripService {
   rpc RecordTrip(RecordTripRequest) returns (RecordTripResponse);
+  rpc UpdateTripStatus(UpdateTripStatusRequest) returns (UpdateTripStatusResponse);
   rpc CancelTrip(CancelTripRequest) returns (CancelTripResponse);
 }
 
@@ -18,6 +19,7 @@ enum TripStatus {
   FAILED_NO_MATCH = 2;
   CANCELLED = 3;
   SYSTEM_ERROR = 4;
+  REQUESTED = 5;
 }
 
 message RecordTripRequest {
@@ -33,6 +35,24 @@ message RecordTripRequest {
 }
 
 message RecordTripResponse {
+  string trip_id = 1;
+}
+
+// Updates the same row a prior RecordTrip call created (identified by trip_id),
+// used to move a REQUESTED row to its final resolved status without creating a
+// second row. Fields other than trip_id/status may be blank/zero depending on
+// outcome, same convention as RecordTripRequest.
+message UpdateTripStatusRequest {
+  string trip_id = 1;
+  string driver_id = 2;
+  double price = 3;
+  double distance_km = 4;
+  double duration_minutes = 5;
+  TripStatus status = 6;
+  atlas.common.DistanceSource distance_source = 7;
+}
+
+message UpdateTripStatusResponse {
   string trip_id = 1;
 }
 
