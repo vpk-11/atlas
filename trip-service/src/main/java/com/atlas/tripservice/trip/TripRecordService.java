@@ -23,6 +23,20 @@ public class TripRecordService {
     }
 
     @Transactional
+    public Trip updateTripStatus(String tripId, String driverId, double price, double distanceKm,
+                                  double durationMinutes, DistanceSource distanceSource, TripStatus status) {
+        Trip trip = tripRepository.findByTripId(tripId)
+                .orElseThrow(() -> new TripNotFoundException(tripId));
+        trip.setDriverId(blankToNull(driverId));
+        trip.setPrice(price);
+        trip.setDistanceKm(distanceKm);
+        trip.setDurationMinutes(durationMinutes);
+        trip.setDistanceSource(distanceSource);
+        trip.setStatus(status);
+        return trip;
+    }
+
+    @Transactional
     public Trip cancelTrip(String tripId) {
         Trip trip = tripRepository.findByTripId(tripId)
                 .orElseThrow(() -> new TripNotFoundException(tripId));

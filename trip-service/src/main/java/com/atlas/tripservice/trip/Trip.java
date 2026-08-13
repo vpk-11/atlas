@@ -102,6 +102,10 @@ public class Trip {
         return driverId;
     }
 
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
+
     public double getPickupLat() {
         return pickupLat;
     }
@@ -122,16 +126,32 @@ public class Trip {
         return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public double getDistanceKm() {
         return distanceKm;
+    }
+
+    public void setDistanceKm(double distanceKm) {
+        this.distanceKm = distanceKm;
     }
 
     public double getDurationMinutes() {
         return durationMinutes;
     }
 
+    public void setDurationMinutes(double durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
     public DistanceSource getDistanceSource() {
         return distanceSource;
+    }
+
+    public void setDistanceSource(DistanceSource distanceSource) {
+        this.distanceSource = distanceSource;
     }
 
     public TripStatus getStatus() {
