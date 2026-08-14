@@ -77,16 +77,24 @@ kubectl -n "$NAMESPACE" create configmap grafana-dashboards \
   --dry-run=client -o yaml | kubectl apply -f -
 
 # --- 6. Application manifests -----------------------------------------------
+# Rebuilding a service's image under the same tag (:local) doesn't change the
+# Deployment spec, so `kubectl apply` sees no diff and skips the rollout,
+# leaving the old jar running despite a freshly built image already loaded
+# into the Kind node. Force a restart on every run so a rebuild is always
+# picked up - cheap and harmless on a freshly-applied Deployment too.
 log "Applying MySQL, Dispatch, Pricing, Trip, Prometheus, Grafana manifests..."
 kubectl apply -f "$ROOT_DIR/k8s/01-mysql.yaml"
 kubectl -n "$NAMESPACE" rollout status deployment/mysql --timeout=180s
 
 kubectl apply -f "$ROOT_DIR/k8s/03-pricing.yaml"
 kubectl apply -f "$ROOT_DIR/k8s/04-trip.yaml"
+kubectl -n "$NAMESPACE" rollout restart deployment/pricing-service
+kubectl -n "$NAMESPACE" rollout restart deployment/trip-service
 kubectl -n "$NAMESPACE" rollout status deployment/pricing-service --timeout=180s
 kubectl -n "$NAMESPACE" rollout status deployment/trip-service --timeout=180s
 
 kubectl apply -f "$ROOT_DIR/k8s/02-dispatch.yaml"
+kubectl -n "$NAMESPACE" rollout restart deployment/dispatch-service
 kubectl -n "$NAMESPACE" rollout status deployment/dispatch-service --timeout=180s
 
 kubectl apply -f "$ROOT_DIR/k8s/05-prometheus.yaml"
