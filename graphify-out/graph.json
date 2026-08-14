@@ -47,14 +47,498 @@
   },
   "nodes": [
     {
+      "label": "DriverHeartbeatGeneratorTest.java",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "driver_driverheartbeatgeneratortest",
+      "community": 8,
+      "norm_label": "driverheartbeatgeneratortest.java"
+    },
+    {
+      "label": "DriverHeartbeatGeneratorTest",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest",
+      "community": 8,
+      "norm_label": "driverheartbeatgeneratortest"
+    },
+    {
+      "label": "ExtendWith",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "_origin": "ast",
+      "id": "extendwith",
+      "community": 8,
+      "norm_label": "extendwith"
+    },
+    {
+      "label": "DriverRepository",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "_origin": "ast",
+      "id": "driverrepository",
+      "community": 13,
+      "norm_label": "driverrepository"
+    },
+    {
+      "label": ".tickSkipsOfflineDriversAndActsOnReportingDrivers()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest_tickskipsofflinedriversandactsonreportingdrivers",
+      "community": 8,
+      "norm_label": ".tickskipsofflinedriversandactsonreportingdrivers()"
+    },
+    {
+      "label": "Test",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "_origin": "ast",
+      "id": "test",
+      "community": 8,
+      "norm_label": "test"
+    },
+    {
+      "label": "DriverHeartbeatGenerator.java",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "driverheartbeatgenerator.java",
+      "id": "driver_driverheartbeatgenerator"
+    },
+    {
+      "label": "DriverHeartbeatGenerator",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L19",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "driverheartbeatgenerator",
+      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator"
+    },
+    {
+      "label": "Component",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "component",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_component"
+    },
+    {
+      "label": "Logger",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "logger",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_logger"
+    },
+    {
+      "label": "BoundingBox",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "boundingbox",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_boundingbox"
+    },
+    {
+      "label": "DriverRepository",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "driverrepository",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_driverrepository"
+    },
+    {
+      "label": "Random",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "random",
+      "id": "random"
+    },
+    {
+      "label": ".DriverHeartbeatGenerator()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L31",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": ".driverheartbeatgenerator()",
+      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_driverheartbeatgenerator"
+    },
+    {
+      "label": ".tick()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L35",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": ".tick()",
+      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick"
+    },
+    {
+      "label": "Scheduled",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "scheduled",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_scheduled"
+    },
+    {
+      "label": ".step()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L60",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": ".step()",
+      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_step"
+    },
+    {
+      "label": ".clamp()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L64",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": ".clamp()",
+      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_clamp"
+    },
+    {
+      "label": "GridIndex.java",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "gridindex.java",
+      "id": "matching_gridindex"
+    },
+    {
+      "label": "GridIndex",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L24",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "gridindex",
+      "id": "matching_gridindex_gridindex"
+    },
+    {
+      "label": "Component",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "component",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_component"
+    },
+    {
+      "label": "Logger",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "logger",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_logger"
+    },
+    {
+      "label": "BoundingBox",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "boundingbox",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_boundingbox"
+    },
+    {
+      "label": "CellKey",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L41",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "cellkey",
+      "id": "matching_gridindex_cellkey"
+    },
+    {
+      "label": "Map",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "map",
+      "id": "map"
+    },
+    {
+      "label": "List",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "list",
+      "id": "list"
+    },
+    {
+      "label": "IndexedPoint",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "indexedpoint",
+      "id": "indexedpoint"
+    },
+    {
+      "label": ".rebuild()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L46",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".rebuild()",
+      "id": "matching_gridindex_gridindex_rebuild"
+    },
+    {
+      "label": "Driver",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "driver",
+      "id": "driver"
+    },
+    {
+      "label": ".candidatesNear()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L64",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".candidatesnear()",
+      "id": "matching_gridindex_gridindex_candidatesnear"
+    },
+    {
+      "label": ".row()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L87",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".row()",
+      "id": "matching_gridindex_gridindex_row"
+    },
+    {
+      "label": ".col()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L93",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".col()",
+      "id": "matching_gridindex_gridindex_col"
+    },
+    {
+      "label": "GridIndexRefresher.java",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "gridindexrefresher.java",
+      "id": "matching_gridindexrefresher"
+    },
+    {
+      "label": "GridIndexRefresher",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L15",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "gridindexrefresher",
+      "id": "matching_gridindexrefresher_gridindexrefresher"
+    },
+    {
+      "label": "Component",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "component",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_component"
+    },
+    {
+      "label": "Logger",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "logger",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_logger"
+    },
+    {
+      "label": "DriverRepository",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "driverrepository",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
+    },
+    {
+      "label": ".GridIndexRefresher()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L23",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": ".gridindexrefresher()",
+      "id": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher"
+    },
+    {
+      "label": ".refresh()",
+      "file_type": "code",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L28",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": ".refresh()",
+      "id": "matching_gridindexrefresher_gridindexrefresher_refresh"
+    },
+    {
+      "label": "Scheduled",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "scheduled",
+      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_scheduled"
+    },
+    {
+      "label": "BoundingBox",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "_origin": "ast",
+      "community": 13,
+      "norm_label": "boundingbox",
+      "id": "boundingbox"
+    },
+    {
+      "label": "GridIndex",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "gridindex",
+      "id": "gridindex"
+    },
+    {
+      "label": "start.sh",
+      "file_type": "code",
+      "source_file": "scripts/start.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "community": 18,
+      "norm_label": "start.sh",
+      "id": "scripts_start"
+    },
+    {
+      "label": "start.sh script",
+      "file_type": "code",
+      "source_file": "scripts/start.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "community": 18,
+      "norm_label": "start.sh script",
+      "id": "users_vpk_desktop_development_atlas_scripts_start_sh__entry"
+    },
+    {
+      "label": "log()",
+      "file_type": "code",
+      "source_file": "scripts/start.sh",
+      "source_location": "L13",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "community": 18,
+      "norm_label": "log()",
+      "id": "scripts_start_log"
+    },
+    {
       "label": "README.md",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "readme",
       "community": 7,
-      "norm_label": "readme.md"
+      "norm_label": "readme.md",
+      "id": "readme"
     },
     {
       "label": "Atlas",
@@ -62,9 +546,9 @@
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "readme_atlas",
       "community": 7,
-      "norm_label": "atlas"
+      "norm_label": "atlas",
+      "id": "readme_atlas"
     },
     {
       "label": "Current stage",
@@ -72,9 +556,9 @@
       "source_file": "README.md",
       "source_location": "L17",
       "_origin": "ast",
-      "id": "readme_current_stage",
       "community": 7,
-      "norm_label": "current stage"
+      "norm_label": "current stage",
+      "id": "readme_current_stage"
     },
     {
       "label": "Architecture",
@@ -82,9 +566,9 @@
       "source_file": "README.md",
       "source_location": "L30",
       "_origin": "ast",
-      "id": "readme_architecture",
       "community": 7,
-      "norm_label": "architecture"
+      "norm_label": "architecture",
+      "id": "readme_architecture"
     },
     {
       "label": "Running it in Kubernetes (Kind) \u2014 recommended",
@@ -92,9 +576,9 @@
       "source_file": "README.md",
       "source_location": "L45",
       "_origin": "ast",
-      "id": "readme_running_it_in_kubernetes_kind_recommended",
       "community": 7,
-      "norm_label": "running it in kubernetes (kind) \u2014 recommended"
+      "norm_label": "running it in kubernetes (kind) \u2014 recommended",
+      "id": "readme_running_it_in_kubernetes_kind_recommended"
     },
     {
       "label": "Prerequisites",
@@ -102,9 +586,9 @@
       "source_file": "README.md",
       "source_location": "L47",
       "_origin": "ast",
-      "id": "readme_prerequisites",
       "community": 7,
-      "norm_label": "prerequisites"
+      "norm_label": "prerequisites",
+      "id": "readme_prerequisites"
     },
     {
       "label": "One command",
@@ -112,9 +596,9 @@
       "source_file": "README.md",
       "source_location": "L57",
       "_origin": "ast",
-      "id": "readme_one_command",
       "community": 7,
-      "norm_label": "one command"
+      "norm_label": "one command",
+      "id": "readme_one_command"
     },
     {
       "label": "Using it",
@@ -122,9 +606,9 @@
       "source_file": "README.md",
       "source_location": "L67",
       "_origin": "ast",
-      "id": "readme_using_it",
       "community": 7,
-      "norm_label": "using it"
+      "norm_label": "using it",
+      "id": "readme_using_it"
     },
     {
       "label": "Grafana dashboard",
@@ -132,9 +616,9 @@
       "source_file": "README.md",
       "source_location": "L76",
       "_origin": "ast",
-      "id": "readme_grafana_dashboard",
       "community": 7,
-      "norm_label": "grafana dashboard"
+      "norm_label": "grafana dashboard",
+      "id": "readme_grafana_dashboard"
     },
     {
       "label": "Prometheus (raw metrics / scrape targets)",
@@ -142,9 +626,9 @@
       "source_file": "README.md",
       "source_location": "L85",
       "_origin": "ast",
-      "id": "readme_prometheus_raw_metrics_scrape_targets",
       "community": 7,
-      "norm_label": "prometheus (raw metrics / scrape targets)"
+      "norm_label": "prometheus (raw metrics / scrape targets)",
+      "id": "readme_prometheus_raw_metrics_scrape_targets"
     },
     {
       "label": "Load test",
@@ -152,9 +636,9 @@
       "source_file": "README.md",
       "source_location": "L92",
       "_origin": "ast",
-      "id": "readme_load_test",
       "community": 7,
-      "norm_label": "load test"
+      "norm_label": "load test",
+      "id": "readme_load_test"
     },
     {
       "label": "Chaos test",
@@ -162,9 +646,9 @@
       "source_file": "README.md",
       "source_location": "L103",
       "_origin": "ast",
-      "id": "readme_chaos_test",
       "community": 7,
-      "norm_label": "chaos test"
+      "norm_label": "chaos test",
+      "id": "readme_chaos_test"
     },
     {
       "label": "Running it locally (no Kubernetes)",
@@ -172,9 +656,9 @@
       "source_file": "README.md",
       "source_location": "L113",
       "_origin": "ast",
-      "id": "readme_running_it_locally_no_kubernetes",
       "community": 7,
-      "norm_label": "running it locally (no kubernetes)"
+      "norm_label": "running it locally (no kubernetes)",
+      "id": "readme_running_it_locally_no_kubernetes"
     },
     {
       "label": "Prerequisites",
@@ -182,9 +666,9 @@
       "source_file": "README.md",
       "source_location": "L115",
       "_origin": "ast",
-      "id": "readme_prerequisites_115",
       "community": 7,
-      "norm_label": "prerequisites"
+      "norm_label": "prerequisites",
+      "id": "readme_prerequisites_115"
     },
     {
       "label": "Environment",
@@ -192,9 +676,9 @@
       "source_file": "README.md",
       "source_location": "L143",
       "_origin": "ast",
-      "id": "readme_environment",
       "community": 7,
-      "norm_label": "environment"
+      "norm_label": "environment",
+      "id": "readme_environment"
     },
     {
       "label": "Three terminals",
@@ -202,9 +686,9 @@
       "source_file": "README.md",
       "source_location": "L156",
       "_origin": "ast",
-      "id": "readme_three_terminals",
       "community": 7,
-      "norm_label": "three terminals"
+      "norm_label": "three terminals",
+      "id": "readme_three_terminals"
     },
     {
       "label": "Logs",
@@ -212,9 +696,9 @@
       "source_file": "README.md",
       "source_location": "L184",
       "_origin": "ast",
-      "id": "readme_logs",
       "community": 7,
-      "norm_label": "logs"
+      "norm_label": "logs",
+      "id": "readme_logs"
     },
     {
       "label": "Trying it",
@@ -222,9 +706,9 @@
       "source_file": "README.md",
       "source_location": "L197",
       "_origin": "ast",
-      "id": "readme_trying_it",
       "community": 7,
-      "norm_label": "trying it"
+      "norm_label": "trying it",
+      "id": "readme_trying_it"
     },
     {
       "label": "Interactive demo",
@@ -232,9 +716,9 @@
       "source_file": "README.md",
       "source_location": "L199",
       "_origin": "ast",
-      "id": "readme_interactive_demo",
       "community": 7,
-      "norm_label": "interactive demo"
+      "norm_label": "interactive demo",
+      "id": "readme_interactive_demo"
     },
     {
       "label": "Raw curl",
@@ -242,9 +726,9 @@
       "source_file": "README.md",
       "source_location": "L209",
       "_origin": "ast",
-      "id": "readme_raw_curl",
       "community": 7,
-      "norm_label": "raw curl"
+      "norm_label": "raw curl",
+      "id": "readme_raw_curl"
     },
     {
       "label": "Health checks",
@@ -252,9 +736,9 @@
       "source_file": "README.md",
       "source_location": "L223",
       "_origin": "ast",
-      "id": "readme_health_checks",
       "community": 7,
-      "norm_label": "health checks"
+      "norm_label": "health checks",
+      "id": "readme_health_checks"
     },
     {
       "label": "Known limitation: local same-port restarts of pricing/trip",
@@ -262,9 +746,9 @@
       "source_file": "README.md",
       "source_location": "L231",
       "_origin": "ast",
-      "id": "readme_known_limitation_local_same_port_restarts_of_pricing_trip",
       "community": 7,
-      "norm_label": "known limitation: local same-port restarts of pricing/trip"
+      "norm_label": "known limitation: local same-port restarts of pricing/trip",
+      "id": "readme_known_limitation_local_same_port_restarts_of_pricing_trip"
     },
     {
       "label": "Running tests",
@@ -272,9 +756,9 @@
       "source_file": "README.md",
       "source_location": "L250",
       "_origin": "ast",
-      "id": "readme_running_tests",
       "community": 7,
-      "norm_label": "running tests"
+      "norm_label": "running tests",
+      "id": "readme_running_tests"
     },
     {
       "label": "Changelog",
@@ -282,9 +766,9 @@
       "source_file": "README.md",
       "source_location": "L258",
       "_origin": "ast",
-      "id": "readme_changelog",
       "community": 7,
-      "norm_label": "changelog"
+      "norm_label": "changelog",
+      "id": "readme_changelog"
     },
     {
       "label": "DispatchServiceApplication.java",
@@ -292,7 +776,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/DispatchServiceApplication.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 11,
+      "community": 0,
       "norm_label": "dispatchserviceapplication.java",
       "id": "dispatchservice_dispatchserviceapplication"
     },
@@ -302,7 +786,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/DispatchServiceApplication.java",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 11,
+      "community": 0,
       "norm_label": "dispatchserviceapplication",
       "id": "dispatchservice_dispatchserviceapplication_dispatchserviceapplication"
     },
@@ -313,7 +797,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/DispatchServiceApplication.java",
       "_origin": "ast",
-      "community": 11,
+      "community": 0,
       "norm_label": "springbootapplication",
       "id": "springbootapplication"
     },
@@ -324,7 +808,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/DispatchServiceApplication.java",
       "_origin": "ast",
-      "community": 11,
+      "community": 0,
       "norm_label": "enablescheduling",
       "id": "enablescheduling"
     },
@@ -334,7 +818,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/DispatchServiceApplication.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 11,
+      "community": 0,
       "norm_label": ".main()",
       "id": "dispatchservice_dispatchserviceapplication_dispatchserviceapplication_main"
     },
@@ -402,17 +886,6 @@
       "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverseeder_java_logger"
     },
     {
-      "label": "BoundingBox",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "boundingbox",
-      "id": "boundingbox"
-    },
-    {
       "label": "DriverRepository",
       "file_type": "code",
       "source_file": "",
@@ -476,77 +949,15 @@
       "id": "driver_driverseeder_driverseeder_seed"
     },
     {
-      "label": "GridIndexRefresher.java",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "gridindexrefresher.java",
-      "id": "matching_gridindexrefresher"
-    },
-    {
-      "label": "GridIndexRefresher",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L13",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "gridindexrefresher",
-      "id": "matching_gridindexrefresher_gridindexrefresher"
-    },
-    {
-      "label": "Component",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "component",
-      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_component"
-    },
-    {
-      "label": "DriverRepository",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "driverrepository",
-      "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
-    },
-    {
       "label": "GridIndex",
       "file_type": "code",
       "source_file": "",
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
       "_origin": "ast",
-      "community": 13,
+      "community": 6,
       "norm_label": "gridindex",
       "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_gridindex"
-    },
-    {
-      "label": ".GridIndexRefresher()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L19",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": ".gridindexrefresher()",
-      "id": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher"
-    },
-    {
-      "label": ".refresh()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L24",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": ".refresh()",
-      "id": "matching_gridindexrefresher_gridindexrefresher_refresh"
     },
     {
       "label": "Scheduled",
@@ -555,7 +966,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
       "_origin": "ast",
-      "community": 13,
+      "community": 6,
       "norm_label": "scheduled",
       "id": "scheduled"
     },
@@ -655,17 +1066,6 @@
       "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_matchingservice_java_coordinate"
     },
     {
-      "label": "List",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": "list",
-      "id": "list"
-    },
-    {
       "label": "CandidateScore",
       "file_type": "code",
       "source_file": "",
@@ -685,17 +1085,6 @@
       "community": 0,
       "norm_label": ".score()",
       "id": "matching_matchingservice_matchingservice_score"
-    },
-    {
-      "label": "Driver",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": "driver",
-      "id": "driver"
     },
     {
       "label": "Instant",
@@ -727,17 +1116,6 @@
       "community": 8,
       "norm_label": "matchingservicetest",
       "id": "matching_matchingservicetest_matchingservicetest"
-    },
-    {
-      "label": "ExtendWith",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": "extendwith",
-      "id": "extendwith"
     },
     {
       "label": "GridIndex",
@@ -802,17 +1180,6 @@
       "community": 8,
       "norm_label": ".availabledrivercloserthanbusyonewinswhengenuinelyfaster()",
       "id": "matching_matchingservicetest_matchingservicetest_availabledrivercloserthanbusyonewinswhengenuinelyfaster"
-    },
-    {
-      "label": "Test",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": "test",
-      "id": "test"
     },
     {
       "label": ".onTripDriverPastEstimatedFreeAtIsLazilyTreatedAsAvailable()",
@@ -954,7 +1321,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/Driver.java",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 13,
+      "community": 0,
       "norm_label": ".setcurrentlocation()",
       "id": "driver_driver_driver_setcurrentlocation"
     },
@@ -1034,29 +1401,9 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/Driver.java",
       "source_location": "L99",
       "_origin": "ast",
-      "community": 8,
+      "community": 2,
       "norm_label": ".setdestination()",
       "id": "driver_driver_driver_setdestination"
-    },
-    {
-      "label": "DriverHeartbeatGenerator.java",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "driverheartbeatgenerator.java",
-      "id": "driver_driverheartbeatgenerator"
-    },
-    {
-      "label": "DriverHeartbeatGenerator",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L17",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "driverheartbeatgenerator",
-      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator"
     },
     {
       "label": "Component",
@@ -1070,99 +1417,6 @@
       "id": "component"
     },
     {
-      "label": "DriverRepository",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "driverrepository",
-      "id": "driverrepository"
-    },
-    {
-      "label": "Random",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "random",
-      "id": "random"
-    },
-    {
-      "label": ".DriverHeartbeatGenerator()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L27",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": ".driverheartbeatgenerator()",
-      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_driverheartbeatgenerator"
-    },
-    {
-      "label": ".tick()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L31",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": ".tick()",
-      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick"
-    },
-    {
-      "label": ".step()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L50",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": ".step()",
-      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_step"
-    },
-    {
-      "label": ".clamp()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L54",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": ".clamp()",
-      "id": "driver_driverheartbeatgenerator_driverheartbeatgenerator_clamp"
-    },
-    {
-      "label": "GridIndex.java",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "gridindex.java",
-      "id": "matching_gridindex"
-    },
-    {
-      "label": "GridIndex",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L22",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": "gridindex",
-      "id": "matching_gridindex_gridindex"
-    },
-    {
-      "label": "Map",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "map",
-      "id": "map"
-    },
-    {
       "label": "Long",
       "file_type": "code",
       "source_file": "",
@@ -1172,67 +1426,6 @@
       "community": 8,
       "norm_label": "long",
       "id": "long"
-    },
-    {
-      "label": "IndexedPoint",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": "indexedpoint",
-      "id": "indexedpoint"
-    },
-    {
-      "label": ".rebuild()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L39",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": ".rebuild()",
-      "id": "matching_gridindex_gridindex_rebuild"
-    },
-    {
-      "label": ".candidatesNear()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L56",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": ".candidatesnear()",
-      "id": "matching_gridindex_gridindex_candidatesnear"
-    },
-    {
-      "label": ".row()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L79",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": ".row()",
-      "id": "matching_gridindex_gridindex_row"
-    },
-    {
-      "label": ".col()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L85",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": ".col()",
-      "id": "matching_gridindex_gridindex_col"
-    },
-    {
-      "label": ".cellKey()",
-      "file_type": "code",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L91",
-      "_origin": "ast",
-      "community": 8,
-      "norm_label": ".cellkey()",
-      "id": "matching_gridindex_gridindex_cellkey"
     },
     {
       "label": "GridIndexTest.java",
@@ -1304,7 +1497,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/DispatchServiceApplication.java",
       "_origin": "ast",
-      "community": 11,
+      "community": 0,
       "norm_label": "springbootapplication",
       "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_dispatchserviceapplication_java_springbootapplication"
     },
@@ -1315,7 +1508,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/DispatchServiceApplication.java",
       "_origin": "ast",
-      "community": 11,
+      "community": 0,
       "norm_label": "string",
       "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_dispatchserviceapplication_java_string"
     },
@@ -1475,7 +1668,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/domain/RoadDistanceEstimator.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": "roaddistanceestimator.java",
       "id": "domain_roaddistanceestimator"
     },
@@ -1485,7 +1678,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/domain/RoadDistanceEstimator.java",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": "roaddistanceestimator",
       "id": "domain_roaddistanceestimator_roaddistanceestimator"
     },
@@ -1495,7 +1688,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/domain/RoadDistanceEstimator.java",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": ".roaddistanceestimator()",
       "id": "domain_roaddistanceestimator_roaddistanceestimator_roaddistanceestimator"
     },
@@ -1505,7 +1698,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/domain/RoadDistanceEstimator.java",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": ".estimateroaddistancekm()",
       "id": "domain_roaddistanceestimator_roaddistanceestimator_estimateroaddistancekm"
     },
@@ -1515,7 +1708,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/domain/RoadDistanceEstimator.java",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": ".estimateminutes()",
       "id": "domain_roaddistanceestimator_roaddistanceestimator_estimateminutes"
     },
@@ -1600,7 +1793,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverAssignmentService.java",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 0,
+      "community": 2,
       "norm_label": ".driverassignmentservice()",
       "id": "driver_driverassignmentservice_driverassignmentservice_driverassignmentservice"
     },
@@ -1652,7 +1845,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverRepository.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 0,
+      "community": 31,
       "norm_label": "driverrepository.java",
       "id": "driver_driverrepository"
     },
@@ -1672,7 +1865,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 6,
+      "community": 31,
       "norm_label": "jparepository",
       "id": "jparepository"
     },
@@ -2119,7 +2312,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/pricing/PricingClient.java",
       "source_location": "L46",
       "_origin": "ast",
-      "community": 2,
+      "community": 1,
       "norm_label": ".callquote()",
       "id": "pricing_pricingclient_pricingclient_callquote"
     },
@@ -2130,7 +2323,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/main/java/com/atlas/dispatchservice/pricing/PricingClient.java",
       "_origin": "ast",
-      "community": 2,
+      "community": 1,
       "norm_label": "quoterequest",
       "id": "dispatch_service_src_main_java_com_atlas_dispatchservice_pricing_pricingclient_java_quoterequest"
     },
@@ -2676,7 +2869,7 @@
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/trip/TripClient.java",
       "source_location": "L60",
       "_origin": "ast",
-      "community": 1,
+      "community": 2,
       "norm_label": ".updatestatus()",
       "id": "trip_tripclient_tripclient_updatestatus"
     },
@@ -2727,7 +2920,7 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/domain/RoadDistanceEstimatorTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": "roaddistanceestimatortest.java",
       "id": "domain_roaddistanceestimatortest"
     },
@@ -2737,7 +2930,7 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/domain/RoadDistanceEstimatorTest.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": "roaddistanceestimatortest",
       "id": "domain_roaddistanceestimatortest_roaddistanceestimatortest"
     },
@@ -2747,7 +2940,7 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/domain/RoadDistanceEstimatorTest.java",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": ".samecoordinatehaszerodistanceandtime()",
       "id": "domain_roaddistanceestimatortest_roaddistanceestimatortest_samecoordinatehaszerodistanceandtime"
     },
@@ -2758,7 +2951,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/domain/RoadDistanceEstimatorTest.java",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": "test",
       "id": "dispatch_service_src_test_java_com_atlas_dispatchservice_domain_roaddistanceestimatortest_java_test"
     },
@@ -2768,7 +2961,7 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/domain/RoadDistanceEstimatorTest.java",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": ".appliescircuityfactorontopofhaversine()",
       "id": "domain_roaddistanceestimatortest_roaddistanceestimatortest_appliescircuityfactorontopofhaversine"
     },
@@ -2778,7 +2971,7 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/domain/RoadDistanceEstimatorTest.java",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 9,
+      "community": 4,
       "norm_label": ".convertsdistancetominutesatassumedaveragespeed()",
       "id": "domain_roaddistanceestimatortest_roaddistanceestimatortest_convertsdistancetominutesatassumedaveragespeed"
     },
@@ -3565,48 +3758,6 @@
       "id": "users_vpk_desktop_development_atlas_scripts_demo_ride_sh__entry"
     },
     {
-      "label": "start.sh",
-      "file_type": "code",
-      "source_file": "scripts/start.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "_origin": "ast",
-      "community": 18,
-      "norm_label": "start.sh",
-      "id": "scripts_start"
-    },
-    {
-      "label": "start.sh script",
-      "file_type": "code",
-      "source_file": "scripts/start.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "_origin": "ast",
-      "community": 18,
-      "norm_label": "start.sh script",
-      "id": "users_vpk_desktop_development_atlas_scripts_start_sh__entry"
-    },
-    {
-      "label": "log()",
-      "file_type": "code",
-      "source_file": "scripts/start.sh",
-      "source_location": "L13",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
-      },
-      "_origin": "ast",
-      "community": 18,
-      "norm_label": "log()",
-      "id": "scripts_start_log"
-    },
-    {
       "label": "com.atlas:trip-service",
       "file_type": "code",
       "type": "package",
@@ -3677,7 +3828,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "tripgrpcservice.java",
       "id": "grpc_tripgrpcservice"
     },
@@ -3687,7 +3838,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "tripgrpcservice",
       "id": "grpc_tripgrpcservice_tripgrpcservice"
     },
@@ -3697,7 +3848,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "tripserviceimplbase",
       "id": "tripserviceimplbase"
     },
@@ -3708,7 +3859,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "grpcservice",
       "id": "trip_service_src_main_java_com_atlas_tripservice_grpc_tripgrpcservice_java_grpcservice"
     },
@@ -3718,7 +3869,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": ".tripgrpcservice()",
       "id": "grpc_tripgrpcservice_tripgrpcservice_tripgrpcservice"
     },
@@ -3728,7 +3879,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".recordtrip()",
       "id": "grpc_tripgrpcservice_tripgrpcservice_recordtrip"
     },
@@ -3739,7 +3890,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "recordtriprequest",
       "id": "recordtriprequest"
     },
@@ -3750,7 +3901,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "streamobserver",
       "id": "trip_service_src_main_java_com_atlas_tripservice_grpc_tripgrpcservice_java_streamobserver"
     },
@@ -3761,7 +3912,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "recordtripresponse",
       "id": "trip_service_src_main_java_com_atlas_tripservice_grpc_tripgrpcservice_java_recordtripresponse"
     },
@@ -3772,7 +3923,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "override",
       "id": "trip_service_src_main_java_com_atlas_tripservice_grpc_tripgrpcservice_java_override"
     },
@@ -3782,7 +3933,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".updatetripstatus()",
       "id": "grpc_tripgrpcservice_tripgrpcservice_updatetripstatus"
     },
@@ -3793,7 +3944,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "updatetripstatusrequest",
       "id": "updatetripstatusrequest"
     },
@@ -3804,7 +3955,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "updatetripstatusresponse",
       "id": "trip_service_src_main_java_com_atlas_tripservice_grpc_tripgrpcservice_java_updatetripstatusresponse"
     },
@@ -3814,7 +3965,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L65",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".canceltrip()",
       "id": "grpc_tripgrpcservice_tripgrpcservice_canceltrip"
     },
@@ -3825,7 +3976,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "canceltriprequest",
       "id": "canceltriprequest"
     },
@@ -3836,7 +3987,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "canceltripresponse",
       "id": "trip_service_src_main_java_com_atlas_tripservice_grpc_tripgrpcservice_java_canceltripresponse"
     },
@@ -3846,7 +3997,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L80",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".todomainstatus()",
       "id": "grpc_tripgrpcservice_tripgrpcservice_todomainstatus"
     },
@@ -3856,7 +4007,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".todomaindistancesource()",
       "id": "grpc_tripgrpcservice_tripgrpcservice_todomaindistancesource"
     },
@@ -3867,7 +4018,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/grpc/TripGrpcService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "distancesource",
       "id": "trip_service_src_main_java_com_atlas_tripservice_grpc_tripgrpcservice_java_distancesource"
     },
@@ -3877,7 +4028,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/DistanceSource.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "distancesource.java",
       "id": "trip_distancesource"
     },
@@ -3887,7 +4038,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/DistanceSource.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": "distancesource",
       "id": "trip_distancesource_distancesource"
     },
@@ -4024,7 +4175,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/Trip.java",
       "source_location": "L93",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".gettripid()",
       "id": "trip_trip_trip_gettripid"
     },
@@ -4044,7 +4195,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/Trip.java",
       "source_location": "L101",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".getdriverid()",
       "id": "trip_trip_trip_getdriverid"
     },
@@ -4104,7 +4255,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/Trip.java",
       "source_location": "L125",
       "_origin": "ast",
-      "community": 2,
+      "community": 11,
       "norm_label": ".getprice()",
       "id": "trip_trip_trip_getprice"
     },
@@ -4144,7 +4295,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/Trip.java",
       "source_location": "L141",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".getdurationminutes()",
       "id": "trip_trip_trip_getdurationminutes"
     },
@@ -4164,7 +4315,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/Trip.java",
       "source_location": "L149",
       "_origin": "ast",
-      "community": 1,
+      "community": 11,
       "norm_label": ".getdistancesource()",
       "id": "trip_trip_trip_getdistancesource"
     },
@@ -4184,7 +4335,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/Trip.java",
       "source_location": "L157",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".getstatus()",
       "id": "trip_trip_trip_getstatus"
     },
@@ -4194,7 +4345,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/Trip.java",
       "source_location": "L161",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": ".setstatus()",
       "id": "trip_trip_trip_setstatus"
     },
@@ -4255,7 +4406,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "triprecordservice.java",
       "id": "trip_triprecordservice"
     },
@@ -4265,7 +4416,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "triprecordservice",
       "id": "trip_triprecordservice_triprecordservice"
     },
@@ -4276,7 +4427,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "service",
       "id": "trip_service_src_main_java_com_atlas_tripservice_trip_triprecordservice_java_service"
     },
@@ -4286,7 +4437,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "source_location": "L11",
       "_origin": "ast",
-      "community": 6,
+      "community": 31,
       "norm_label": ".triprecordservice()",
       "id": "trip_triprecordservice_triprecordservice_triprecordservice"
     },
@@ -4296,7 +4447,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": ".recordtrip()",
       "id": "trip_triprecordservice_triprecordservice_recordtrip"
     },
@@ -4307,7 +4458,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "string",
       "id": "trip_service_src_main_java_com_atlas_tripservice_trip_triprecordservice_java_string"
     },
@@ -4318,7 +4469,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "distancesource",
       "id": "trip_service_src_main_java_com_atlas_tripservice_trip_triprecordservice_java_distancesource"
     },
@@ -4329,7 +4480,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "transactional",
       "id": "trip_service_src_main_java_com_atlas_tripservice_trip_triprecordservice_java_transactional"
     },
@@ -4339,7 +4490,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": ".updatetripstatus()",
       "id": "trip_triprecordservice_triprecordservice_updatetripstatus"
     },
@@ -4349,7 +4500,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "source_location": "L39",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": ".canceltrip()",
       "id": "trip_triprecordservice_triprecordservice_canceltrip"
     },
@@ -4359,7 +4510,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRecordService.java",
       "source_location": "L47",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": ".blanktonull()",
       "id": "trip_triprecordservice_triprecordservice_blanktonull"
     },
@@ -4369,7 +4520,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRepository.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 6,
+      "community": 31,
       "norm_label": "triprepository.java",
       "id": "trip_triprepository"
     },
@@ -4379,7 +4530,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRepository.java",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 6,
+      "community": 31,
       "norm_label": "triprepository",
       "id": "trip_triprepository_triprepository"
     },
@@ -4390,7 +4541,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/trip/TripRepository.java",
       "_origin": "ast",
-      "community": 6,
+      "community": 31,
       "norm_label": "long",
       "id": "trip_service_src_main_java_com_atlas_tripservice_trip_triprepository_java_long"
     },
@@ -4400,7 +4551,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripRepository.java",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".findbytripid()",
       "id": "trip_triprepository_triprepository_findbytripid"
     },
@@ -4411,7 +4562,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/trip/TripRepository.java",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": "string",
       "id": "trip_service_src_main_java_com_atlas_tripservice_trip_triprepository_java_string"
     },
@@ -4422,7 +4573,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/main/java/com/atlas/tripservice/trip/TripRepository.java",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": "optional",
       "id": "optional"
     },
@@ -4432,7 +4583,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripStatus.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "tripstatus.java",
       "id": "trip_tripstatus"
     },
@@ -4442,7 +4593,7 @@
       "source_file": "trip-service/src/main/java/com/atlas/tripservice/trip/TripStatus.java",
       "source_location": "L3",
       "_origin": "ast",
-      "community": 1,
+      "community": 29,
       "norm_label": "tripstatus",
       "id": "trip_tripstatus_tripstatus"
     },
@@ -4452,7 +4603,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "tripgrpcservicetest.java",
       "id": "grpc_tripgrpcservicetest"
     },
@@ -4462,7 +4613,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "tripgrpcservicetest",
       "id": "grpc_tripgrpcservicetest_tripgrpcservicetest"
     },
@@ -4473,7 +4624,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "extendwith",
       "id": "trip_service_src_test_java_com_atlas_tripservice_grpc_tripgrpcservicetest_java_extendwith"
     },
@@ -4484,7 +4635,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "streamobserver",
       "id": "trip_service_src_test_java_com_atlas_tripservice_grpc_tripgrpcservicetest_java_streamobserver"
     },
@@ -4495,7 +4646,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "recordtripresponse",
       "id": "trip_service_src_test_java_com_atlas_tripservice_grpc_tripgrpcservicetest_java_recordtripresponse"
     },
@@ -4506,7 +4657,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "updatetripstatusresponse",
       "id": "trip_service_src_test_java_com_atlas_tripservice_grpc_tripgrpcservicetest_java_updatetripstatusresponse"
     },
@@ -4517,7 +4668,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "canceltripresponse",
       "id": "trip_service_src_test_java_com_atlas_tripservice_grpc_tripgrpcservicetest_java_canceltripresponse"
     },
@@ -4527,7 +4678,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "source_location": "L44",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": ".setup()",
       "id": "grpc_tripgrpcservicetest_tripgrpcservicetest_setup"
     },
@@ -4538,7 +4689,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "beforeeach",
       "id": "trip_service_src_test_java_com_atlas_tripservice_grpc_tripgrpcservicetest_java_beforeeach"
     },
@@ -4559,7 +4710,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": "test",
       "id": "trip_service_src_test_java_com_atlas_tripservice_grpc_tripgrpcservicetest_java_test"
     },
@@ -4579,7 +4730,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "source_location": "L102",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": ".updatetripstatussendsnotfounderrorwhentripdoesnotexist()",
       "id": "grpc_tripgrpcservicetest_tripgrpcservicetest_updatetripstatussendsnotfounderrorwhentripdoesnotexist"
     },
@@ -4589,7 +4740,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "source_location": "L116",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".canceltripreturnsdriveridsodispatchcanfreethedriver()",
       "id": "grpc_tripgrpcservicetest_tripgrpcservicetest_canceltripreturnsdriveridsodispatchcanfreethedriver"
     },
@@ -4599,7 +4750,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/grpc/TripGrpcServiceTest.java",
       "source_location": "L134",
       "_origin": "ast",
-      "community": 1,
+      "community": 30,
       "norm_label": ".canceltripsendsnotfounderrorwhentripdoesnotexist()",
       "id": "grpc_tripgrpcservicetest_tripgrpcservicetest_canceltripsendsnotfounderrorwhentripdoesnotexist"
     },
@@ -4609,7 +4760,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": "triprecordservicetest.java",
       "id": "trip_triprecordservicetest"
     },
@@ -4619,7 +4770,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": "triprecordservicetest",
       "id": "trip_triprecordservicetest_triprecordservicetest"
     },
@@ -4630,7 +4781,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": "extendwith",
       "id": "trip_service_src_test_java_com_atlas_tripservice_trip_triprecordservicetest_java_extendwith"
     },
@@ -4640,7 +4791,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L27",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".setup()",
       "id": "trip_triprecordservicetest_triprecordservicetest_setup"
     },
@@ -4651,7 +4802,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": "beforeeach",
       "id": "trip_service_src_test_java_com_atlas_tripservice_trip_triprecordservicetest_java_beforeeach"
     },
@@ -4661,7 +4812,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".recordtripassignsgeneratedtripidandconvertsblankdriveridtonull()",
       "id": "trip_triprecordservicetest_triprecordservicetest_recordtripassignsgeneratedtripidandconvertsblankdriveridtonull"
     },
@@ -4672,7 +4823,7 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": "test",
       "id": "trip_service_src_test_java_com_atlas_tripservice_trip_triprecordservicetest_java_test"
     },
@@ -4682,7 +4833,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L52",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".updatetripstatusmutatesexistingrowinsteadofcreatinganewone()",
       "id": "trip_triprecordservicetest_triprecordservicetest_updatetripstatusmutatesexistingrowinsteadofcreatinganewone"
     },
@@ -4692,7 +4843,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L69",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".updatetripstatusthrowswhentripnotfound()",
       "id": "trip_triprecordservicetest_triprecordservicetest_updatetripstatusthrowswhentripnotfound"
     },
@@ -4702,7 +4853,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L78",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".canceltripsetsstatuscancelledandreturnstrip()",
       "id": "trip_triprecordservicetest_triprecordservicetest_canceltripsetsstatuscancelledandreturnstrip"
     },
@@ -4712,7 +4863,7 @@
       "source_file": "trip-service/src/test/java/com/atlas/tripservice/trip/TripRecordServiceTest.java",
       "source_location": "L92",
       "_origin": "ast",
-      "community": 6,
+      "community": 9,
       "norm_label": ".canceltripthrowswhentripnotfound()",
       "id": "trip_triprecordservicetest_triprecordservicetest_canceltripthrowswhentripnotfound"
     },
@@ -5144,6 +5295,1506 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgeneratortest",
+      "target": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgeneratortest",
+      "target": "extendwith",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgeneratortest",
+      "target": "list",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgeneratortest",
+      "target": "test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest",
+      "target": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest_tickskipsofflinedriversandactsonreportingdrivers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "source": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest",
+      "target": "driverrepository",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "attribute",
+      "source": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest",
+      "target": "extendwith",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest",
+      "target": "extendwith"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest_matchingservicetest",
+      "target": "extendwith"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "driverrepository"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "driverrepository"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/driver/DriverHeartbeatGeneratorTest.java",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "attribute",
+      "source": "driver_driverheartbeatgeneratortest_driverheartbeatgeneratortest_tickskipsofflinedriversandactsonreportingdrivers",
+      "target": "test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindextest",
+      "target": "test"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
+      "target": "test"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
+      "target": "test"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
+      "target": "test"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest",
+      "target": "test"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest_matchingservicetest_availabledrivercloserthanbusyonewinswhengenuinelyfaster",
+      "target": "test"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest_matchingservicetest_offlinedriversareexcluded",
+      "target": "test"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L55",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest_matchingservicetest_ontripdriverpastestimatedfreeatislazilytreatedasavailable",
+      "target": "test"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "boundingbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "component"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_boundingbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_component"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_logger"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_scheduled"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "list"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "random"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator",
+      "target": "scheduled"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "boundingbox"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_boundingbox"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_driverrepository"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_logger"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_clamp"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_driverheartbeatgenerator"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_step"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "random"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L31",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_driverheartbeatgenerator",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_driverrepository"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverseeder",
+      "target": "random"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driverheartbeatgenerator_java_scheduled"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "driver_driver_driver_getcurrentlat"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "driver_driver_driver_getcurrentlng"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "driver_driver_driver_getstatus"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "driver_driver_driver_setcurrentlocation"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_clamp"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_step"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
+      "source_location": "L31",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
+      "target": "scheduled"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "boundingbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "component"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_boundingbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_component"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_logger"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "driver"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "list"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "map"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "matching_gridindex_cellkey"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex",
+      "target": "matching_gridindex_gridindex"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "boundingbox"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_boundingbox"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindex_java_logger"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "indexedpoint"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "list"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "long"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "map"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L44",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "matching_gridindex_cellkey"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L56",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "matching_gridindex_gridindex_candidatesnear"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L85",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "matching_gridindex_gridindex_col"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L39",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "matching_gridindex_gridindex_rebuild"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L79",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex",
+      "target": "matching_gridindex_gridindex_row"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "matching_gridindex_gridindex"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher",
+      "target": "matching_gridindex_gridindex"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
+      "target": "matching_gridindex_gridindex"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
+      "target": "matching_gridindex_gridindex"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
+      "target": "matching_gridindex_gridindex"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L74",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_candidatesnear",
+      "target": "matching_gridindex_cellkey"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L49",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_rebuild",
+      "target": "matching_gridindex_cellkey"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverseeder",
+      "target": "list"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L56",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_candidatesnear",
+      "target": "list"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_rebuild",
+      "target": "list"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindextest",
+      "target": "list"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_matchingservice",
+      "target": "list"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "matching_matchingservice_matchingservice_rankcandidates",
+      "target": "list"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest",
+      "target": "list"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L56",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_candidatesnear",
+      "target": "indexedpoint"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L44",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_rebuild",
+      "target": "indexedpoint"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_rebuild",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_rebuild",
+      "target": "matching_gridindex_gridindex_col"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_rebuild",
+      "target": "matching_gridindex_gridindex_row"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher_refresh",
+      "target": "matching_gridindex_gridindex_rebuild"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
+      "target": "matching_gridindex_gridindex_rebuild"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
+      "target": "matching_gridindex_gridindex_rebuild"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
+      "target": "matching_gridindex_gridindex_rebuild"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "driver_driverseeder_driverseeder_seed",
+      "target": "driver"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindextest",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
+      "target": "driver"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_matchingservice",
+      "target": "driver"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
+      "source_location": "L62",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "matching_matchingservice_matchingservice_score",
+      "target": "driver"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_matchingservicetest",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "matching_matchingservicetest_matchingservicetest_availabledrivercloserthanbusyonewinswhengenuinelyfaster",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "matching_matchingservicetest_matchingservicetest_offlinedriversareexcluded",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "matching_matchingservicetest_matchingservicetest_ontripdriverpastestimatedfreeatislazilytreatedasavailable",
+      "target": "driver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L58",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_candidatesnear",
+      "target": "matching_gridindex_gridindex_col"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
+      "source_location": "L57",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindex_gridindex_candidatesnear",
+      "target": "matching_gridindex_gridindex_row"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
+      "target": "matching_gridindex_gridindex_candidatesnear"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
+      "target": "matching_gridindex_gridindex_candidatesnear"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
+      "target": "matching_gridindex_gridindex_candidatesnear"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_component"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_logger"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_scheduled"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher",
+      "target": "matching_gridindexrefresher_gridindexrefresher"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher",
+      "target": "scheduled"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_gridindex"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_logger"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "gridindex"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher",
+      "target": "matching_gridindexrefresher_gridindexrefresher_refresh"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_gridindex"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher",
+      "target": "gridindex"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L28",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher_refresh",
+      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_scheduled"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "matching_gridindexrefresher_gridindexrefresher_refresh",
+      "target": "scheduled"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "driver_driverseeder",
+      "target": "boundingbox"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "driver_driverseeder_driverseeder",
+      "target": "boundingbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "matching_matchingservice",
+      "target": "boundingbox"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/start.sh",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_start",
+      "target": "scripts_start_log"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/start.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_start",
+      "target": "users_vpk_desktop_development_atlas_scripts_start_sh__entry"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/start.sh",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "call",
+      "confidence_score": 1.0,
+      "source": "users_vpk_desktop_development_atlas_scripts_start_sh__entry",
+      "target": "scripts_start_log"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "README.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -5357,9 +7008,9 @@
       "source_file": "README.md",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_running_it_locally_no_kubernetes",
-      "target": "readme_prerequisites_115",
-      "confidence_score": 1.0
+      "target": "readme_prerequisites_115"
     },
     {
       "relation": "contains",
@@ -5558,17 +7209,6 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverseeder",
-      "target": "boundingbox"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
       "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -5628,39 +7268,6 @@
       "confidence_score": 1.0,
       "source": "driver_driverseeder",
       "target": "driver_driverseeder_driverseeder"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverseeder",
-      "target": "list"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverseeder",
-      "target": "random"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
-      "source_location": "L20",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "driver_driverseeder_driverseeder",
-      "target": "boundingbox"
     },
     {
       "relation": "implements",
@@ -5769,61 +7376,6 @@
       "target": "driver_driverseeder_driverseeder_seed"
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator",
-      "target": "boundingbox"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L20",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "boundingbox"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex",
-      "target": "boundingbox"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L35",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "boundingbox"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_matchingservice",
-      "target": "boundingbox"
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
@@ -5912,168 +7464,6 @@
       "target": "driver_driverseeder_driverseeder_run"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverSeeder.java",
-      "source_location": "L52",
-      "weight": 1.0,
-      "source": "driver_driverseeder_driverseeder_seed",
-      "target": "driver"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher",
-      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_component"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher",
-      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher",
-      "target": "matching_gridindexrefresher_gridindexrefresher"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher",
-      "target": "scheduled"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L13",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher",
-      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_component"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L16",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher",
-      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L17",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher",
-      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_gridindex"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L19",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher",
-      "target": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L24",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher",
-      "target": "matching_gridindexrefresher_gridindexrefresher_refresh"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L19",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher",
-      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_driverrepository"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L19",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher_gridindexrefresher",
-      "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_gridindexrefresher_java_gridindex"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndexRefresher.java",
-      "source_location": "L24",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_gridindexrefresher_gridindexrefresher_refresh",
-      "target": "scheduled"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator",
-      "target": "scheduled"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L31",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
-      "target": "scheduled"
-    },
-    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -6155,17 +7545,6 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_matchingservice",
-      "target": "driver"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
       "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -6215,17 +7594,6 @@
       "confidence_score": 1.0,
       "source": "matching_matchingservice",
       "target": "instant"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
-      "source_location": "L16",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_matchingservice",
-      "target": "list"
     },
     {
       "relation": "contains",
@@ -6502,17 +7870,6 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
-      "source_location": "L38",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "matching_matchingservice_matchingservice_rankcandidates",
-      "target": "list"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
       "source_location": "L35",
       "weight": 1.0,
       "context": "generic_arg",
@@ -6653,83 +8010,6 @@
       "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_matching_matchingservice_java_coordinate"
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator",
-      "target": "list"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex",
-      "target": "list"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L37",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "list"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L56",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_candidatesnear",
-      "target": "list"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L39",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_rebuild",
-      "target": "list"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindextest",
-      "target": "list"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L14",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest",
-      "target": "list"
-    },
-    {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
@@ -6772,17 +8052,6 @@
       "weight": 1.0,
       "source": "matching_matchingservice_matchingservice_score",
       "target": "domain_roaddistanceestimator_roaddistanceestimator_estimateminutes"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/MatchingService.java",
-      "source_location": "L62",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "matching_matchingservice_matchingservice_score",
-      "target": "driver"
     },
     {
       "relation": "references",
@@ -6871,116 +8140,6 @@
       "confidence_score": 1.0,
       "source": "matching_matchingservice_matchingservice_score",
       "target": "matching_candidatescore_candidatescore"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex",
-      "target": "driver"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L39",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_rebuild",
-      "target": "driver"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindextest",
-      "target": "driver"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L21",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
-      "target": "driver"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
-      "target": "driver"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L36",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
-      "target": "driver"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest",
-      "target": "driver"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "matching_matchingservicetest_matchingservicetest_availabledrivercloserthanbusyonewinswhengenuinelyfaster",
-      "target": "driver"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L72",
-      "weight": 1.0,
-      "source": "matching_matchingservicetest_matchingservicetest_offlinedriversareexcluded",
-      "target": "driver"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "matching_matchingservicetest_matchingservicetest_ontripdriverpastestimatedfreeatislazilytreatedasavailable",
-      "target": "driver"
     },
     {
       "relation": "imports",
@@ -7159,17 +8318,6 @@
       "target": "driverstatus"
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest",
-      "target": "extendwith"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
@@ -7189,17 +8337,6 @@
       "confidence_score": 1.0,
       "source": "matching_matchingservicetest",
       "target": "optional"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest",
-      "target": "test"
     },
     {
       "relation": "references",
@@ -7266,17 +8403,6 @@
       "confidence_score": 1.0,
       "source": "matching_matchingservicetest_matchingservicetest",
       "target": "driver_driverrepository_driverrepository"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L21",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest_matchingservicetest",
-      "target": "extendwith"
     },
     {
       "relation": "method",
@@ -7393,83 +8519,6 @@
       "confidence_score": 1.0,
       "source": "matching_matchingservicetest_matchingservicetest_availabledrivercloserthanbusyonewinswhengenuinelyfaster",
       "target": "matching_matchingservicetest_matchingservicetest_mockcandidates"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L39",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest_matchingservicetest_availabledrivercloserthanbusyonewinswhengenuinelyfaster",
-      "target": "test"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindextest",
-      "target": "test"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L14",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
-      "target": "test"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
-      "target": "test"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L33",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
-      "target": "test"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L70",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest_matchingservicetest_offlinedriversareexcluded",
-      "target": "test"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/MatchingServiceTest.java",
-      "source_location": "L55",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_matchingservicetest_matchingservicetest_ontripdriverpastestimatedfreeatislazilytreatedasavailable",
-      "target": "test"
     },
     {
       "relation": "references",
@@ -7975,39 +9024,6 @@
       "target": "dispatch_service_src_main_java_com_atlas_dispatchservice_driver_driver_java_string"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L43",
-      "weight": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
-      "target": "driver_driver_driver_getcurrentlat"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L44",
-      "weight": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
-      "target": "driver_driver_driver_getcurrentlng"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L45",
-      "weight": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
-      "target": "driver_driver_driver_setcurrentlocation"
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/Driver.java",
@@ -8017,17 +9033,6 @@
       "confidence_score": 1.0,
       "source": "driver_driver_driver_getstatus",
       "target": "driver_driverstatus_driverstatus"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L36",
-      "weight": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
-      "target": "driver_driver_driver_getstatus"
     },
     {
       "relation": "references",
@@ -8105,457 +9110,6 @@
       "weight": 1.0,
       "source": "driver_driverassignmentservice_driverassignmentservice_freedriverfortrip",
       "target": "driver_driver_driver_setdestination"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator",
-      "target": "component"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L17",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator",
-      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator",
-      "target": "random"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L17",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "component"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L54",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_clamp"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_driverheartbeatgenerator"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L50",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_step"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L31",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L24",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "driverrepository"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L25",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "random"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex",
-      "target": "component"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L22",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "component"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L27",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_driverheartbeatgenerator",
-      "target": "driverrepository"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L43",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
-      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_clamp"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/driver/DriverHeartbeatGenerator.java",
-      "source_location": "L43",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "driver_driverheartbeatgenerator_driverheartbeatgenerator_tick",
-      "target": "driver_driverheartbeatgenerator_driverheartbeatgenerator_step"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex",
-      "target": "map"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L22",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex",
-      "target": "matching_gridindex_gridindex"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L37",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "indexedpoint"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L37",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "long"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L37",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "map"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L56",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "matching_gridindex_gridindex_candidatesnear"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L91",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "matching_gridindex_gridindex_cellkey"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L85",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "matching_gridindex_gridindex_col"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L39",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "matching_gridindex_gridindex_rebuild"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L79",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex",
-      "target": "matching_gridindex_gridindex_row"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L16",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
-      "target": "matching_gridindex_gridindex"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
-      "target": "matching_gridindex_gridindex"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L35",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
-      "target": "matching_gridindex_gridindex"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L56",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_candidatesnear",
-      "target": "indexedpoint"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L44",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_rebuild",
-      "target": "indexedpoint"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_rebuild",
-      "target": "matching_gridindex_gridindex_cellkey"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_rebuild",
-      "target": "matching_gridindex_gridindex_col"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_rebuild",
-      "target": "matching_gridindex_gridindex_row"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L26",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
-      "target": "matching_gridindex_gridindex_rebuild"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L51",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
-      "target": "matching_gridindex_gridindex_rebuild"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L39",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
-      "target": "matching_gridindex_gridindex_rebuild"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L66",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_candidatesnear",
-      "target": "matching_gridindex_gridindex_cellkey"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L58",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_candidatesnear",
-      "target": "matching_gridindex_gridindex_col"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dispatch-service/src/main/java/com/atlas/dispatchservice/matching/GridIndex.java",
-      "source_location": "L57",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "matching_gridindex_gridindex_candidatesnear",
-      "target": "matching_gridindex_gridindex_row"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_densareastayslocalandexcludesfardrivers",
-      "target": "matching_gridindex_gridindex_candidatesnear"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L54",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_rebuildreplacespreviousstate",
-      "target": "matching_gridindex_gridindex_candidatesnear"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/matching/GridIndexTest.java",
-      "source_location": "L43",
-      "weight": 1.0,
-      "source": "matching_gridindextest_gridindextest_sparseareawidensinsteadofstarvingcandidates",
-      "target": "matching_gridindex_gridindex_candidatesnear"
     },
     {
       "relation": "contains",
@@ -13324,37 +13878,6 @@
       "target": "users_vpk_desktop_development_atlas_scripts_demo_ride_sh__entry"
     },
     {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/start.sh",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_start",
-      "target": "scripts_start_log"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/start.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_start",
-      "target": "users_vpk_desktop_development_atlas_scripts_start_sh__entry"
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/start.sh",
-      "source_location": "L15",
-      "weight": 1.0,
-      "context": "call",
-      "confidence_score": 1.0,
-      "source": "users_vpk_desktop_development_atlas_scripts_start_sh__entry",
-      "target": "scripts_start_log"
-    },
-    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -16385,5 +16908,5 @@
       "source_file": "monitoring/prometheus/prometheus.yml"
     }
   ],
-  "built_at_commit": "6c98eb46857229901a4a720ec5feff22ec560254"
+  "built_at_commit": "22e275abfff9809224a3715d377459f7cbae6166"
 }
