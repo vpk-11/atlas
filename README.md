@@ -4,10 +4,11 @@
 ![Version](https://img.shields.io/badge/version-v1.2.0-blue)
 
 A distributed rider-driver dispatch system in Java/Spring Boot. Three gRPC
-microservices: **dispatch-service** (orchestrator, REST + quad-tree matching),
-**pricing-service** (pure calculator), and **trip-service** (system of
-record, MySQL). Deployed to Kubernetes (Kind), load-tested with k6, observed
-with Prometheus/Grafana, and chaos-tested by killing a live pod mid-load.
+microservices: **dispatch-service** (orchestrator, REST + live grid index +
+quad-tree matching), **pricing-service** (pure calculator), and
+**trip-service** (system of record, MySQL). Deployed to Kubernetes (Kind),
+load-tested with k6, observed with Prometheus/Grafana, and chaos-tested by
+killing a live pod mid-load.
 
 See `.claude/CLAUDE.md` (not tracked in git) for the full design spec. This
 file covers running the current build, either as local processes or as a
@@ -20,6 +21,12 @@ Kubernetes/Kind, k6 load test, Prometheus/Grafana, chaos test) are built and
 verified against a real local Kind cluster. See `.claude/CLAUDE.md`'s
 Phase 10 changelog entry for what was found and fixed getting there.
 
+v2 Phase 1 (live driver index) is built and verified on the `v2` branch: a
+simulated heartbeat generator keeps driver positions moving, a grid-bucket
+index narrows candidates per Dispatch replica, and both replicas stay
+consistent via a periodic MySQL poll. See `.claude/context/decisions.md` for
+what was built and verified.
+
 ## Architecture
 
 ```
@@ -27,7 +34,8 @@ Rider (REST) ──> dispatch-service ──gRPC──> pricing-service (no DB)
                        │
                        ├──gRPC──> trip-service (own MySQL DB: atlas_trip)
                        │
-                       └── own Driver DB (MySQL: atlas_driver, quad-tree scan)
+                       └── own Driver DB (MySQL: atlas_driver,
+                           grid index + quad-tree scan, live heartbeats)
 ```
 
 In Kubernetes: dispatch-service runs 2 replicas behind a Service, pricing and
@@ -177,8 +185,8 @@ to print `Started ...Application in N seconds` before moving to the next.
 
 There's no separate log file — with the commands above, each service's logs
 print directly to the terminal tab it's running in. That's where to watch
-the quad-tree ranking output, gRPC call logs, and any errors, live, per
-service. `Ctrl+C` in a tab stops that service.
+the grid-narrowed quad-tree ranking output, gRPC call logs, and any errors,
+live, per service. `Ctrl+C` in a tab stops that service.
 
 If you'd rather background them and tail logs from files instead:
 ```
