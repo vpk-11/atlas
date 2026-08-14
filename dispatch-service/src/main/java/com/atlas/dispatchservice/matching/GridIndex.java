@@ -2,6 +2,8 @@ package com.atlas.dispatchservice.matching;
 
 import com.atlas.dispatchservice.domain.BoundingBox;
 import com.atlas.dispatchservice.driver.Driver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import java.util.Map;
 @Component
 public class GridIndex {
 
+    private static final Logger log = LoggerFactory.getLogger(GridIndex.class);
+
     // ponytail: fixed cell count over a fixed bounding box, not a general geo grid.
     // ~999 seeded drivers / 400 cells => a 3x3 neighbor query lands near
     // MIN_CANDIDATES candidates. Revisit if driver count or metro area size
@@ -34,16 +38,20 @@ public class GridIndex {
     private static final int MIN_CANDIDATES = 20;
     private static final BoundingBox BOUNDS = BoundingBox.SAN_FRANCISCO;
 
-    private volatile Map<Long, List<QuadTree.IndexedPoint>> cells = Map.of();
+    private record CellKey(int row, int col) {
+    }
+
+    private volatile Map<CellKey, List<QuadTree.IndexedPoint>> cells = Map.of();
 
     public void rebuild(List<Driver> drivers) {
-        Map<Long, List<QuadTree.IndexedPoint>> fresh = new HashMap<>();
+        Map<CellKey, List<QuadTree.IndexedPoint>> fresh = new HashMap<>();
         for (Driver driver : drivers) {
-            long key = cellKey(row(driver.getCurrentLat()), col(driver.getCurrentLng()));
+            CellKey key = new CellKey(row(driver.getCurrentLat()), col(driver.getCurrentLng()));
             fresh.computeIfAbsent(key, k -> new ArrayList<>())
                     .add(new QuadTree.IndexedPoint(driver.getDriverId(), driver.getCurrentLat(), driver.getCurrentLng()));
         }
         this.cells = fresh;
+        log.debug("Grid index rebuilt: {} drivers across {} occupied cells", drivers.size(), fresh.size());
     }
 
     /**
@@ -56,14 +64,14 @@ public class GridIndex {
     public List<QuadTree.IndexedPoint> candidatesNear(double lat, double lng) {
         int centerRow = row(lat);
         int centerCol = col(lng);
-        Map<Long, List<QuadTree.IndexedPoint>> snapshot = cells;
+        Map<CellKey, List<QuadTree.IndexedPoint>> snapshot = cells;
 
         List<QuadTree.IndexedPoint> result = new ArrayList<>();
         for (int radius = 1; radius <= CELLS_PER_SIDE; radius++) {
             result.clear();
             for (int dr = -radius; dr <= radius; dr++) {
                 for (int dc = -radius; dc <= radius; dc++) {
-                    List<QuadTree.IndexedPoint> bucket = snapshot.get(cellKey(centerRow + dr, centerCol + dc));
+                    List<QuadTree.IndexedPoint> bucket = snapshot.get(new CellKey(centerRow + dr, centerCol + dc));
                     if (bucket != null) {
                         result.addAll(bucket);
                     }
@@ -86,9 +94,5 @@ public class GridIndex {
         double clamped = Math.max(BOUNDS.minLng(), Math.min(BOUNDS.maxLng(), lng));
         double fraction = (clamped - BOUNDS.minLng()) / (BOUNDS.maxLng() - BOUNDS.minLng());
         return Math.min(CELLS_PER_SIDE - 1, (int) (fraction * CELLS_PER_SIDE));
-    }
-
-    private long cellKey(int row, int col) {
-        return ((long) row << 32) | (col & 0xFFFFFFFFL);
     }
 }

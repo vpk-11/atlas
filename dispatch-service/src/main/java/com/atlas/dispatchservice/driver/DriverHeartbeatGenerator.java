@@ -1,6 +1,8 @@
 package com.atlas.dispatchservice.driver;
 
 import com.atlas.dispatchservice.domain.BoundingBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,8 @@ import java.util.Random;
 @Component
 public class DriverHeartbeatGenerator {
 
+    private static final Logger log = LoggerFactory.getLogger(DriverHeartbeatGenerator.class);
+
     private static final BoundingBox BOUNDS = BoundingBox.SAN_FRANCISCO;
     private static final double MAX_STEP_DEGREES = 0.002; // ponytail: flat degree step, not true distance-uniform
     private static final int DRIVERS_PER_TICK = 30;
@@ -32,9 +36,15 @@ public class DriverHeartbeatGenerator {
     public void tick() {
         // OFFLINE drivers have no phone reporting a position; only AVAILABLE and
         // ON_TRIP drivers heartbeat.
-        List<Driver> reporting = driverRepository.findAll().stream()
-                .filter(d -> d.getStatus() != DriverStatus.OFFLINE)
-                .toList();
+        List<Driver> reporting;
+        try {
+            reporting = driverRepository.findAll().stream()
+                    .filter(d -> d.getStatus() != DriverStatus.OFFLINE)
+                    .toList();
+        } catch (Exception e) {
+            log.error("Heartbeat tick failed reading driver table, skipping this tick: {}", e.toString());
+            return;
+        }
         if (reporting.isEmpty()) {
             return;
         }
