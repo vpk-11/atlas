@@ -5,6 +5,8 @@ spring:
     url: jdbc:mysql://${DRIVER_DB_HOST:localhost}:${DRIVER_DB_PORT:3306}/${DRIVER_DB_NAME:atlas_driver}?createDatabaseIfNotExist=true
     username: ${DRIVER_DB_USER:root}
     password: ${DRIVER_DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:30}
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,6 +14,11 @@ spring:
 
 server:
   port: ${DISPATCH_PORT:8080}
+  tomcat:
+    threads:
+      max: ${TOMCAT_MAX_THREADS:800}
+      min-spare: ${TOMCAT_MIN_SPARE_THREADS:50}
+    accept-count: ${TOMCAT_ACCEPT_COUNT:200}
 
 grpc:
   client:
@@ -24,7 +31,13 @@ grpc:
 
 osrm:
   base-url: ${OSRM_BASE_URL:https://router.project-osrm.org}
-  timeout-ms: ${OSRM_TIMEOUT_MS:500}
+  timeout-ms: ${OSRM_TIMEOUT_MS:350}
+
+heartbeat:
+  interval-ms: ${HEARTBEAT_INTERVAL_MS:2000}
+
+grid:
+  refresh-interval-ms: ${GRID_REFRESH_INTERVAL_MS:3000}
 
 management:
   endpoints:
