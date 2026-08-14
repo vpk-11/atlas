@@ -1,7 +1,7 @@
 package com.atlas.dispatchservice.driver;
 
 import com.atlas.dispatchservice.domain.BoundingBox;
-import com.atlas.dispatchservice.matching.QuadTreeIndex;
+import com.atlas.dispatchservice.matching.GridIndex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -20,11 +20,11 @@ public class DriverSeeder implements CommandLineRunner {
     private static final BoundingBox BOUNDS = BoundingBox.SAN_FRANCISCO;
 
     private final DriverRepository driverRepository;
-    private final QuadTreeIndex quadTreeIndex;
+    private final GridIndex gridIndex;
 
-    public DriverSeeder(DriverRepository driverRepository, QuadTreeIndex quadTreeIndex) {
+    public DriverSeeder(DriverRepository driverRepository, GridIndex gridIndex) {
         this.driverRepository = driverRepository;
-        this.quadTreeIndex = quadTreeIndex;
+        this.gridIndex = gridIndex;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DriverSeeder implements CommandLineRunner {
                 log.info("Driver table already seeded by another replica, skipping.");
             }
         }
-        quadTreeIndex.rebuild(driverRepository.findAll());
+        gridIndex.rebuild(driverRepository.findAll());
     }
 
     private void seed() {

@@ -1,5 +1,6 @@
 package com.atlas.dispatchservice.matching;
 
+import com.atlas.dispatchservice.domain.BoundingBox;
 import com.atlas.dispatchservice.domain.Coordinate;
 import com.atlas.dispatchservice.domain.RoadDistanceEstimator;
 import com.atlas.dispatchservice.driver.Driver;
@@ -20,20 +21,27 @@ public class MatchingService {
     private static final Logger log = LoggerFactory.getLogger(MatchingService.class);
     private static final int CANDIDATE_POOL_SIZE = 20;
 
-    private final QuadTreeIndex quadTreeIndex;
+    private final GridIndex gridIndex;
     private final DriverRepository driverRepository;
 
-    public MatchingService(QuadTreeIndex quadTreeIndex, DriverRepository driverRepository) {
-        this.quadTreeIndex = quadTreeIndex;
+    public MatchingService(GridIndex gridIndex, DriverRepository driverRepository) {
+        this.gridIndex = gridIndex;
         this.driverRepository = driverRepository;
     }
 
     /**
-     * Quad-tree candidate retrieval narrowed to raw nearest drivers, then lookahead
-     * scoring on that narrowed set. Returns the full ranked list, best candidate first.
+     * Grid narrows to the pickup's cell + neighbors first (broad, O(1) bucket
+     * lookup), then a quad-tree built over just that narrowed set does the
+     * precise nearest-K ranking, then lookahead scoring runs on that ranked set.
+     * Returns the full ranked list, best candidate first.
      */
     public List<CandidateScore> rankCandidates(Coordinate pickup) {
-        List<QuadTree.IndexedPoint> nearest = quadTreeIndex.nearest(pickup.lat(), pickup.lng(), CANDIDATE_POOL_SIZE);
+        List<QuadTree.IndexedPoint> nearby = gridIndex.candidatesNear(pickup.lat(), pickup.lng());
+        QuadTree localTree = new QuadTree(BoundingBox.SAN_FRANCISCO);
+        for (QuadTree.IndexedPoint point : nearby) {
+            localTree.insert(point.id(), point.lat(), point.lng());
+        }
+        List<QuadTree.IndexedPoint> nearest = localTree.kNearest(pickup.lat(), pickup.lng(), CANDIDATE_POOL_SIZE);
         Instant now = Instant.now();
 
         List<CandidateScore> scored = new ArrayList<>();
