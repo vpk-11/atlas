@@ -12,6 +12,11 @@ spring:
       ddl-auto: update
     open-in-view: false
 
+# Tomcat threads (800) and the Hikari DB pool (30, above) are deliberately not
+# scaled 1:1. Most request wall-time is OSRM-bound (observed ~3.1-3.5s avg),
+# not DB-bound (driver lookups are single-row/indexed reads) - at any instant
+# most in-flight request threads are waiting on OSRM, not holding a DB
+# connection, so the DB pool doesn't need to track thread count.
 server:
   port: ${DISPATCH_PORT:8080}
   tomcat:
