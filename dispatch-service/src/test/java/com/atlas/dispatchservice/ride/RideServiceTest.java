@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -186,17 +187,15 @@ class RideServiceTest {
         when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
 
         // OSRM never resolves until released below, so every requestRide() call
-        // holds its admission permit for the duration of this test.
+        // holds its admission permit for the duration of this test. Reactor's own
+        // boundedElastic scheduler, not a hand-rolled Thread per call - avoids
+        // spinning up ADMISSION_PERMITS raw threads in a single test run.
         CountDownLatch releaseGate = new CountDownLatch(1);
         when(osrmClient.distanceAndDuration(any(), any())).thenAnswer(invocation ->
-                Mono.<DistanceResult>create(sink -> new Thread(() -> {
-                    try {
-                        releaseGate.await();
-                        sink.success(new DistanceResult(5.0, 12.0, DistanceSource.OSRM));
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                }).start()));
+                Mono.fromCallable(() -> {
+                    releaseGate.await();
+                    return new DistanceResult(5.0, 12.0, DistanceSource.OSRM);
+                }).subscribeOn(Schedulers.boundedElastic()));
 
         List<CompletableFuture<ResponseEntity<RideResponse>>> inFlight = new ArrayList<>();
         for (int i = 0; i < RideService.ADMISSION_PERMITS; i++) {
@@ -211,6 +210,10 @@ class RideServiceTest {
         assertThat(rejected.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
         assertThat(rejected.getBody().status()).isEqualTo("SYSTEM_ERROR");
         assertThat(elapsedMs).isLessThan(500);
+        // The REQUESTED row written before the gate check must still get finalized,
+        // just not on this response's critical path (fire-and-forget, hence timeout()
+        // instead of a plain verify - it may not have run yet at this exact instant).
+        verify(tripClient, org.mockito.Mockito.timeout(1000)).finalizeSystemError("T-GATE");
 
         releaseGate.countDown();
         for (CompletableFuture<ResponseEntity<RideResponse>> future : inFlight) {
