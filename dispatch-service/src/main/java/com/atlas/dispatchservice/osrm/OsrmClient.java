@@ -49,6 +49,11 @@ public class OsrmClient {
                 .uri(baseUrl + path)
                 .retrieve()
                 .bodyToMono(OsrmRouteResponse.class)
+                // bodyToMono completes empty (no onNext) on an empty upstream body,
+                // which would otherwise skip flatMap entirely and resolve to a null
+                // DistanceResult downstream. Route that case into the same fallback
+                // path as every other OSRM failure instead.
+                .switchIfEmpty(Mono.error(new IllegalStateException("OSRM returned an empty response")))
                 .timeout(timeout)
                 .flatMap(response -> {
                     if (response.routes() == null || response.routes().isEmpty()) {
