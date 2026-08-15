@@ -1,16 +1,16 @@
 # Graph Report - atlas  (2026-08-15)
 
 ## Corpus Check
-- 68 files · ~17,490 words
+- 68 files · ~17,673 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 535 nodes · 1214 edges · 35 communities (25 shown, 10 thin omitted)
-- Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 193 edges (avg confidence: 0.8)
+- 539 nodes · 1236 edges · 30 communities (20 shown, 10 thin omitted)
+- Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 190 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e256a509`
+- Built from commit: `a8e90737`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -26,7 +26,7 @@
 - [[_COMMUNITY_Community 8|Community 8]]
 - [[_COMMUNITY_Community 9|Community 9]]
 - [[_COMMUNITY_Ride Validation & Error Handling|Ride Validation & Error Handling]]
-- [[_COMMUNITY_Dispatch App Entrypoint|Dispatch App Entrypoint]]
+- [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_k6 Load Test Script|k6 Load Test Script]]
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Pricing App Test|Pricing App Test]]
@@ -44,19 +44,14 @@
 - [[_COMMUNITY_Community 26|Community 26]]
 - [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 28|Community 28]]
-- [[_COMMUNITY_Community 29|Community 29]]
-- [[_COMMUNITY_Community 30|Community 30]]
-- [[_COMMUNITY_Community 31|Community 31]]
 - [[_COMMUNITY_Community 32|Community 32]]
-- [[_COMMUNITY_Community 33|Community 33]]
-- [[_COMMUNITY_Community 34|Community 34]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Trip` - 39 edges
 2. `RideService` - 31 edges
 3. `RideServiceTest` - 29 edges
 4. `Driver` - 28 edges
-5. `GridIndex` - 20 edges
+5. `GridIndex` - 19 edges
 6. `Coordinate` - 18 edges
 7. `OsrmClient` - 17 edges
 8. `MatchingService` - 17 edges
@@ -83,22 +78,22 @@
 - **Dispatch and Trip Share One In-Cluster MySQL Instance (two schemas)** — k8s_01_mysql_mysqldeployment, k8s_02_dispatch_dispatchdeployment, k8s_04_trip_tripdeployment [EXTRACTED 1.00]
 - **Prometheus + Grafana Observability Stack for Atlas** — k8s_05_prometheus_prometheusdeployment, k8s_06_grafana_grafanadeployment, prometheus_prometheusyml_scrapeconfig, datasources_prometheusyml_datasource [EXTRACTED 1.00]
 
-## Communities (35 total, 10 thin omitted)
+## Communities (30 total, 10 thin omitted)
 
 ### Community 0 - "Driver Domain & Seeding"
-Cohesion: 0.11
-Nodes (18): Entity, Instant, String, Table, Scheduled, Coordinate, Instant, List (+10 more)
+Cohesion: 0.07
+Nodes (34): Entity, Instant, String, Table, String, Transactional, String, Coordinate (+26 more)
 
 ### Community 1 - "Trip gRPC Service"
-Cohesion: 0.19
-Nodes (11): CancelResponse, CompletableFuture, ResponseEntity, RideRequest, RideResponse, String, PostMapping, RideController (+3 more)
+Cohesion: 0.10
+Nodes (17): CancelResponse, CancelResponse, CompletableFuture, ResponseEntity, RideRequest, RideResponse, String, String (+9 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.10
-Nodes (23): BoundingBox, CommandLineRunner, Component, BoundingBox, Component, DriverRepository, Logger, Component (+15 more)
+Cohesion: 0.43
+Nodes (5): SpringBootApplication, String, DispatchServiceApplication, EnableScheduling, SpringBootApplication
 
 ### Community 3 - "Pricing gRPC Service"
-Cohesion: 0.12
+Cohesion: 0.11
 Nodes (17): ConfigurationProperties, EnableConfigurationProperties, PricingGrpcService, PricingGrpcServiceTest, PricingCalculator, PricingCalculatorTest, PricingProperties, GrpcService (+9 more)
 
 ### Community 4 - "Quad-Tree Matching"
@@ -106,36 +101,36 @@ Cohesion: 0.10
 Nodes (12): List, String, Test, Test, BoundingBox, GeoMath, RoadDistanceEstimator, RoadDistanceEstimatorTest (+4 more)
 
 ### Community 5 - "Ride REST API"
-Cohesion: 0.25
-Nodes (5): Throwable, PricingUnavailableException, RuntimeException, String, TripNotFoundException
+Cohesion: 0.17
+Nodes (10): Component, Logger, QuoteRequest, Throwable, PricingClient, PricingUnavailableException, PricingServiceBlockingStub, RuntimeException (+2 more)
 
 ### Community 6 - "Trip Persistence Layer"
-Cohesion: 0.16
-Nodes (13): CancelTripRequest, TripGrpcService, RecordTripRequest, DistanceSource, CancelTripResponse, DistanceSource, GrpcService, Override (+5 more)
+Cohesion: 0.05
+Nodes (44): CancelTripRequest, TripGrpcService, TripGrpcServiceTest, JpaRepository, Optional, PostPersist, RecordTripRequest, DistanceSource (+36 more)
 
 ### Community 7 - "Kubernetes & Observability Manifests"
 Cohesion: 0.05
 Nodes (41): Grafana Dashboard File Provider Config, Grafana Prometheus Datasource Config, Atlas Kubernetes Namespace, MySQL emptyDir Drop-and-Reseed Rationale, MySQL In-Cluster Deployment (atlas_driver + atlas_trip), dispatch-service Kubernetes Deployment (2 replicas), dispatch-service PodDisruptionBudget (minAvailable 1), pricing-service Kubernetes Deployment (1 replica) (+33 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.12
-Nodes (22): BeforeEach, BoundingBox, Component, Logger, BeforeEach, Coordinate, DriverRepository, ExtendWith (+14 more)
+Cohesion: 0.07
+Nodes (38): BoundingBox, CommandLineRunner, Component, BoundingBox, Component, DriverRepository, Logger, Scheduled (+30 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.24
-Nodes (6): Optional, String, BeforeEach, ExtendWith, Test, TripRecordServiceTest
+Cohesion: 0.60
+Nodes (3): Bean, AsyncConfig, Configuration
 
 ### Community 10 - "Ride Validation & Error Handling"
 Cohesion: 0.43
 Nodes (6): ExceptionHandler, MethodArgumentNotValidException, ResponseStatus, RideExceptionHandler, ValidationErrorResponse, RestControllerAdvice
 
-### Community 11 - "Dispatch App Entrypoint"
-Cohesion: 0.17
-Nodes (5): DistanceSource, Long, String, Trip, TripStatus
+### Community 11 - "Community 11"
+Cohesion: 0.50
+Nodes (3): SpringBootApplication, String, PricingServiceApplication
 
 ### Community 13 - "Community 13"
-Cohesion: 0.23
-Nodes (8): JpaRepository, DistanceSource, Service, String, Transactional, Long, TripRecordService, TripRepository
+Cohesion: 0.50
+Nodes (3): SpringBootApplication, String, TripServiceApplication
 
 ### Community 14 - "Pricing App Test"
 Cohesion: 0.60
@@ -161,29 +156,9 @@ Nodes (4): Getting Started, Guides, Maven Parent overrides, Reference Documentat
 Cohesion: 0.40
 Nodes (4): Getting Started, Guides, Maven Parent overrides, Reference Documentation
 
-### Community 29 - "Community 29"
-Cohesion: 0.29
-Nodes (8): TripGrpcServiceTest, BeforeEach, CancelTripResponse, ExtendWith, RecordTripResponse, StreamObserver, Test, UpdateTripStatusResponse
-
-### Community 30 - "Community 30"
-Cohesion: 0.33
-Nodes (8): Component, DriverRepository, GridIndex, Logger, Scheduled, GridIndex, GridIndexRefresher, Scheduled
-
-### Community 31 - "Community 31"
-Cohesion: 0.09
-Nodes (23): Service, String, Transactional, String, CancelResponse, CompletableFuture, ResponseEntity, RideResponse (+15 more)
-
 ### Community 32 - "Community 32"
 Cohesion: 0.08
-Nodes (44): Bean, CandidateScore, AsyncConfig, Configuration, Coordinate, String, DriverRepository, GridIndex (+36 more)
-
-### Community 33 - "Community 33"
-Cohesion: 0.29
-Nodes (4): PostPersist, Entity, Instant, Table
-
-### Community 34 - "Community 34"
-Cohesion: 0.43
-Nodes (5): SpringBootApplication, String, DispatchServiceApplication, EnableScheduling, SpringBootApplication
+Nodes (50): BeforeEach, CandidateScore, CompletableFuture, Coordinate, Service, Component, Logger, String (+42 more)
 
 ## Knowledge Gaps
 - **42 isolated node(s):** `Current stage`, `Architecture`, `Prerequisites`, `One command`, `Using it` (+37 more)
@@ -193,17 +168,17 @@ Nodes (5): SpringBootApplication, String, DispatchServiceApplication, EnableSche
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Coordinate` connect `Community 31` to `Driver Domain & Seeding`, `Community 8`, `Community 32`, `Dispatch App Entrypoint`?**
-  _High betweenness centrality (0.089) - this node is a cross-community bridge._
-- **Why does `Trip` connect `Dispatch App Entrypoint` to `Community 33`, `Pricing gRPC Service`, `Trip Persistence Layer`, `Community 9`, `Community 13`, `Community 29`?**
-  _High betweenness centrality (0.087) - this node is a cross-community bridge._
-- **Why does `DriverRepository` connect `Community 32` to `Driver Domain & Seeding`, `Community 8`, `Community 2`, `Community 13`?**
-  _High betweenness centrality (0.062) - this node is a cross-community bridge._
+- **Why does `Coordinate` connect `Community 32` to `Driver Domain & Seeding`, `Trip gRPC Service`, `Ride REST API`?**
+  _High betweenness centrality (0.088) - this node is a cross-community bridge._
+- **Why does `Trip` connect `Trip Persistence Layer` to `Pricing gRPC Service`?**
+  _High betweenness centrality (0.086) - this node is a cross-community bridge._
+- **Why does `RideService` connect `Community 32` to `Driver Domain & Seeding`, `Trip gRPC Service`, `Ride REST API`?**
+  _High betweenness centrality (0.059) - this node is a cross-community bridge._
 - **What connects `Current stage`, `Architecture`, `Prerequisites` to the rest of the system?**
   _44 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Driver Domain & Seeding` be split into smaller, more focused modules?**
-  _Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected._
-- **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.09659090909090909 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06912442396313365 - nodes in this community are weakly interconnected._
+- **Should `Trip gRPC Service` be split into smaller, more focused modules?**
+  _Cohesion score 0.10344827586206896 - nodes in this community are weakly interconnected._
 - **Should `Pricing gRPC Service` be split into smaller, more focused modules?**
-  _Cohesion score 0.11724137931034483 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11290322580645161 - nodes in this community are weakly interconnected._
