@@ -53,6 +53,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
+		<!-- WebClient only, for the non-blocking OSRM call. spring-boot-starter-web(mvc)
+		     above already keeps the app on the servlet stack, not reactive -
+		     verified after adding this (see decisions.md). -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.mysql</groupId>
