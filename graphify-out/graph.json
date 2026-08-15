@@ -47,14 +47,254 @@
   },
   "nodes": [
     {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme",
+      "community": 7,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Atlas",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme_atlas",
+      "community": 7,
+      "norm_label": "atlas"
+    },
+    {
+      "label": "Current stage",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "readme_current_stage",
+      "community": 7,
+      "norm_label": "current stage"
+    },
+    {
+      "label": "Architecture",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "readme_architecture",
+      "community": 7,
+      "norm_label": "architecture"
+    },
+    {
+      "label": "Running it in Kubernetes (Kind) \u2014 recommended",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L54",
+      "_origin": "ast",
+      "id": "readme_running_it_in_kubernetes_kind_recommended",
+      "community": 7,
+      "norm_label": "running it in kubernetes (kind) \u2014 recommended"
+    },
+    {
+      "label": "Prerequisites",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L56",
+      "_origin": "ast",
+      "id": "readme_prerequisites",
+      "community": 7,
+      "norm_label": "prerequisites"
+    },
+    {
+      "label": "One command",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "readme_one_command",
+      "community": 7,
+      "norm_label": "one command"
+    },
+    {
+      "label": "Using it",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L76",
+      "_origin": "ast",
+      "id": "readme_using_it",
+      "community": 7,
+      "norm_label": "using it"
+    },
+    {
+      "label": "Grafana dashboard",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "readme_grafana_dashboard",
+      "community": 7,
+      "norm_label": "grafana dashboard"
+    },
+    {
+      "label": "Prometheus (raw metrics / scrape targets)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L94",
+      "_origin": "ast",
+      "id": "readme_prometheus_raw_metrics_scrape_targets",
+      "community": 7,
+      "norm_label": "prometheus (raw metrics / scrape targets)"
+    },
+    {
+      "label": "Load test",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L101",
+      "_origin": "ast",
+      "id": "readme_load_test",
+      "community": 7,
+      "norm_label": "load test"
+    },
+    {
+      "label": "Chaos test",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L119",
+      "_origin": "ast",
+      "id": "readme_chaos_test",
+      "community": 7,
+      "norm_label": "chaos test"
+    },
+    {
+      "label": "Running it locally (no Kubernetes)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L131",
+      "_origin": "ast",
+      "id": "readme_running_it_locally_no_kubernetes",
+      "community": 7,
+      "norm_label": "running it locally (no kubernetes)"
+    },
+    {
+      "label": "Prerequisites",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L133",
+      "_origin": "ast",
+      "id": "readme_prerequisites_133",
+      "community": 7,
+      "norm_label": "prerequisites"
+    },
+    {
+      "label": "Environment",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L161",
+      "_origin": "ast",
+      "id": "readme_environment",
+      "community": 7,
+      "norm_label": "environment"
+    },
+    {
+      "label": "Three terminals",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L174",
+      "_origin": "ast",
+      "id": "readme_three_terminals",
+      "community": 7,
+      "norm_label": "three terminals"
+    },
+    {
+      "label": "Logs",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L202",
+      "_origin": "ast",
+      "id": "readme_logs",
+      "community": 7,
+      "norm_label": "logs"
+    },
+    {
+      "label": "Trying it",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L215",
+      "_origin": "ast",
+      "id": "readme_trying_it",
+      "community": 7,
+      "norm_label": "trying it"
+    },
+    {
+      "label": "Interactive demo",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L217",
+      "_origin": "ast",
+      "id": "readme_interactive_demo",
+      "community": 7,
+      "norm_label": "interactive demo"
+    },
+    {
+      "label": "Raw curl",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L227",
+      "_origin": "ast",
+      "id": "readme_raw_curl",
+      "community": 7,
+      "norm_label": "raw curl"
+    },
+    {
+      "label": "Health checks",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L241",
+      "_origin": "ast",
+      "id": "readme_health_checks",
+      "community": 7,
+      "norm_label": "health checks"
+    },
+    {
+      "label": "Known limitation: local same-port restarts of pricing/trip",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L249",
+      "_origin": "ast",
+      "id": "readme_known_limitation_local_same_port_restarts_of_pricing_trip",
+      "community": 7,
+      "norm_label": "known limitation: local same-port restarts of pricing/trip"
+    },
+    {
+      "label": "Running tests",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L268",
+      "_origin": "ast",
+      "id": "readme_running_tests",
+      "community": 7,
+      "norm_label": "running tests"
+    },
+    {
+      "label": "Changelog",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L276",
+      "_origin": "ast",
+      "id": "readme_changelog",
+      "community": 7,
+      "norm_label": "changelog"
+    },
+    {
       "label": "RideServiceTest.java",
       "file_type": "code",
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "ride_rideservicetest",
       "community": 32,
-      "norm_label": "rideservicetest.java"
+      "norm_label": "rideservicetest.java",
+      "id": "ride_rideservicetest"
     },
     {
       "label": "RideServiceTest",
@@ -62,9 +302,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L41",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest",
       "community": 32,
-      "norm_label": "rideservicetest"
+      "norm_label": "rideservicetest",
+      "id": "ride_rideservicetest_rideservicetest"
     },
     {
       "label": "ExtendWith",
@@ -73,9 +313,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "extendwith",
       "community": 8,
-      "norm_label": "extendwith"
+      "norm_label": "extendwith",
+      "id": "extendwith"
     },
     {
       "label": "MatchingService",
@@ -84,9 +324,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "matchingservice",
       "community": 32,
-      "norm_label": "matchingservice"
+      "norm_label": "matchingservice",
+      "id": "matchingservice"
     },
     {
       "label": "OsrmClient",
@@ -95,9 +335,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "osrmclient",
       "community": 32,
-      "norm_label": "osrmclient"
+      "norm_label": "osrmclient",
+      "id": "osrmclient"
     },
     {
       "label": "PricingClient",
@@ -106,9 +346,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "pricingclient",
       "community": 32,
-      "norm_label": "pricingclient"
+      "norm_label": "pricingclient",
+      "id": "pricingclient"
     },
     {
       "label": "TripClient",
@@ -117,9 +357,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "tripclient",
       "community": 32,
-      "norm_label": "tripclient"
+      "norm_label": "tripclient",
+      "id": "tripclient"
     },
     {
       "label": "DriverAssignmentService",
@@ -128,9 +368,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "driverassignmentservice",
       "community": 32,
-      "norm_label": "driverassignmentservice"
+      "norm_label": "driverassignmentservice",
+      "id": "driverassignmentservice"
     },
     {
       "label": "RideService",
@@ -139,9 +379,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "rideservice",
       "community": 32,
-      "norm_label": "rideservice"
+      "norm_label": "rideservice",
+      "id": "rideservice"
     },
     {
       "label": "SimpleMeterRegistry",
@@ -150,9 +390,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "simplemeterregistry",
       "community": 32,
-      "norm_label": "simplemeterregistry"
+      "norm_label": "simplemeterregistry",
+      "id": "simplemeterregistry"
     },
     {
       "label": "RideRequest",
@@ -161,9 +401,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "riderequest",
       "community": 31,
-      "norm_label": "riderequest"
+      "norm_label": "riderequest",
+      "id": "riderequest"
     },
     {
       "label": ".setUp()",
@@ -171,9 +411,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L61",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_setup",
       "community": 32,
-      "norm_label": ".setup()"
+      "norm_label": ".setup()",
+      "id": "ride_rideservicetest_rideservicetest_setup"
     },
     {
       "label": "BeforeEach",
@@ -182,9 +422,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "beforeeach",
       "community": 8,
-      "norm_label": "beforeeach"
+      "norm_label": "beforeeach",
+      "id": "beforeeach"
     },
     {
       "label": ".resolve()",
@@ -192,9 +432,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L71",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_resolve",
       "community": 31,
-      "norm_label": ".resolve()"
+      "norm_label": ".resolve()",
+      "id": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "label": "RideResponse",
@@ -203,9 +443,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "rideresponse",
       "community": 31,
-      "norm_label": "rideresponse"
+      "norm_label": "rideresponse",
+      "id": "rideresponse"
     },
     {
       "label": ".writesRequestedRowBeforeRankingCandidates()",
@@ -213,9 +453,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L75",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_writesrequestedrowbeforerankingcandidates",
       "community": 31,
-      "norm_label": ".writesrequestedrowbeforerankingcandidates()"
+      "norm_label": ".writesrequestedrowbeforerankingcandidates()",
+      "id": "ride_rideservicetest_rideservicetest_writesrequestedrowbeforerankingcandidates"
     },
     {
       "label": "Test",
@@ -224,9 +464,9 @@
       "source_location": "",
       "origin_file": "/Users/vpk/Desktop/Development/atlas/dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "_origin": "ast",
-      "id": "test",
       "community": 8,
-      "norm_label": "test"
+      "norm_label": "test",
+      "id": "test"
     },
     {
       "label": ".returnsSystemErrorImmediatelyWhenRequestedWriteFails()",
@@ -234,9 +474,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L86",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_returnssystemerrorimmediatelywhenrequestedwritefails",
       "community": 31,
-      "norm_label": ".returnssystemerrorimmediatelywhenrequestedwritefails()"
+      "norm_label": ".returnssystemerrorimmediatelywhenrequestedwritefails()",
+      "id": "ride_rideservicetest_rideservicetest_returnssystemerrorimmediatelywhenrequestedwritefails"
     },
     {
       "label": ".returnsFailedNoMatchAndLogsToTripWhenNoCandidates()",
@@ -244,9 +484,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L98",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_returnsfailednomatchandlogstotripwhennocandidates",
       "community": 31,
-      "norm_label": ".returnsfailednomatchandlogstotripwhennocandidates()"
+      "norm_label": ".returnsfailednomatchandlogstotripwhennocandidates()",
+      "id": "ride_rideservicetest_rideservicetest_returnsfailednomatchandlogstotripwhennocandidates"
     },
     {
       "label": ".returnsMatchedWithPriceAndTripIdOnSuccess()",
@@ -254,9 +494,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L111",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_returnsmatchedwithpriceandtripidonsuccess",
       "community": 31,
-      "norm_label": ".returnsmatchedwithpriceandtripidonsuccess()"
+      "norm_label": ".returnsmatchedwithpriceandtripidonsuccess()",
+      "id": "ride_rideservicetest_rideservicetest_returnsmatchedwithpriceandtripidonsuccess"
     },
     {
       "label": ".includesEtaNoteWhenWinnerIsStillOnTrip()",
@@ -264,9 +504,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L132",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_includesetanotewhenwinnerisstillontrip",
       "community": 31,
-      "norm_label": ".includesetanotewhenwinnerisstillontrip()"
+      "norm_label": ".includesetanotewhenwinnerisstillontrip()",
+      "id": "ride_rideservicetest_rideservicetest_includesetanotewhenwinnerisstillontrip"
     },
     {
       "label": ".returnsSystemErrorWhenPricingUnavailable()",
@@ -274,9 +514,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L147",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_returnssystemerrorwhenpricingunavailable",
       "community": 31,
-      "norm_label": ".returnssystemerrorwhenpricingunavailable()"
+      "norm_label": ".returnssystemerrorwhenpricingunavailable()",
+      "id": "ride_rideservicetest_rideservicetest_returnssystemerrorwhenpricingunavailable"
     },
     {
       "label": ".returnsSystemErrorWhenTripUnavailableAfterMatch()",
@@ -284,9 +524,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L165",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_returnssystemerrorwhentripunavailableaftermatch",
       "community": 31,
-      "norm_label": ".returnssystemerrorwhentripunavailableaftermatch()"
+      "norm_label": ".returnssystemerrorwhentripunavailableaftermatch()",
+      "id": "ride_rideservicetest_rideservicetest_returnssystemerrorwhentripunavailableaftermatch"
     },
     {
       "label": ".rejectsWithServiceUnavailableWhenAdmissionGateIsFull()",
@@ -294,9 +534,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L182",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_rejectswithserviceunavailablewhenadmissiongateisfull",
       "community": 8,
-      "norm_label": ".rejectswithserviceunavailablewhenadmissiongateisfull()"
+      "norm_label": ".rejectswithserviceunavailablewhenadmissiongateisfull()",
+      "id": "ride_rideservicetest_rideservicetest_rejectswithserviceunavailablewhenadmissiongateisfull"
     },
     {
       "label": ".cancelFreesAssociatedDriverReturnedByTrip()",
@@ -304,9 +544,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L221",
       "_origin": "ast",
-      "id": "ride_rideservicetest_rideservicetest_cancelfreesassociateddriverreturnedbytrip",
       "community": 31,
-      "norm_label": ".cancelfreesassociateddriverreturnedbytrip()"
+      "norm_label": ".cancelfreesassociateddriverreturnedbytrip()",
+      "id": "ride_rideservicetest_rideservicetest_cancelfreesassociateddriverreturnedbytrip"
     },
     {
       "label": "RideController.java",
@@ -1308,246 +1548,6 @@
       "community": 18,
       "norm_label": "log()",
       "id": "scripts_start_log"
-    },
-    {
-      "label": "README.md",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "readme.md",
-      "id": "readme"
-    },
-    {
-      "label": "Atlas",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "atlas",
-      "id": "readme_atlas"
-    },
-    {
-      "label": "Current stage",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L17",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "current stage",
-      "id": "readme_current_stage"
-    },
-    {
-      "label": "Architecture",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L30",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "architecture",
-      "id": "readme_architecture"
-    },
-    {
-      "label": "Running it in Kubernetes (Kind) \u2014 recommended",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L45",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "running it in kubernetes (kind) \u2014 recommended",
-      "id": "readme_running_it_in_kubernetes_kind_recommended"
-    },
-    {
-      "label": "Prerequisites",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L47",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "prerequisites",
-      "id": "readme_prerequisites"
-    },
-    {
-      "label": "One command",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L57",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "one command",
-      "id": "readme_one_command"
-    },
-    {
-      "label": "Using it",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L67",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "using it",
-      "id": "readme_using_it"
-    },
-    {
-      "label": "Grafana dashboard",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L76",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "grafana dashboard",
-      "id": "readme_grafana_dashboard"
-    },
-    {
-      "label": "Prometheus (raw metrics / scrape targets)",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L85",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "prometheus (raw metrics / scrape targets)",
-      "id": "readme_prometheus_raw_metrics_scrape_targets"
-    },
-    {
-      "label": "Load test",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L92",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "load test",
-      "id": "readme_load_test"
-    },
-    {
-      "label": "Chaos test",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L103",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "chaos test",
-      "id": "readme_chaos_test"
-    },
-    {
-      "label": "Running it locally (no Kubernetes)",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L113",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "running it locally (no kubernetes)",
-      "id": "readme_running_it_locally_no_kubernetes"
-    },
-    {
-      "label": "Prerequisites",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L115",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "prerequisites",
-      "id": "readme_prerequisites_115"
-    },
-    {
-      "label": "Environment",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L143",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "environment",
-      "id": "readme_environment"
-    },
-    {
-      "label": "Three terminals",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L156",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "three terminals",
-      "id": "readme_three_terminals"
-    },
-    {
-      "label": "Logs",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L184",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "logs",
-      "id": "readme_logs"
-    },
-    {
-      "label": "Trying it",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L197",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "trying it",
-      "id": "readme_trying_it"
-    },
-    {
-      "label": "Interactive demo",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L199",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "interactive demo",
-      "id": "readme_interactive_demo"
-    },
-    {
-      "label": "Raw curl",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L209",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "raw curl",
-      "id": "readme_raw_curl"
-    },
-    {
-      "label": "Health checks",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L223",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "health checks",
-      "id": "readme_health_checks"
-    },
-    {
-      "label": "Known limitation: local same-port restarts of pricing/trip",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L231",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "known limitation: local same-port restarts of pricing/trip",
-      "id": "readme_known_limitation_local_same_port_restarts_of_pricing_trip"
-    },
-    {
-      "label": "Running tests",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L250",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "running tests",
-      "id": "readme_running_tests"
-    },
-    {
-      "label": "Changelog",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L258",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "changelog",
-      "id": "readme_changelog"
     },
     {
       "label": "DispatchServiceApplication.java",
@@ -5681,15 +5681,275 @@
   ],
   "links": [
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme",
+      "target": "readme_atlas"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_atlas",
+      "target": "k8s_06_grafana_grafanadeployment"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_atlas",
+      "target": "k8s_kind_config_kindcluster"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_architecture"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L250",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_changelog"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_current_stage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L223",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_known_limitation_local_same_port_restarts_of_pricing_trip"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_running_it_in_kubernetes_kind_recommended"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L105",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_running_it_locally_no_kubernetes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L242",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_running_tests"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L189",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_atlas",
+      "target": "readme_trying_it"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/version_bump.yml",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "workflows_version_bump_versionbumpworkflow",
+      "target": "readme_atlas"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_in_kubernetes_kind_recommended",
+      "target": "readme_chaos_test"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L68",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_in_kubernetes_kind_recommended",
+      "target": "readme_grafana_dashboard"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L84",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_in_kubernetes_kind_recommended",
+      "target": "readme_load_test"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L49",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_in_kubernetes_kind_recommended",
+      "target": "readme_one_command"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_in_kubernetes_kind_recommended",
+      "target": "readme_prerequisites"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_in_kubernetes_kind_recommended",
+      "target": "readme_prometheus_raw_metrics_scrape_targets"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_in_kubernetes_kind_recommended",
+      "target": "readme_using_it"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L135",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_locally_no_kubernetes",
+      "target": "readme_environment"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L176",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_locally_no_kubernetes",
+      "target": "readme_logs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "readme_running_it_locally_no_kubernetes",
+      "target": "readme_prerequisites_133",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L148",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_running_it_locally_no_kubernetes",
+      "target": "readme_three_terminals"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L215",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_trying_it",
+      "target": "readme_health_checks"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L191",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_trying_it",
+      "target": "readme_interactive_demo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L201",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_trying_it",
+      "target": "readme_raw_curl"
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "beforeeach",
-      "confidence_score": 1.0
+      "target": "beforeeach"
     },
     {
       "relation": "imports",
@@ -5698,9 +5958,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "candidatescore",
-      "confidence_score": 1.0
+      "target": "candidatescore"
     },
     {
       "relation": "imports",
@@ -5709,9 +5969,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "coordinate",
-      "confidence_score": 1.0
+      "target": "coordinate"
     },
     {
       "relation": "imports",
@@ -5753,9 +6013,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "distanceresult",
-      "confidence_score": 1.0
+      "target": "distanceresult"
     },
     {
       "relation": "imports",
@@ -5786,9 +6046,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "driverassignmentservice",
-      "confidence_score": 1.0
+      "target": "driverassignmentservice"
     },
     {
       "relation": "imports",
@@ -5797,9 +6057,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "driverstatus",
-      "confidence_score": 1.0
+      "target": "driverstatus"
     },
     {
       "relation": "imports",
@@ -5808,9 +6068,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "extendwith",
-      "confidence_score": 1.0
+      "target": "extendwith"
     },
     {
       "relation": "imports",
@@ -5819,9 +6079,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "list",
-      "confidence_score": 1.0
+      "target": "list"
     },
     {
       "relation": "imports",
@@ -5852,9 +6112,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "matchingservice",
-      "confidence_score": 1.0
+      "target": "matchingservice"
     },
     {
       "relation": "imports",
@@ -5863,9 +6123,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "mono",
-      "confidence_score": 1.0
+      "target": "mono"
     },
     {
       "relation": "imports",
@@ -5885,9 +6145,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "osrmclient",
-      "confidence_score": 1.0
+      "target": "osrmclient"
     },
     {
       "relation": "imports",
@@ -5907,9 +6167,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "pricingclient",
-      "confidence_score": 1.0
+      "target": "pricingclient"
     },
     {
       "relation": "contains",
@@ -5939,9 +6199,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "imports",
@@ -5961,9 +6221,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest",
-      "target": "tripclient",
-      "confidence_score": 1.0
+      "target": "tripclient"
     },
     {
       "relation": "references",
@@ -5994,9 +6254,9 @@
       "source_location": "L52",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "driverassignmentservice",
-      "confidence_score": 1.0
+      "target": "driverassignmentservice"
     },
     {
       "relation": "references",
@@ -6005,9 +6265,9 @@
       "source_location": "L41",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "extendwith",
-      "confidence_score": 1.0
+      "target": "extendwith"
     },
     {
       "relation": "references",
@@ -6027,9 +6287,9 @@
       "source_location": "L44",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "matchingservice",
-      "confidence_score": 1.0
+      "target": "matchingservice"
     },
     {
       "relation": "references",
@@ -6049,9 +6309,9 @@
       "source_location": "L46",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "osrmclient",
-      "confidence_score": 1.0
+      "target": "osrmclient"
     },
     {
       "relation": "references",
@@ -6071,9 +6331,9 @@
       "source_location": "L48",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "pricingclient",
-      "confidence_score": 1.0
+      "target": "pricingclient"
     },
     {
       "relation": "references",
@@ -6123,9 +6383,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L182",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "ride_rideservicetest_rideservicetest_rejectswithserviceunavailablewhenadmissiongateisfull",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_rejectswithserviceunavailablewhenadmissiongateisfull"
     },
     {
       "relation": "method",
@@ -6133,9 +6393,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "method",
@@ -6214,9 +6474,9 @@
       "source_location": "L58",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "riderequest",
-      "confidence_score": 1.0
+      "target": "riderequest"
     },
     {
       "relation": "references",
@@ -6225,9 +6485,9 @@
       "source_location": "L55",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "rideservice",
-      "confidence_score": 1.0
+      "target": "rideservice"
     },
     {
       "relation": "references",
@@ -6258,9 +6518,9 @@
       "source_location": "L50",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest",
-      "target": "tripclient",
-      "confidence_score": 1.0
+      "target": "tripclient"
     },
     {
       "relation": "imports",
@@ -6478,9 +6738,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_setup",
-      "target": "rideservice",
-      "confidence_score": 1.0
+      "target": "rideservice"
     },
     {
       "relation": "calls",
@@ -6500,9 +6760,9 @@
       "source_location": "L71",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_resolve",
-      "target": "riderequest",
-      "confidence_score": 1.0
+      "target": "riderequest"
     },
     {
       "relation": "references",
@@ -6511,9 +6771,9 @@
       "source_location": "L61",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_setup",
-      "target": "beforeeach",
-      "confidence_score": 1.0
+      "target": "beforeeach"
     },
     {
       "relation": "references",
@@ -6566,9 +6826,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L141",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_includesetanotewhenwinnerisstillontrip",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "references",
@@ -6577,9 +6837,9 @@
       "source_location": "L71",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_resolve",
-      "target": "rideresponse",
-      "confidence_score": 1.0
+      "target": "rideresponse"
     },
     {
       "relation": "calls",
@@ -6588,9 +6848,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L103",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnsfailednomatchandlogstotripwhennocandidates",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "calls",
@@ -6599,9 +6859,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L120",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnsmatchedwithpriceandtripidonsuccess",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "calls",
@@ -6610,9 +6870,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L91",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnssystemerrorimmediatelywhenrequestedwritefails",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "calls",
@@ -6621,9 +6881,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L157",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnssystemerrorwhenpricingunavailable",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "calls",
@@ -6632,9 +6892,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L176",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnssystemerrorwhentripunavailableaftermatch",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "calls",
@@ -6643,9 +6903,9 @@
       "source_file": "dispatch-service/src/test/java/com/atlas/dispatchservice/ride/RideServiceTest.java",
       "source_location": "L80",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_writesrequestedrowbeforerankingcandidates",
-      "target": "ride_rideservicetest_rideservicetest_resolve",
-      "confidence_score": 1.0
+      "target": "ride_rideservicetest_rideservicetest_resolve"
     },
     {
       "relation": "references",
@@ -6687,9 +6947,9 @@
       "source_location": "L75",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_writesrequestedrowbeforerankingcandidates",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "calls",
@@ -6830,9 +7090,9 @@
       "source_location": "L221",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_cancelfreesassociateddriverreturnedbytrip",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -6841,9 +7101,9 @@
       "source_location": "L132",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_includesetanotewhenwinnerisstillontrip",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -6852,9 +7112,9 @@
       "source_location": "L182",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_rejectswithserviceunavailablewhenadmissiongateisfull",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -6863,9 +7123,9 @@
       "source_location": "L98",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnsfailednomatchandlogstotripwhennocandidates",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -6874,9 +7134,9 @@
       "source_location": "L111",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnsmatchedwithpriceandtripidonsuccess",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -6885,9 +7145,9 @@
       "source_location": "L86",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnssystemerrorimmediatelywhenrequestedwritefails",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -6896,9 +7156,9 @@
       "source_location": "L147",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnssystemerrorwhenpricingunavailable",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -6907,9 +7167,9 @@
       "source_location": "L165",
       "weight": 1.0,
       "context": "attribute",
+      "confidence_score": 1.0,
       "source": "ride_rideservicetest_rideservicetest_returnssystemerrorwhentripunavailableaftermatch",
-      "target": "test",
-      "confidence_score": 1.0
+      "target": "test"
     },
     {
       "relation": "references",
@@ -10669,266 +10929,6 @@
       "confidence_score": 1.0,
       "source": "users_vpk_desktop_development_atlas_scripts_start_sh__entry",
       "target": "scripts_start_log"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme",
-      "target": "readme_atlas"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "readme_atlas",
-      "target": "k8s_06_grafana_grafanadeployment"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "readme_atlas",
-      "target": "k8s_kind_config_kindcluster"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L23",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_architecture"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L250",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_changelog"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L16",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_current_stage"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L223",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_known_limitation_local_same_port_restarts_of_pricing_trip"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L37",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_running_it_in_kubernetes_kind_recommended"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L105",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_running_it_locally_no_kubernetes"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L242",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_running_tests"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L189",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_atlas",
-      "target": "readme_trying_it"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": ".github/workflows/version_bump.yml",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "workflows_version_bump_versionbumpworkflow",
-      "target": "readme_atlas"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L95",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_in_kubernetes_kind_recommended",
-      "target": "readme_chaos_test"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L68",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_in_kubernetes_kind_recommended",
-      "target": "readme_grafana_dashboard"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L84",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_in_kubernetes_kind_recommended",
-      "target": "readme_load_test"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L49",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_in_kubernetes_kind_recommended",
-      "target": "readme_one_command"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L39",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_in_kubernetes_kind_recommended",
-      "target": "readme_prerequisites"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L77",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_in_kubernetes_kind_recommended",
-      "target": "readme_prometheus_raw_metrics_scrape_targets"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L59",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_in_kubernetes_kind_recommended",
-      "target": "readme_using_it"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L135",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_locally_no_kubernetes",
-      "target": "readme_environment"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L176",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_locally_no_kubernetes",
-      "target": "readme_logs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L115",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_locally_no_kubernetes",
-      "target": "readme_prerequisites_115"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L148",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_running_it_locally_no_kubernetes",
-      "target": "readme_three_terminals"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L215",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_trying_it",
-      "target": "readme_health_checks"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L191",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_trying_it",
-      "target": "readme_interactive_demo"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L201",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_trying_it",
-      "target": "readme_raw_curl"
     },
     {
       "relation": "imports",
@@ -18785,5 +18785,5 @@
       "source_file": "monitoring/prometheus/prometheus.yml"
     }
   ],
-  "built_at_commit": "09115f0981614bfdec5baf3445b4d4224740807b"
+  "built_at_commit": "e256a5094fb73e7dad3ea120402845cc7b5cfbe5"
 }
