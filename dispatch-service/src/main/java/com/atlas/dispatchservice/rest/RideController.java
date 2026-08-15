@@ -5,10 +5,13 @@ import com.atlas.dispatchservice.ride.RideRequest;
 import com.atlas.dispatchservice.ride.RideResponse;
 import com.atlas.dispatchservice.ride.RideService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class RideController {
@@ -20,7 +23,7 @@ public class RideController {
     }
 
     @PostMapping("/rides")
-    public RideResponse requestRide(@Valid @RequestBody RideRequest request) {
+    public CompletableFuture<ResponseEntity<RideResponse>> requestRide(@Valid @RequestBody RideRequest request) {
         return rideService.requestRide(request);
     }
 
