@@ -4,10 +4,11 @@
 ![Version](https://img.shields.io/badge/version-v1.3.0-blue)
 
 A distributed rider-driver dispatch system in Java/Spring Boot. Three gRPC
-microservices: **dispatch-service** (orchestrator, REST + quad-tree matching),
-**pricing-service** (pure calculator), and **trip-service** (system of
-record, MySQL). Deployed to Kubernetes (Kind), load-tested with k6, observed
-with Prometheus/Grafana, and chaos-tested by killing a live pod mid-load.
+microservices: **dispatch-service** (orchestrator, REST + live grid index +
+quad-tree matching), **pricing-service** (pure calculator), and
+**trip-service** (system of record, MySQL). Deployed to Kubernetes (Kind),
+load-tested with k6, observed with Prometheus/Grafana, and chaos-tested by
+killing a live pod mid-load.
 
 See `.claude/CLAUDE.md` (not tracked in git) for the full design spec. This
 file covers running the current build, either as local processes or as a
@@ -20,6 +21,21 @@ Kubernetes/Kind, k6 load test, Prometheus/Grafana, chaos test) are built and
 verified against a real local Kind cluster. See `.claude/CLAUDE.md`'s
 Phase 10 changelog entry for what was found and fixed getting there.
 
+v2 Phase 1 (live driver index) is built and verified on the `v2` branch: a
+simulated heartbeat generator keeps driver positions moving, a grid-bucket
+index narrows candidates per Dispatch replica, and both replicas stay
+consistent via a periodic MySQL poll.
+
+v2 Phase 1 close-out (also on `v2`): the OSRM call in dispatch-service is now
+non-blocking (WebClient/reactive), backed by a bounded admission-control layer
+(a semaphore gate plus a fail-fast, zero-queue executor) instead of a bigger
+thread pool. This fixed a real regression found along the way — an early async
+attempt let far more requests in than the system could actually finish,
+causing silent multi-second queueing instead of fast failure. Under sustained
+real load past the system's actual capacity, it now rejects fast (503,
+milliseconds) instead of hanging (10s+). See `.claude/context/decisions.md`
+for the full story, including the wrong turn and how it was found and fixed.
+
 ## Architecture
 
 ```
@@ -27,7 +43,8 @@ Rider (REST) ──> dispatch-service ──gRPC──> pricing-service (no DB)
                        │
                        ├──gRPC──> trip-service (own MySQL DB: atlas_trip)
                        │
-                       └── own Driver DB (MySQL: atlas_driver, quad-tree scan)
+                       └── own Driver DB (MySQL: atlas_driver,
+                           grid index + quad-tree scan, live heartbeats)
 ```
 
 In Kubernetes: dispatch-service runs 2 replicas behind a Service, pricing and
@@ -86,11 +103,18 @@ Open `http://localhost:9090/targets` to confirm all three services are `UP`.
 ```
 BASE_URL=http://localhost:8080 k6 run load-testing/rides-load-test.js
 ```
-Ramps to 500 req/sec sustained against `POST /rides`. On this local single-
-node Kind setup, sustained 500 req/sec saturates the system past the JVM's
-default connection-pool sizing — see `.claude/CLAUDE.md` Phase 10 entry for
-the honest result and why it's flagged as app-level follow-up, not an infra
-problem.
+Ramps to 500 req/sec sustained against `POST /rides`. **500 req/sec sustained
+is not achieved on this local single-node Kind setup, and isn't expected to
+be** — the real constraint is measured, not assumed: a single uncontended
+request already runs 1.4-1.9s at moderate concurrency, almost entirely real
+round-trip latency to the public OSRM demo API (`router.project-osrm.org`),
+which was never meant to be load-tested against. Thread/connection-pool
+sizing (the original v1 bottleneck) is fixed and the OSRM call itself is now
+non-blocking; under real sustained overload the system now fails fast (503,
+milliseconds) instead of hanging, which is the honest, correct behavior for a
+system fed more demand than it can serve — see
+`.claude/context/decisions.md`'s v2 Phase 1 close-out entries for the actual
+numbers, including a real regression found and fixed along the way.
 
 ### Chaos test
 
@@ -100,7 +124,9 @@ problem.
 Runs the load test as an in-cluster k6 Job, kills a dispatch-service pod
 20 seconds in, and shows requests continuing to be served by the surviving
 replica. Watch the Grafana "Dispatch Pod Count Over Time" panel live to see
-the dip and recovery.
+the dip and recovery. Reverified after the v2 Phase 1 close-out's async OSRM
+refactor: only the intentionally killed pod cycles, the survivor stays
+healthy throughout, 0 restarts on either side.
 
 ## Running it locally (no Kubernetes)
 
@@ -177,8 +203,8 @@ to print `Started ...Application in N seconds` before moving to the next.
 
 There's no separate log file — with the commands above, each service's logs
 print directly to the terminal tab it's running in. That's where to watch
-the quad-tree ranking output, gRPC call logs, and any errors, live, per
-service. `Ctrl+C` in a tab stops that service.
+the grid-narrowed quad-tree ranking output, gRPC call logs, and any errors,
+live, per service. `Ctrl+C` in a tab stops that service.
 
 If you'd rather background them and tail logs from files instead:
 ```

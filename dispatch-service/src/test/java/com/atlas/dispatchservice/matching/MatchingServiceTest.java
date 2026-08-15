@@ -16,14 +16,13 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class MatchingServiceTest {
 
     @Mock
-    private QuadTreeIndex quadTreeIndex;
+    private GridIndex gridIndex;
 
     @Mock
     private DriverRepository driverRepository;
@@ -34,12 +33,12 @@ class MatchingServiceTest {
 
     @BeforeEach
     void setUp() {
-        matchingService = new MatchingService(quadTreeIndex, driverRepository);
+        matchingService = new MatchingService(gridIndex, driverRepository);
     }
 
     @Test
     void availableDriverCloserThanBusyOneWinsWhenGenuinelyFaster() {
-        Driver available = new Driver("D-001", 37.90, -122.60, DriverStatus.AVAILABLE); // far away
+        Driver available = new Driver("D-001", 37.71, -122.50, DriverStatus.AVAILABLE); // far corner, still in bounds
         Driver busy = new Driver("D-002", 37.7750, -122.4195, DriverStatus.ON_TRIP); // right next to pickup
         busy.setEstimatedFreeAt(Instant.now().plusSeconds(60));
         busy.setDestination(37.7751, -122.4196);
@@ -55,7 +54,7 @@ class MatchingServiceTest {
 
     @Test
     void onTripDriverPastEstimatedFreeAtIsLazilyTreatedAsAvailable() {
-        Driver expiredOnTrip = new Driver("D-003", 37.50, -122.10, DriverStatus.ON_TRIP);
+        Driver expiredOnTrip = new Driver("D-003", 37.71, -122.50, DriverStatus.ON_TRIP);
         expiredOnTrip.setEstimatedFreeAt(Instant.now().minusSeconds(120));
         expiredOnTrip.setDestination(37.7749, -122.4194); // ended up right at pickup
 
@@ -82,7 +81,7 @@ class MatchingServiceTest {
         List<QuadTree.IndexedPoint> points = List.of(drivers).stream()
                 .map(d -> new QuadTree.IndexedPoint(d.getDriverId(), d.getCurrentLat(), d.getCurrentLng()))
                 .toList();
-        when(quadTreeIndex.nearest(anyDouble(), anyDouble(), anyInt())).thenReturn(points);
+        when(gridIndex.candidatesNear(anyDouble(), anyDouble())).thenReturn(points);
         for (Driver driver : drivers) {
             when(driverRepository.findById(driver.getDriverId())).thenReturn(Optional.of(driver));
         }

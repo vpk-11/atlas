@@ -36,6 +36,9 @@ public class Driver {
     @Column(name = "destination_lng")
     private Double destinationLng;
 
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
     protected Driver() {
     }
 
@@ -44,6 +47,7 @@ public class Driver {
         this.currentLat = currentLat;
         this.currentLng = currentLng;
         this.status = status;
+        this.updatedAt = Instant.now();
     }
 
     public String getDriverId() {
@@ -61,6 +65,11 @@ public class Driver {
     public void setCurrentLocation(double lat, double lng) {
         this.currentLat = lat;
         this.currentLng = lng;
+        this.updatedAt = Instant.now();
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
     public DriverStatus getStatus() {
