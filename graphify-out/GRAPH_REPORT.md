@@ -1,23 +1,23 @@
-# Graph Report - atlas  (2026-08-14)
+# Graph Report - atlas  (2026-08-15)
 
 ## Corpus Check
-- 67 files · ~16,169 words
+- 68 files · ~17,284 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 499 nodes · 1078 edges · 32 communities (22 shown, 10 thin omitted)
-- Extraction: 82% EXTRACTED · 18% INFERRED · 0% AMBIGUOUS · INFERRED: 193 edges (avg confidence: 0.8)
+- 535 nodes · 1214 edges · 35 communities (25 shown, 10 thin omitted)
+- Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 193 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `22e275ab`
+- Built from commit: `09115f09`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - [[_COMMUNITY_Driver Domain & Seeding|Driver Domain & Seeding]]
 - [[_COMMUNITY_Trip gRPC Service|Trip gRPC Service]]
-- [[_COMMUNITY_OSRM & Trip Client Wiring|OSRM & Trip Client Wiring]]
+- [[_COMMUNITY_Community 2|Community 2]]
 - [[_COMMUNITY_Pricing gRPC Service|Pricing gRPC Service]]
 - [[_COMMUNITY_Quad-Tree Matching|Quad-Tree Matching]]
 - [[_COMMUNITY_Ride REST API|Ride REST API]]
@@ -47,18 +47,21 @@
 - [[_COMMUNITY_Community 29|Community 29]]
 - [[_COMMUNITY_Community 30|Community 30]]
 - [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 32|Community 32]]
+- [[_COMMUNITY_Community 33|Community 33]]
+- [[_COMMUNITY_Community 34|Community 34]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Trip` - 39 edges
-2. `Driver` - 28 edges
-3. `GridIndex` - 20 edges
-4. `RideService` - 19 edges
-5. `RideServiceTest` - 19 edges
+2. `RideService` - 31 edges
+3. `RideServiceTest` - 29 edges
+4. `Driver` - 28 edges
+5. `GridIndex` - 20 edges
 6. `Coordinate` - 18 edges
-7. `MatchingService` - 17 edges
-8. `TripRecordService` - 15 edges
-9. `MatchingServiceTest` - 14 edges
-10. `DistanceResult` - 14 edges
+7. `OsrmClient` - 17 edges
+8. `MatchingService` - 17 edges
+9. `TripRecordService` - 15 edges
+10. `MatchingServiceTest` - 14 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `dispatch-service HELP.md (Spring Boot Getting Started)` --semantically_similar_to--> `pricing-service HELP.md (Spring Boot Getting Started)`  [INFERRED] [semantically similar]
@@ -80,19 +83,19 @@
 - **Dispatch and Trip Share One In-Cluster MySQL Instance (two schemas)** — k8s_01_mysql_mysqldeployment, k8s_02_dispatch_dispatchdeployment, k8s_04_trip_tripdeployment [EXTRACTED 1.00]
 - **Prometheus + Grafana Observability Stack for Atlas** — k8s_05_prometheus_prometheusdeployment, k8s_06_grafana_grafanadeployment, prometheus_prometheusyml_scrapeconfig, datasources_prometheusyml_datasource [EXTRACTED 1.00]
 
-## Communities (32 total, 10 thin omitted)
+## Communities (35 total, 10 thin omitted)
 
 ### Community 0 - "Driver Domain & Seeding"
-Cohesion: 0.07
-Nodes (30): CandidateScore, SpringBootApplication, String, Entity, Instant, String, Table, Scheduled (+22 more)
+Cohesion: 0.11
+Nodes (18): Entity, Instant, String, Table, Scheduled, Coordinate, Instant, List (+10 more)
 
 ### Community 1 - "Trip gRPC Service"
-Cohesion: 0.13
-Nodes (9): QuoteRequest, PostPersist, DistanceSource, Entity, Instant, Long, String, Table (+1 more)
+Cohesion: 0.19
+Nodes (11): CancelResponse, CompletableFuture, ResponseEntity, RideRequest, RideResponse, String, PostMapping, RideController (+3 more)
 
-### Community 2 - "OSRM & Trip Client Wiring"
-Cohesion: 0.06
-Nodes (41): Service, String, Transactional, Component, Logger, String, Component, Logger (+33 more)
+### Community 2 - "Community 2"
+Cohesion: 0.10
+Nodes (23): BoundingBox, CommandLineRunner, Component, BoundingBox, Component, DriverRepository, Logger, Component (+15 more)
 
 ### Community 3 - "Pricing gRPC Service"
 Cohesion: 0.12
@@ -107,15 +110,15 @@ Cohesion: 0.25
 Nodes (5): Throwable, PricingUnavailableException, RuntimeException, String, TripNotFoundException
 
 ### Community 6 - "Trip Persistence Layer"
-Cohesion: 0.33
-Nodes (8): Component, DriverRepository, GridIndex, Logger, Scheduled, GridIndex, GridIndexRefresher, Scheduled
+Cohesion: 0.16
+Nodes (13): CancelTripRequest, TripGrpcService, RecordTripRequest, DistanceSource, CancelTripResponse, DistanceSource, GrpcService, Override (+5 more)
 
 ### Community 7 - "Kubernetes & Observability Manifests"
 Cohesion: 0.05
 Nodes (41): Grafana Dashboard File Provider Config, Grafana Prometheus Datasource Config, Atlas Kubernetes Namespace, MySQL emptyDir Drop-and-Reseed Rationale, MySQL In-Cluster Deployment (atlas_driver + atlas_trip), dispatch-service Kubernetes Deployment (2 replicas), dispatch-service PodDisruptionBudget (minAvailable 1), pricing-service Kubernetes Deployment (1 replica) (+33 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.13
+Cohesion: 0.12
 Nodes (22): BeforeEach, BoundingBox, Component, Logger, BeforeEach, Coordinate, DriverRepository, ExtendWith (+14 more)
 
 ### Community 9 - "Community 9"
@@ -127,12 +130,12 @@ Cohesion: 0.43
 Nodes (6): ExceptionHandler, MethodArgumentNotValidException, ResponseStatus, RideExceptionHandler, ValidationErrorResponse, RestControllerAdvice
 
 ### Community 11 - "Dispatch App Entrypoint"
-Cohesion: 0.16
-Nodes (13): CancelTripRequest, TripGrpcService, RecordTripRequest, DistanceSource, CancelTripResponse, DistanceSource, GrpcService, Override (+5 more)
+Cohesion: 0.17
+Nodes (5): DistanceSource, Long, String, Trip, TripStatus
 
 ### Community 13 - "Community 13"
-Cohesion: 0.10
-Nodes (23): BoundingBox, CommandLineRunner, Component, BoundingBox, Component, DriverRepository, Logger, Component (+15 more)
+Cohesion: 0.23
+Nodes (8): JpaRepository, DistanceSource, Service, String, Transactional, Long, TripRecordService, TripRepository
 
 ### Community 14 - "Pricing App Test"
 Cohesion: 0.60
@@ -160,15 +163,27 @@ Nodes (4): Getting Started, Guides, Maven Parent overrides, Reference Documentat
 
 ### Community 29 - "Community 29"
 Cohesion: 0.29
-Nodes (6): DistanceSource, Service, String, Transactional, TripRecordService, TripStatus
-
-### Community 30 - "Community 30"
-Cohesion: 0.29
 Nodes (8): TripGrpcServiceTest, BeforeEach, CancelTripResponse, ExtendWith, RecordTripResponse, StreamObserver, Test, UpdateTripStatusResponse
 
+### Community 30 - "Community 30"
+Cohesion: 0.33
+Nodes (8): Component, DriverRepository, GridIndex, Logger, Scheduled, GridIndex, GridIndexRefresher, Scheduled
+
 ### Community 31 - "Community 31"
-Cohesion: 0.40
-Nodes (3): JpaRepository, Long, TripRepository
+Cohesion: 0.09
+Nodes (23): Service, String, Transactional, String, CancelResponse, CompletableFuture, ResponseEntity, RideResponse (+15 more)
+
+### Community 32 - "Community 32"
+Cohesion: 0.08
+Nodes (44): Bean, CandidateScore, AsyncConfig, Configuration, Coordinate, String, DriverRepository, GridIndex (+36 more)
+
+### Community 33 - "Community 33"
+Cohesion: 0.29
+Nodes (4): PostPersist, Entity, Instant, Table
+
+### Community 34 - "Community 34"
+Cohesion: 0.43
+Nodes (5): SpringBootApplication, String, DispatchServiceApplication, EnableScheduling, SpringBootApplication
 
 ## Knowledge Gaps
 - **42 isolated node(s):** `Current stage`, `Architecture`, `Prerequisites`, `One command`, `Using it` (+37 more)
@@ -178,17 +193,17 @@ Nodes (3): JpaRepository, Long, TripRepository
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Coordinate` connect `OSRM & Trip Client Wiring` to `Driver Domain & Seeding`, `Community 8`, `Trip gRPC Service`?**
-  _High betweenness centrality (0.121) - this node is a cross-community bridge._
-- **Why does `Trip` connect `Trip gRPC Service` to `Pricing gRPC Service`, `Community 9`, `Dispatch App Entrypoint`, `Community 29`, `Community 30`, `Community 31`?**
-  _High betweenness centrality (0.098) - this node is a cross-community bridge._
-- **Why does `DriverRepository` connect `Driver Domain & Seeding` to `Community 8`, `OSRM & Trip Client Wiring`, `Community 13`, `Community 31`?**
-  _High betweenness centrality (0.074) - this node is a cross-community bridge._
-- **Are the 3 inferred relationships involving `GridIndex` (e.g. with `.densAreaStaysLocalAndExcludesFarDrivers()` and `.rebuildReplacesPreviousState()`) actually correct?**
-  _`GridIndex` has 3 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `Coordinate` connect `Community 31` to `Driver Domain & Seeding`, `Community 8`, `Community 32`, `Dispatch App Entrypoint`?**
+  _High betweenness centrality (0.089) - this node is a cross-community bridge._
+- **Why does `Trip` connect `Dispatch App Entrypoint` to `Community 33`, `Pricing gRPC Service`, `Trip Persistence Layer`, `Community 9`, `Community 13`, `Community 29`?**
+  _High betweenness centrality (0.087) - this node is a cross-community bridge._
+- **Why does `DriverRepository` connect `Community 32` to `Driver Domain & Seeding`, `Community 8`, `Community 2`, `Community 13`?**
+  _High betweenness centrality (0.062) - this node is a cross-community bridge._
 - **What connects `Current stage`, `Architecture`, `Prerequisites` to the rest of the system?**
   _44 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Driver Domain & Seeding` be split into smaller, more focused modules?**
-  _Cohesion score 0.07402031930333818 - nodes in this community are weakly interconnected._
-- **Should `Trip gRPC Service` be split into smaller, more focused modules?**
-  _Cohesion score 0.12698412698412698 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10526315789473684 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.09659090909090909 - nodes in this community are weakly interconnected._
+- **Should `Pricing gRPC Service` be split into smaller, more focused modules?**
+  _Cohesion score 0.11724137931034483 - nodes in this community are weakly interconnected._
