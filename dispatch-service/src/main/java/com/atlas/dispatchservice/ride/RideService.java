@@ -107,6 +107,11 @@ public class RideService {
         if (!admissionGate.tryAcquire()) {
             log.warn("Admission gate at capacity ({} permits), rejecting ride for rider {}",
                     ADMISSION_PERMITS, request.riderId());
+            // Fire-and-forget: the REQUESTED row already written above still needs
+            // finalizing, but this must stay fast (the whole point of fail-fast), so
+            // don't block the response on it, and don't use postOsrmExecutor - that's
+            // the pool most likely to also be saturated right when this path fires.
+            CompletableFuture.runAsync(() -> logSystemError(request.riderId(), tripId));
             return CompletableFuture.completedFuture(
                     ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                             .body(RideResponse.systemError("System at capacity, please retry")));
@@ -130,6 +135,9 @@ public class RideService {
                     // expected capacity signal, not a bug. Same 503 semantics as the
                     // admission gate above, just caught one layer deeper.
                     Throwable cause = throwable instanceof CompletionException ? throwable.getCause() : throwable;
+                    // Same reasoning as the admission-gate rejection above: finalize the
+                    // REQUESTED row without blocking this already-failing response on it.
+                    CompletableFuture.runAsync(() -> logSystemError(request.riderId(), tripId));
                     if (cause instanceof TaskRejectedException) {
                         log.warn("Post-OSRM executor at capacity, rejecting ride for rider {}: {}",
                                 request.riderId(), cause.toString());
