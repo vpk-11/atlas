@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GridIndexTest {
 
     @Test
-    void densAreaStaysLocalAndExcludesFarDrivers() {
+    void denseAreaStaysLocalAndExcludesFarDrivers() {
         GridIndex gridIndex = new GridIndex();
         List<Driver> drivers = new ArrayList<>();
         // 25 drivers clustered near the query point: enough to satisfy
