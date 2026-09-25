@@ -4,19 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
     groups:
       actions:
         patterns:
           - "*"
-  - package-ecosystem: "maven"
-    directory: "/dispatch-service"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "maven"
-    directory: "/pricing-service"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "maven"
-    directory: "/trip-service"
-    schedule:
-      interval: "weekly"
