@@ -55,7 +55,10 @@ done
 kubectl apply -f "$ROOT_DIR/k8s/00-namespace.yaml"
 
 log "Applying MySQL credentials secret..."
-MYSQL_ROOT_PASSWORD="${ATLAS_MYSQL_ROOT_PASSWORD:-$(openssl rand -hex 16)}"
+# MySQL data is persistent: the root password is fixed at first init, so reuse the
+# existing Secret's value on reruns instead of generating a new one.
+EXISTING_PASSWORD="$(kubectl -n "$NAMESPACE" get secret mysql-credentials -o jsonpath='{.data.root-password}' 2>/dev/null | base64 -d || true)"
+MYSQL_ROOT_PASSWORD="${ATLAS_MYSQL_ROOT_PASSWORD:-${EXISTING_PASSWORD:-$(openssl rand -hex 16)}}"
 kubectl -n "$NAMESPACE" create secret generic mysql-credentials \
   --from-literal=root-password="$MYSQL_ROOT_PASSWORD" \
   --dry-run=client -o yaml | kubectl apply -f -

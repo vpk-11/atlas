@@ -48,7 +48,7 @@ Rider (REST) ──> dispatch-service ──gRPC──> pricing-service (no DB)
 ```
 
 In Kubernetes: dispatch-service runs 2 replicas behind a Service, pricing and
-trip run 1 each, MySQL runs in-cluster (one instance, two schemas), and
+trip run 1 each, MySQL runs in-cluster (one instance, two schemas, on a persistent volume), and
 Prometheus/Grafana scrape all three services' Actuator endpoints.
 
 ## Running it in Kubernetes (Kind) — recommended
@@ -116,6 +116,16 @@ system fed more demand than it can serve — see
 `.claude/context/decisions.md`'s v2 Phase 1 close-out entries for the actual
 numbers, including a real regression found and fixed along the way.
 
+### Load test against a local OSRM stub
+
+```
+./load-testing/stub-load-test.sh 60s 150 200 250
+```
+Points dispatch-service at a local OSRM stand-in (`k8s/08-osrm-stub.yaml`, fixed
+route, 50ms latency) and runs one fixed-rate k6 Job per rate, printing failure
+percentage and p99 for each. This measures Atlas itself instead of the public OSRM
+demo API. The override is removed on exit, so public OSRM stays the default.
+
 ### Chaos test
 
 ```
@@ -127,6 +137,12 @@ replica. Watch the Grafana "Dispatch Pod Count Over Time" panel live to see
 the dip and recovery. Reverified after the v2 Phase 1 close-out's async OSRM
 refactor: only the intentionally killed pod cycles, the survivor stays
 healthy throughout, 0 restarts on either side.
+
+Trips left in `REQUESTED` by a crash are resolved by a scheduled sweep in
+trip-service: rows older than 60 seconds are marked `SYSTEM_ERROR` (checked every
+30 seconds). They are failed, not re-matched, because the original client has
+already given up. A client retrying with the same `Idempotency-Key` still gets
+the ride matched.
 
 ## Running it locally (no Kubernetes)
 

@@ -1,9 +1,7 @@
 # MySQL runs in-cluster (single instance, two schemas: atlas_driver, atlas_trip).
-# Storage is emptyDir, not a PVC: this project's own convention is drop-and-reseed
-# for schema changes (see root CLAUDE.md), dispatch-service reseeds the Driver
-# table in-app on every startup, and trip records are disposable load-test/demo
-# data. Tradeoff: MySQL pod restart loses all data. Acceptable here; would not
-# be for a real system of record.
+# Storage is a PVC on the default StorageClass (local-path on Kind), so data survives
+# a MySQL pod restart; it is lost only when the cluster is deleted. Dispatch still
+# reseeds the Driver table in-app on every startup.
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,6 +11,17 @@ data:
   init.sql: |
     CREATE DATABASE IF NOT EXISTS atlas_driver;
     CREATE DATABASE IF NOT EXISTS atlas_trip;
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data
+  namespace: atlas
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -71,7 +80,8 @@ spec:
           configMap:
             name: mysql-init
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: mysql-data
 ---
 apiVersion: v1
 kind: Service
