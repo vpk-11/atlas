@@ -41,9 +41,14 @@ v2 Phases 2-4 (on `main`):
   dispatch pod kill resolves to the same trip. A chaos run with the key reused on
   retry produced 75,074 keyed trips and zero duplicate keys.
 - A local OSRM stub and `load-testing/stub-load-test.sh` measure Atlas without the
-  public OSRM demo API. On the current build 150 req/s runs clean (0.00% failed,
-  p99 81ms); 200 req/s is intermittent and 250 req/s and above fail, with
-  trip-service/MySQL as the next ceiling. The 500 req/s target is still not met.
+  public OSRM demo API.
+- v2 Phase 5 (throughput to spec): the ride path now meets 500 req/s sustained against
+  the stub (0.05-0.31% failed, p99 116-187 ms over 3 minutes, warm) after removing
+  wasted database work and throttles: one `IN` query instead of 20 `SELECT`s per
+  ride's candidate lookup, insert-first and single-statement updates in trip-service,
+  a 40-connection trip pool, MySQL without the unused binary log, and removing a CPU
+  and listen-backlog bottleneck in the stub itself. Ceiling is between 500 and 600
+  req/s here.
 - Trips left in `REQUESTED` by a crash are failed to `SYSTEM_ERROR` by a scheduled
   sweep (after 60s), and MySQL now runs on a persistent volume. A forced pod kill
   mid-burst left 81 stuck rows and the sweep resolved all 81.
@@ -115,18 +120,11 @@ Open `http://localhost:9090/targets` to confirm all three services are `UP`.
 ```
 BASE_URL=http://localhost:8080 k6 run load-testing/rides-load-test.js
 ```
-Ramps to 500 req/sec sustained against `POST /rides`. **500 req/sec sustained
-is not achieved on this local single-node Kind setup, and isn't expected to
-be** — the real constraint is measured, not assumed: a single uncontended
-request already runs 1.4-1.9s at moderate concurrency, almost entirely real
-round-trip latency to the public OSRM demo API (`router.project-osrm.org`),
-which was never meant to be load-tested against. Thread/connection-pool
-sizing (the original v1 bottleneck) is fixed and the OSRM call itself is now
-non-blocking; under real sustained overload the system now fails fast (503,
-milliseconds) instead of hanging, which is the honest, correct behavior for a
-system fed more demand than it can serve — see
-`.claude/context/decisions.md`'s v2 Phase 1 close-out entries for the actual
-numbers, including a real regression found and fixed along the way.
+Ramps to 500 req/sec sustained against `POST /rides` with the public OSRM demo API
+(`router.project-osrm.org`) as the routing source. That API runs 1.4-1.9s per call under
+concurrency and was never meant to be load-tested, so this default profile measures the
+demo server as much as Atlas, and it is not the profile to quote for throughput. Use the
+stub profile below for Atlas's own numbers.
 
 ### Load test against a local OSRM stub
 
@@ -134,21 +132,41 @@ numbers, including a real regression found and fixed along the way.
 ./load-testing/stub-load-test.sh 60s 150 200 250
 ```
 Points dispatch-service at a local OSRM stand-in (`k8s/08-osrm-stub.yaml`, fixed
-route, 50ms latency) and runs one fixed-rate k6 Job per rate, printing failure
-percentage and p99 for each. This measures Atlas itself instead of the public OSRM
-demo API. The override is removed on exit, so public OSRM stays the default.
+route, 50ms latency by default) and runs one fixed-rate k6 Job per rate, printing
+failure percentage and p99 for each (after a discarded warm-up pass). This measures
+Atlas itself instead of the public OSRM demo API. The override is removed on exit, so
+public OSRM stays the default.
+
+Measured on the local single-node Kind cluster (2 dispatch replicas, 1 pricing, 1 trip):
+
+| Scenario | Rate | Failed | p99 |
+|---|---|---|---|
+| Stub, 50ms, warm, 3 min | 500 req/s | 0.05%, 0.21%, 0.31% (3 runs) | 116-187 ms |
+| Stub, first run after a fresh rollout (cold JVMs) | 500 req/s | 3.27% | 1.87 s |
+| Stub, 800ms (every call times out at 500ms and falls back), 60s | 500 req/s | 0.84% | 262 ms |
+| Stub, 60s | 600 req/s | 65.07% | 4.07 s |
+| Stub, 60s | 800 req/s | 85.76% | 2.02 s |
+
+So 500 req/s sustained is met against the stub, and the ceiling sits between 500 and
+600 req/s on this hardware. It is **not** measured against the public OSRM demo server at
+that rate, on purpose (fair-use limits, and its latency is not Atlas's). Against the real
+public default at a polite 10 req/s the run showed 1.97% failed, p99 615 ms.
 
 ### Chaos test
 
 ```
-./load-testing/chaos-test.sh
+./load-testing/chaos-test.sh                 # public OSRM (default)
+USE_OSRM_STUB=1 ./load-testing/chaos-test.sh # local OSRM stub, the clean measurement
 ```
 Runs the load test as an in-cluster k6 Job, kills a dispatch-service pod
 20 seconds in, and shows requests continuing to be served by the surviving
 replica. Watch the Grafana "Dispatch Pod Count Over Time" panel live to see
 the dip and recovery. Reverified after the v2 Phase 1 close-out's async OSRM
 refactor: only the intentionally killed pod cycles, the survivor stays
-healthy throughout, 0 restarts on either side.
+healthy throughout, 0 restarts on either side. On the stub path (ramp to 500 req/s,
+dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,277
+requests, 0.03% failed, p99 106 ms, zero duplicate trip keys, and no REQUESTED trip
+left older than 60 seconds.
 
 Trips left in `REQUESTED` by a crash are resolved by a scheduled sweep in
 trip-service: rows older than 60 seconds are marked `SYSTEM_ERROR` (checked every
