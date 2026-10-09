@@ -36,6 +36,18 @@ real load past the system's actual capacity, it now rejects fast (503,
 milliseconds) instead of hanging (10s+). See `.claude/context/decisions.md`
 for the full story, including the wrong turn and how it was found and fixed.
 
+v2 Phases 2-4 (on `main`):
+- `POST /rides` takes an optional `Idempotency-Key` header, so a retry after a
+  dispatch pod kill resolves to the same trip. A chaos run with the key reused on
+  retry produced 75,074 keyed trips and zero duplicate keys.
+- A local OSRM stub and `load-testing/stub-load-test.sh` measure Atlas without the
+  public OSRM demo API. On the current build 150 req/s runs clean (0.00% failed,
+  p99 81ms); 200 req/s is intermittent and 250 req/s and above fail, with
+  trip-service/MySQL as the next ceiling. The 500 req/s target is still not met.
+- Trips left in `REQUESTED` by a crash are failed to `SYSTEM_ERROR` by a scheduled
+  sweep (after 60s), and MySQL now runs on a persistent volume. A forced pod kill
+  mid-burst left 81 stuck rows and the sweep resolved all 81.
+
 ## Architecture
 
 ```
