@@ -234,6 +234,19 @@ curl -X POST http://localhost:8080/rides \
 curl -X POST http://localhost:8080/trips/T-00000001/cancel
 ```
 
+`POST /rides` accepts an optional `Idempotency-Key` header. Retrying with the
+same key returns the same trip instead of creating a second one, including
+after a dispatch pod is killed mid-request:
+
+```
+curl -X POST http://localhost:8080/rides \
+  -H "Content-Type: application/json" -H "Idempotency-Key: my-key-1" \
+  -d '{"riderId":"R-001","pickup":{"lat":37.7749,"lng":-122.4194},"drop":{"lat":37.7849,"lng":-122.4094}}'
+```
+
+A replay of a matched ride returns the stored result without the ETA fields. A
+key reused with a different body returns the first request's result.
+
 San Francisco bounding box (`37.70-37.83` lat, `-122.51`--`-122.36` lng) is
 where all seeded drivers live, so pick coordinates in that range to see a
 close match.
