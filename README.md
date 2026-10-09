@@ -21,12 +21,12 @@ Kubernetes/Kind, k6 load test, Prometheus/Grafana, chaos test) are built and
 verified against a real local Kind cluster. See `.claude/CLAUDE.md`'s
 Phase 10 changelog entry for what was found and fixed getting there.
 
-v2 Phase 1 (live driver index) is built and verified on the `v2` branch: a
+v2 Phase 1 (live driver index) is built and verified: a
 simulated heartbeat generator keeps driver positions moving, a grid-bucket
 index narrows candidates per Dispatch replica, and both replicas stay
 consistent via a periodic MySQL poll.
 
-v2 Phase 1 close-out (also on `v2`): the OSRM call in dispatch-service is now
+v2 Phase 1 close-out: the OSRM call in dispatch-service is now
 non-blocking (WebClient/reactive), backed by a bounded admission-control layer
 (a semaphore gate plus a fail-fast, zero-queue executor) instead of a bigger
 thread pool. This fixed a real regression found along the way — an early async
@@ -78,7 +78,11 @@ colima start --cpu 6 --memory 12 --disk 60
 ```
 
 Java 26 and Maven are also required for the build step (see "Running it
-locally" below for details on those).
+locally" below for details on those). On Apple Silicon the Maven build also needs
+Rosetta (`softwareupdate --install-rosetta`), because the grpc-java protoc plugin
+from Maven Central is an x86_64 binary. The Kind setup runs 2 dispatch replicas, trip,
+pricing, MySQL, Prometheus and Grafana, and the 500 req/s load runs need the 6 CPUs
+configured above.
 
 ### One command
 
