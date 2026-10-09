@@ -4,8 +4,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 public class TripRecordService {
 
@@ -25,12 +23,8 @@ public class TripRecordService {
                                     double durationMinutes, DistanceSource distanceSource, TripStatus status,
                                     String idempotencyKey) {
         String key = blankToNull(idempotencyKey);
-        if (key != null) {
-            Optional<Trip> existing = tripRepository.findByIdempotencyKey(key);
-            if (existing.isPresent()) {
-                return new RecordResult(existing.get(), true);
-            }
-        }
+        // Insert first: the common path has no replay, so skip a lookup per request. The
+        // unique constraint decides who wins a duplicate key.
         Trip trip = new Trip(riderId, blankToNull(driverId), pickupLat, pickupLng, dropLat, dropLng,
                 price, distanceKm, durationMinutes, distanceSource, status);
         trip.setIdempotencyKey(key);
@@ -47,17 +41,14 @@ public class TripRecordService {
     }
 
     @Transactional
-    public Trip updateTripStatus(String tripId, String driverId, double price, double distanceKm,
-                                  double durationMinutes, DistanceSource distanceSource, TripStatus status) {
-        Trip trip = tripRepository.findByTripId(tripId)
-                .orElseThrow(() -> new TripNotFoundException(tripId));
-        trip.setDriverId(blankToNull(driverId));
-        trip.setPrice(price);
-        trip.setDistanceKm(distanceKm);
-        trip.setDurationMinutes(durationMinutes);
-        trip.setDistanceSource(distanceSource);
-        trip.setStatus(status);
-        return trip;
+    public String updateTripStatus(String tripId, String driverId, double price, double distanceKm,
+                                    double durationMinutes, DistanceSource distanceSource, TripStatus status) {
+        int updated = tripRepository.updateOutcome(tripId, blankToNull(driverId), price, distanceKm,
+                durationMinutes, distanceSource, status);
+        if (updated == 0) {
+            throw new TripNotFoundException(tripId);
+        }
+        return tripId;
     }
 
     @Transactional

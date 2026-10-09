@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.when;
 
@@ -82,8 +83,6 @@ class MatchingServiceTest {
                 .map(d -> new QuadTree.IndexedPoint(d.getDriverId(), d.getCurrentLat(), d.getCurrentLng()))
                 .toList();
         when(gridIndex.candidatesNear(anyDouble(), anyDouble())).thenReturn(points);
-        for (Driver driver : drivers) {
-            when(driverRepository.findById(driver.getDriverId())).thenReturn(Optional.of(driver));
-        }
+        when(driverRepository.findAllById(any())).thenReturn(List.of(drivers));
     }
 }

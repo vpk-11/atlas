@@ -45,17 +45,16 @@ public class MatchingService {
         Instant now = Instant.now();
 
         List<CandidateScore> scored = new ArrayList<>();
-        for (QuadTree.IndexedPoint point : nearest) {
-            driverRepository.findById(point.id()).ifPresent(driver -> {
-                if (driver.getStatus() == DriverStatus.OFFLINE) {
-                    return;
-                }
-                scored.add(score(driver, pickup, now));
-            });
+        // One IN query for all candidates, not one SELECT per candidate.
+        for (Driver driver : driverRepository.findAllById(nearest.stream().map(QuadTree.IndexedPoint::id).toList())) {
+            if (driver.getStatus() == DriverStatus.OFFLINE) {
+                continue;
+            }
+            scored.add(score(driver, pickup, now));
         }
 
         scored.sort(Comparator.comparingDouble(CandidateScore::totalTimeToPickupMinutes));
-        log.info("Ranked {} candidates for pickup ({}, {}): {}", scored.size(), pickup.lat(), pickup.lng(), scored);
+        log.debug("Ranked {} candidates for pickup ({}, {}): {}", scored.size(), pickup.lat(), pickup.lng(), scored);
         return scored;
     }
 
