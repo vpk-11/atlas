@@ -10,11 +10,11 @@ const BASE_URL = __ENV.BASE_URL || "http://localhost:8080";
 const RATE = __ENV.RATE ? Number(__ENV.RATE) : null;
 
 export function handleSummary(data) {
-  if (RATE === null) return {};
   const m = data.metrics;
   const dropped = m.dropped_iterations ? m.dropped_iterations.values.count : 0;
+  const mode = RATE === null ? "ramp" : `rate=${RATE}`;
   return {
-    stdout: `RESULT rate=${RATE} requests=${m.http_reqs.values.count} ` +
+    stdout: `RESULT ${mode} requests=${m.http_reqs.values.count} ` +
       `failed_pct=${(m.http_req_failed.values.rate * 100).toFixed(2)} ` +
       `p99_ms=${m.http_req_duration.values["p(99)"].toFixed(0)} dropped=${dropped}\n`,
   };
@@ -54,6 +54,8 @@ const rampOptions = {
     http_req_duration: ["p(99)<2000"],
   },
 };
+
+rampOptions.summaryTrendStats = ["avg", "p(50)", "p(90)", "p(95)", "p(99)", "max"];
 
 export const options = RATE === null ? rampOptions : rateOptions;
 

@@ -15,6 +15,7 @@ RATES=("$@")
 trap 'kubectl -n "$NAMESPACE" set env deploy/dispatch-service OSRM_BASE_URL- >/dev/null; kubectl -n "$NAMESPACE" rollout status deploy/dispatch-service --timeout=180s' EXIT
 
 kubectl apply -f "$ROOT_DIR/k8s/08-osrm-stub.yaml"
+kubectl -n "$NAMESPACE" rollout restart deploy/osrm-stub
 kubectl -n "$NAMESPACE" rollout status deploy/osrm-stub --timeout=120s
 kubectl -n "$NAMESPACE" set env deploy/dispatch-service OSRM_BASE_URL=http://osrm-stub:5000
 kubectl -n "$NAMESPACE" rollout status deploy/dispatch-service --timeout=180s
