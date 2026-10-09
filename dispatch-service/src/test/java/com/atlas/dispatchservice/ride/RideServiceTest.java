@@ -70,23 +70,23 @@ class RideServiceTest {
     }
 
     private RideResponse resolve(RideRequest req) throws ExecutionException, InterruptedException, TimeoutException {
-        return rideService.requestRide(req).get(2, TimeUnit.SECONDS).getBody();
+        return rideService.requestRide(req, null).get(2, TimeUnit.SECONDS).getBody();
     }
 
     @Test
     void writesRequestedRowBeforeRankingCandidates() throws Exception {
-        when(tripClient.recordRequested(eq("R-001"), any(), any())).thenReturn("T-00000009");
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000009"));
         when(matchingService.rankCandidates(any())).thenReturn(List.of());
 
         resolve(request);
 
-        verify(tripClient).recordRequested(eq("R-001"), any(), any());
+        verify(tripClient).recordRequested(eq("R-001"), any(), any(), any());
         verify(tripClient).finalizeFailedNoMatch("T-00000009");
     }
 
     @Test
     void returnsSystemErrorImmediatelyWhenRequestedWriteFails() throws Exception {
-        when(tripClient.recordRequested(eq("R-001"), any(), any()))
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any()))
                 .thenThrow(new TripClient.TripUnavailableException(new RuntimeException("down")));
 
         RideResponse response = resolve(request);
@@ -97,8 +97,37 @@ class RideServiceTest {
     }
 
     @Test
+    void replayedMatchedKeyReturnsStoredResultWithoutMatching() throws Exception {
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-1"))).thenReturn(
+                new TripClient.RecordedTrip("T-00000005", true,
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED, "D-007", 14.5));
+
+        RideResponse response = rideService.requestRide(request, "K-1").get(2, TimeUnit.SECONDS).getBody();
+
+        assertThat(response.status()).isEqualTo("MATCHED");
+        assertThat(response.tripId()).isEqualTo("T-00000005");
+        assertThat(response.driverId()).isEqualTo("D-007");
+        assertThat(response.price()).isEqualTo(14.5);
+        verifyNoInteractions(matchingService, driverAssignmentService, pricingClient);
+        verify(tripClient, never()).finalizeMatchedTrip(any(), any(), anyDouble(), any());
+    }
+
+    @Test
+    void replayedRequestedKeyResumesMatchOnExistingTripId() throws Exception {
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-2"))).thenReturn(
+                new TripClient.RecordedTrip("T-00000006", true,
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0));
+        when(matchingService.rankCandidates(any())).thenReturn(List.of());
+
+        RideResponse response = rideService.requestRide(request, "K-2").get(2, TimeUnit.SECONDS).getBody();
+
+        assertThat(response.status()).isEqualTo("FAILED_NO_MATCH");
+        verify(tripClient).finalizeFailedNoMatch("T-00000006");
+    }
+
+    @Test
     void returnsFailedNoMatchAndLogsToTripWhenNoCandidates() throws Exception {
-        when(tripClient.recordRequested(eq("R-001"), any(), any())).thenReturn("T-00000001");
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000001"));
         when(matchingService.rankCandidates(any())).thenReturn(List.of());
 
         RideResponse response = resolve(request);
@@ -111,7 +140,7 @@ class RideServiceTest {
 
     @Test
     void returnsMatchedWithPriceAndTripIdOnSuccess() throws Exception {
-        when(tripClient.recordRequested(eq("R-001"), any(), any())).thenReturn("T-00000001");
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000001"));
         CandidateScore winner = new CandidateScore("D-001", DriverStatus.AVAILABLE, 4.0, null);
         when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
         DistanceResult distance = new DistanceResult(5.0, 12.0, DistanceSource.OSRM);
@@ -132,7 +161,7 @@ class RideServiceTest {
 
     @Test
     void includesEtaNoteWhenWinnerIsStillOnTrip() throws Exception {
-        when(tripClient.recordRequested(eq("R-001"), any(), any())).thenReturn("T-00000002");
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000002"));
         CandidateScore winner = new CandidateScore("D-002", DriverStatus.ON_TRIP, 9.0, 3.0);
         when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
         when(osrmClient.distanceAndDuration(any(), any()))
@@ -147,7 +176,7 @@ class RideServiceTest {
 
     @Test
     void returnsSystemErrorWhenPricingUnavailable() throws Exception {
-        when(tripClient.recordRequested(eq("R-001"), any(), any())).thenReturn("T-00000003");
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000003"));
         CandidateScore winner = new CandidateScore("D-001", DriverStatus.AVAILABLE, 4.0, null);
         when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
         when(osrmClient.distanceAndDuration(any(), any()))
@@ -165,7 +194,7 @@ class RideServiceTest {
 
     @Test
     void returnsSystemErrorWhenTripUnavailableAfterMatch() throws Exception {
-        when(tripClient.recordRequested(eq("R-001"), any(), any())).thenReturn("T-00000004");
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000004"));
         CandidateScore winner = new CandidateScore("D-001", DriverStatus.AVAILABLE, 4.0, null);
         when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
         when(osrmClient.distanceAndDuration(any(), any()))
@@ -182,7 +211,7 @@ class RideServiceTest {
 
     @Test
     void rejectsWithServiceUnavailableWhenAdmissionGateIsFull() throws Exception {
-        when(tripClient.recordRequested(anyString(), any(), any())).thenReturn("T-GATE");
+        when(tripClient.recordRequested(anyString(), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-GATE"));
         CandidateScore winner = new CandidateScore("D-001", DriverStatus.AVAILABLE, 4.0, null);
         when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
 
@@ -199,12 +228,12 @@ class RideServiceTest {
 
         List<CompletableFuture<ResponseEntity<RideResponse>>> inFlight = new ArrayList<>();
         for (int i = 0; i < RideService.ADMISSION_PERMITS; i++) {
-            inFlight.add(rideService.requestRide(request));
+            inFlight.add(rideService.requestRide(request, null));
         }
 
         // The gate is now fully held; this one must fail fast, not queue.
         long start = System.nanoTime();
-        ResponseEntity<RideResponse> rejected = rideService.requestRide(request).get(2, TimeUnit.SECONDS);
+        ResponseEntity<RideResponse> rejected = rideService.requestRide(request, null).get(2, TimeUnit.SECONDS);
         long elapsedMs = (System.nanoTime() - start) / 1_000_000;
 
         assertThat(rejected.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);

@@ -22,7 +22,7 @@ public class TripClient {
      * Phase 4.1 decisions). Returns the trip_id that all later calls for this ride must
      * update, not replace.
      */
-    public String recordRequested(String riderId, Coordinate pickup, Coordinate drop) {
+    public RecordedTrip recordRequested(String riderId, Coordinate pickup, Coordinate drop, String idempotencyKey) {
         var request = com.atlas.dispatchservice.grpc.trip.RecordTripRequest.newBuilder()
                 .setRiderId(riderId)
                 .setDriverId("")
@@ -34,10 +34,13 @@ public class TripClient {
                 .setDistanceKm(0.0)
                 .setDurationMinutes(0.0)
                 .setStatus(com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED)
+                .setIdempotencyKey(idempotencyKey == null ? "" : idempotencyKey)
                 .build();
 
         try {
-            return tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).recordTrip(request).getTripId();
+            var response = tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).recordTrip(request);
+            return new RecordedTrip(response.getTripId(), response.getReplayed(), response.getStatus(),
+                    response.getDriverId(), response.getPrice());
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }
@@ -86,6 +89,16 @@ public class TripClient {
             return tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).cancelTrip(request).getDriverId();
         } catch (Exception e) {
             throw new TripUnavailableException(e);
+        }
+    }
+
+    /** Result of the first write. For a replayed idempotency key, status/driverId/price describe the existing row. */
+    public record RecordedTrip(String tripId, boolean replayed,
+                               com.atlas.dispatchservice.grpc.trip.TripStatus status,
+                               String driverId, double price) {
+        public static RecordedTrip fresh(String tripId) {
+            return new RecordedTrip(tripId, false,
+                    com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0);
         }
     }
 

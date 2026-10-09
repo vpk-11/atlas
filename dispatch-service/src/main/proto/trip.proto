@@ -32,10 +32,18 @@ message RecordTripRequest {
   double duration_minutes = 7;
   TripStatus status = 8;
   atlas.common.DistanceSource distance_source = 9;
+  // Optional client-supplied key; a repeated key returns the existing row instead
+  // of inserting a second one.
+  string idempotency_key = 10;
 }
 
 message RecordTripResponse {
   string trip_id = 1;
+  // True when idempotency_key matched an existing row; the fields below describe it.
+  bool replayed = 2;
+  TripStatus status = 3;
+  string driver_id = 4;
+  double price = 5;
 }
 
 // Updates the same row a prior RecordTrip call created (identified by trip_id),

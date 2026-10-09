@@ -48,9 +48,14 @@ function randomRiderId() {
 // "the load generator" when a request lands on a pod that's mid-shutdown.
 // The retry goes back through the k8s Service, which by then routes only to
 // surviving endpoints, so a single retry is enough to prove failover works.
+// The Idempotency-Key is generated once per iteration and reused on the retry, so a
+// retry after a pod kill resolves to the same trip row instead of creating a second.
 function postRide(payload) {
   const params = {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Idempotency-Key": `${__VU}-${__ITER}-${Date.now()}`,
+    },
     timeout: "10s",
   };
   let res = http.post(`${BASE_URL}/rides`, payload, params);

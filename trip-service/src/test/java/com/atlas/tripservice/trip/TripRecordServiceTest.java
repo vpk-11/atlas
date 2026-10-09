@@ -38,15 +38,51 @@ class TripRecordServiceTest {
             return trip;
         });
 
-        String tripId = tripRecordService.recordTrip("R-001", "", 1.0, 2.0, 3.0, 4.0,
-                0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.FAILED_NO_MATCH);
+        TripRecordService.RecordResult result = tripRecordService.recordTrip("R-001", "", 1.0, 2.0, 3.0, 4.0,
+                0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.FAILED_NO_MATCH, null);
 
-        assertThat(tripId).isEqualTo("T-00000007");
+        assertThat(result.trip().getTripId()).isEqualTo("T-00000007");
+        assertThat(result.replayed()).isFalse();
 
         ArgumentCaptor<Trip> captor = ArgumentCaptor.forClass(Trip.class);
         verify(tripRepository).save(captor.capture());
         assertThat(captor.getValue().getDriverId()).isNull();
         assertThat(captor.getValue().getStatus()).isEqualTo(TripStatus.FAILED_NO_MATCH);
+    }
+
+    @Test
+    void recordTripWithKnownKeyReturnsExistingRowWithoutInserting() {
+        Trip existing = new Trip("R-001", null, 1.0, 2.0, 3.0, 4.0, 0.0, 0.0, 0.0,
+                null, TripStatus.REQUESTED);
+        ReflectionTestUtils.setField(existing, "id", 5L);
+        ReflectionTestUtils.invokeMethod(existing, "assignTripId");
+        when(tripRepository.findByIdempotencyKey("K-1")).thenReturn(Optional.of(existing));
+
+        TripRecordService.RecordResult result = tripRecordService.recordTrip("R-001", "", 1.0, 2.0, 3.0, 4.0,
+                0.0, 0.0, 0.0, null, TripStatus.REQUESTED, "K-1");
+
+        assertThat(result.replayed()).isTrue();
+        assertThat(result.trip().getTripId()).isEqualTo("T-00000005");
+        verify(tripRepository, org.mockito.Mockito.never()).save(any());
+    }
+
+    @Test
+    void recordTripKeyRaceLoserRereadsWinnersRow() {
+        Trip winner = new Trip("R-001", null, 1.0, 2.0, 3.0, 4.0, 0.0, 0.0, 0.0,
+                null, TripStatus.REQUESTED);
+        ReflectionTestUtils.setField(winner, "id", 6L);
+        ReflectionTestUtils.invokeMethod(winner, "assignTripId");
+        when(tripRepository.findByIdempotencyKey("K-2"))
+                .thenReturn(Optional.empty())
+                .thenReturn(Optional.of(winner));
+        when(tripRepository.save(any()))
+                .thenThrow(new org.springframework.dao.DataIntegrityViolationException("dup"));
+
+        TripRecordService.RecordResult result = tripRecordService.recordTrip("R-001", "", 1.0, 2.0, 3.0, 4.0,
+                0.0, 0.0, 0.0, null, TripStatus.REQUESTED, "K-2");
+
+        assertThat(result.replayed()).isTrue();
+        assertThat(result.trip().getTripId()).isEqualTo("T-00000006");
     }
 
     @Test

@@ -27,7 +27,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
 
     @Override
     public void recordTrip(RecordTripRequest request, StreamObserver<RecordTripResponse> responseObserver) {
-        String tripId = tripRecordService.recordTrip(
+        TripRecordService.RecordResult result = tripRecordService.recordTrip(
                 request.getRiderId(),
                 request.getDriverId(),
                 request.getPickup().getLat(),
@@ -38,9 +38,17 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
                 request.getDistanceKm(),
                 request.getDurationMinutes(),
                 toDomainDistanceSource(request.getDistanceSource()),
-                toDomainStatus(request.getStatus()));
+                toDomainStatus(request.getStatus()),
+                request.getIdempotencyKey());
 
-        responseObserver.onNext(RecordTripResponse.newBuilder().setTripId(tripId).build());
+        Trip trip = result.trip();
+        responseObserver.onNext(RecordTripResponse.newBuilder()
+                .setTripId(trip.getTripId())
+                .setReplayed(result.replayed())
+                .setStatus(com.atlas.tripservice.grpc.trip.TripStatus.valueOf(trip.getStatus().name()))
+                .setDriverId(trip.getDriverId() == null ? "" : trip.getDriverId())
+                .setPrice(trip.getPrice())
+                .build());
         responseObserver.onCompleted();
     }
 

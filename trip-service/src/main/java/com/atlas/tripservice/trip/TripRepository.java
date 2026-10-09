@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface TripRepository extends JpaRepository<Trip, Long> {
     Optional<Trip> findByTripId(String tripId);
+
+    Optional<Trip> findByIdempotencyKey(String idempotencyKey);
 }

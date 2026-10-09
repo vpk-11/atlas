@@ -69,7 +69,7 @@ public class RideService {
         this.postOsrmExecutor = postOsrmExecutor;
     }
 
-    public CompletableFuture<ResponseEntity<RideResponse>> requestRide(RideRequest request) {
+    public CompletableFuture<ResponseEntity<RideResponse>> requestRide(RideRequest request, String idempotencyKey) {
         Coordinate pickup = new Coordinate(request.pickup().lat(), request.pickup().lng());
         Coordinate drop = new Coordinate(request.drop().lat(), request.drop().lng());
 
@@ -78,12 +78,34 @@ public class RideService {
         // write itself fails there's nothing to update later, so bail immediately.
         // Fast (gRPC + local DB), stays synchronous - not the bottleneck, no reason to
         // move it off the request thread.
-        String tripId;
+        TripClient.RecordedTrip recorded;
         try {
-            tripId = tripClient.recordRequested(request.riderId(), pickup, drop);
+            recorded = tripClient.recordRequested(request.riderId(), pickup, drop, idempotencyKey);
         } catch (TripClient.TripUnavailableException e) {
             log.error("Trip unreachable while recording REQUESTED for rider {}: {}", request.riderId(), e.toString());
             return ok(RideResponse.systemError("Unable to process this ride, try again shortly"));
+        }
+        String tripId = recorded.tripId();
+
+        // Replay of an idempotency key. Settled outcomes are returned as stored, with no
+        // matching/pricing/assignment. REQUESTED (crash-interrupted) and SYSTEM_ERROR
+        // (retriable failure) fall through and resume the match on the existing row, so
+        // the retry is served and no second row is created.
+        if (recorded.replayed()) {
+            switch (recorded.status()) {
+                case MATCHED -> {
+                    // driver_status, eta fields are not stored on the trip row.
+                    return ok(RideResponse.matched(tripId, recorded.driverId(), null,
+                            request.pickup(), request.drop(), recorded.price(), 0, null));
+                }
+                case FAILED_NO_MATCH -> {
+                    return ok(RideResponse.failedNoMatch("No available or soon-to-be-available drivers found"));
+                }
+                case CANCELLED -> {
+                    return ok(RideResponse.systemError("Trip for this idempotency key was cancelled"));
+                }
+                default -> log.info("Resuming replayed trip {} (status {})", tripId, recorded.status());
+            }
         }
 
         List<CandidateScore> ranked;
