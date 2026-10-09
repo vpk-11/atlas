@@ -48,9 +48,13 @@ class TripGrpcServiceTest {
 
     @Test
     void recordTripDelegatesToServiceAndReturnsTripId() {
+        Trip stored = new Trip("R-001", "D-042", 1.0, 2.0, 3.0, 4.0, 14.5, 5.0, 8.0,
+                com.atlas.tripservice.trip.DistanceSource.OSRM, com.atlas.tripservice.trip.TripStatus.MATCHED);
+        ReflectionTestUtils.setField(stored, "id", 1L);
+        ReflectionTestUtils.invokeMethod(stored, "assignTripId");
         when(tripRecordService.recordTrip(eq("R-001"), eq("D-042"), anyDouble(), anyDouble(),
-                anyDouble(), anyDouble(), anyDouble(), anyDouble(), anyDouble(), any(), any()))
-                .thenReturn("T-00000001");
+                anyDouble(), anyDouble(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any()))
+                .thenReturn(new TripRecordService.RecordResult(stored, false));
 
         RecordTripRequest request = RecordTripRequest.newBuilder()
                 .setRiderId("R-001")
@@ -70,6 +74,7 @@ class TripGrpcServiceTest {
         verify(recordObserver).onNext(captor.capture());
         verify(recordObserver).onCompleted();
         assertThat(captor.getValue().getTripId()).isEqualTo("T-00000001");
+        assertThat(captor.getValue().getReplayed()).isFalse();
     }
 
     @Test

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.CompletableFuture;
@@ -23,8 +24,10 @@ public class RideController {
     }
 
     @PostMapping("/rides")
-    public CompletableFuture<ResponseEntity<RideResponse>> requestRide(@Valid @RequestBody RideRequest request) {
-        return rideService.requestRide(request);
+    public CompletableFuture<ResponseEntity<RideResponse>> requestRide(
+            @Valid @RequestBody RideRequest request,
+            @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey) {
+        return rideService.requestRide(request, idempotencyKey);
     }
 
     @PostMapping("/trips/{tripId}/cancel")

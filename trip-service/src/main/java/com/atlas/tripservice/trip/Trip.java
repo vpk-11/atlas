@@ -23,6 +23,9 @@ public class Trip {
     @Column(name = "trip_id", unique = true)
     private String tripId;
 
+    @Column(name = "idempotency_key", unique = true)
+    private String idempotencyKey;
+
     @Column(name = "rider_id", nullable = false)
     private String riderId;
 
@@ -92,6 +95,14 @@ public class Trip {
 
     public String getTripId() {
         return tripId;
+    }
+
+    public String getIdempotencyKey() {
+        return idempotencyKey;
+    }
+
+    public void setIdempotencyKey(String idempotencyKey) {
+        this.idempotencyKey = idempotencyKey;
     }
 
     public String getRiderId() {
