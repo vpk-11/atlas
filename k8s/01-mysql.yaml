@@ -43,6 +43,9 @@ spec:
       containers:
         - name: mysql
           image: mysql:8.4.3
+          # Binary log is on by default but nothing replicates or point-in-time-restores
+          # here; it only adds an fsync per commit.
+          args: ["--skip-log-bin", "--max-connections=400"]
           ports:
             - containerPort: 3306
           env:

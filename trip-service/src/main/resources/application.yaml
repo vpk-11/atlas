@@ -5,6 +5,8 @@ spring:
     url: jdbc:mysql://${TRIP_DB_HOST:localhost}:${TRIP_DB_PORT:3306}/${TRIP_DB_NAME:atlas_trip}?createDatabaseIfNotExist=true
     username: ${TRIP_DB_USER:root}
     password: ${TRIP_DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:40}
   jpa:
     hibernate:
       ddl-auto: update

@@ -79,12 +79,8 @@ class TripGrpcServiceTest {
 
     @Test
     void updateTripStatusDelegatesToServiceAndReturnsTripId() {
-        Trip trip = new Trip("R-001", "D-042", 1.0, 2.0, 3.0, 4.0, 14.5, 5.0, 8.0,
-                com.atlas.tripservice.trip.DistanceSource.OSRM, com.atlas.tripservice.trip.TripStatus.MATCHED);
-        ReflectionTestUtils.setField(trip, "id", 9L);
-        ReflectionTestUtils.invokeMethod(trip, "assignTripId");
         when(tripRecordService.updateTripStatus(eq("T-00000009"), eq("D-042"), anyDouble(), anyDouble(),
-                anyDouble(), any(), any())).thenReturn(trip);
+                anyDouble(), any(), any())).thenReturn("T-00000009");
 
         UpdateTripStatusRequest request = UpdateTripStatusRequest.newBuilder()
                 .setTripId("T-00000009")

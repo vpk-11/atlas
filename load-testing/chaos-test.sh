@@ -11,6 +11,16 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 NAMESPACE=atlas
 
+# USE_OSRM_STUB=1 runs against the local OSRM stub instead of the public OSRM demo API
+# (see k8s/08-osrm-stub.yaml). Public OSRM stays the default.
+if [ "${USE_OSRM_STUB:-0}" = "1" ]; then
+  trap 'kubectl -n "$NAMESPACE" set env deploy/dispatch-service OSRM_BASE_URL- >/dev/null; kubectl -n "$NAMESPACE" rollout status deploy/dispatch-service --timeout=180s' EXIT
+  kubectl apply -f "$ROOT_DIR/k8s/08-osrm-stub.yaml"
+  kubectl -n "$NAMESPACE" rollout status deploy/osrm-stub --timeout=120s
+  kubectl -n "$NAMESPACE" set env deploy/dispatch-service OSRM_BASE_URL=http://osrm-stub:5000
+  kubectl -n "$NAMESPACE" rollout status deploy/dispatch-service --timeout=180s
+fi
+
 echo "==> Applying k6 script as a ConfigMap..."
 kubectl -n "$NAMESPACE" create configmap k6-script \
   --from-file="$ROOT_DIR/load-testing/rides-load-test.js" \

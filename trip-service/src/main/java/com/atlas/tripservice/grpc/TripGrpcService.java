@@ -55,7 +55,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
     @Override
     public void updateTripStatus(UpdateTripStatusRequest request, StreamObserver<UpdateTripStatusResponse> responseObserver) {
         try {
-            Trip trip = tripRecordService.updateTripStatus(
+            String tripId = tripRecordService.updateTripStatus(
                     request.getTripId(),
                     request.getDriverId(),
                     request.getPrice(),
@@ -63,7 +63,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
                     request.getDurationMinutes(),
                     toDomainDistanceSource(request.getDistanceSource()),
                     toDomainStatus(request.getStatus()));
-            responseObserver.onNext(UpdateTripStatusResponse.newBuilder().setTripId(trip.getTripId()).build());
+            responseObserver.onNext(UpdateTripStatusResponse.newBuilder().setTripId(tripId).build());
             responseObserver.onCompleted();
         } catch (TripNotFoundException e) {
             responseObserver.onError(Status.NOT_FOUND.withDescription(e.getMessage()).asRuntimeException());

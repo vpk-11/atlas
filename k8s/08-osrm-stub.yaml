@@ -13,6 +13,10 @@ data:
     LATENCY_S = int(os.environ.get("STUB_LATENCY_MS", "50")) / 1000
     BODY = json.dumps({"code": "Ok", "routes": [{"distance": 5000.0, "duration": 600.0}]}).encode()
 
+    class Server(ThreadingHTTPServer):
+        request_queue_size = 1024  # default backlog is 5, which drops connections under load
+        daemon_threads = True
+
     class Handler(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
 
@@ -27,7 +31,7 @@ data:
         def log_message(self, *args):
             pass
 
-    ThreadingHTTPServer(("", 5000), Handler).serve_forever()
+    Server(("", 5000), Handler).serve_forever()
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -62,8 +66,8 @@ spec:
               cpu: 100m
               memory: 64Mi
             limits:
-              cpu: 500m
-              memory: 128Mi
+              cpu: 2
+              memory: 256Mi
           volumeMounts:
             - name: script
               mountPath: /app
