@@ -10,6 +10,8 @@ data:
   TRIP_DB_PORT: "3306"
   TRIP_DB_NAME: "atlas_trip"
   TRIP_DB_USER: "root"
+  TRIP_STALE_REQUESTED_SECONDS: "60"
+  TRIP_SWEEP_INTERVAL_SECONDS: "30"
 ---
 apiVersion: apps/v1
 kind: Deployment

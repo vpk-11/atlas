@@ -10,6 +10,11 @@ spring:
       ddl-auto: update
     open-in-view: false
 
+trip:
+  reconcile:
+    stale-seconds: ${TRIP_STALE_REQUESTED_SECONDS:60}
+    interval-seconds: ${TRIP_SWEEP_INTERVAL_SECONDS:30}
+
 server:
   port: ${TRIP_SERVICE_HTTP_PORT:8091}
 
