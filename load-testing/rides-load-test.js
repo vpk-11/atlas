@@ -5,7 +5,36 @@ import { check } from "k6";
 // BASE_URL defaults to a port-forwarded dispatch-service (see scripts/start.sh).
 const BASE_URL = __ENV.BASE_URL || "http://localhost:8080";
 
-export const options = {
+// RATE set: constant-arrival-rate at RATE req/s for DURATION, no thresholds, one
+// RESULT line at the end (used by stub-load-test.sh). RATE unset: the ramp below.
+const RATE = __ENV.RATE ? Number(__ENV.RATE) : null;
+
+export function handleSummary(data) {
+  if (RATE === null) return {};
+  const m = data.metrics;
+  const dropped = m.dropped_iterations ? m.dropped_iterations.values.count : 0;
+  return {
+    stdout: `RESULT rate=${RATE} requests=${m.http_reqs.values.count} ` +
+      `failed_pct=${(m.http_req_failed.values.rate * 100).toFixed(2)} ` +
+      `p99_ms=${m.http_req_duration.values["p(99)"].toFixed(0)} dropped=${dropped}\n`,
+  };
+}
+
+const rateOptions = {
+  summaryTrendStats: ["avg", "p(50)", "p(90)", "p(95)", "p(99)", "max"],
+  scenarios: {
+    fixed_rate: {
+      executor: "constant-arrival-rate",
+      rate: RATE,
+      timeUnit: "1s",
+      duration: __ENV.DURATION || "60s",
+      preAllocatedVUs: 200,
+      maxVUs: 1000,
+    },
+  },
+};
+
+const rampOptions = {
   scenarios: {
     sustained_load: {
       executor: "ramping-arrival-rate",
@@ -25,6 +54,8 @@ export const options = {
     http_req_duration: ["p(99)<2000"],
   },
 };
+
+export const options = RATE === null ? rampOptions : rateOptions;
 
 // San Francisco bounding box, matches the seeded driver coordinate range.
 const LAT_MIN = 37.70;
