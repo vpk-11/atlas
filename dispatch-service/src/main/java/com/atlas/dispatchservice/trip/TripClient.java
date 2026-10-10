@@ -79,7 +79,7 @@ public class TripClient {
 
         try {
             var response = tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).updateTripStatus(request);
-            return new UpdateOutcome(response.getApplied(), response.getCurrentStatus());
+            return new UpdateOutcome(response.getApplied(), response.getCurrentStatus(), response.getCurrentDriverId());
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }
@@ -110,7 +110,8 @@ public class TripClient {
     }
 
     /** applied=false means the write was dropped; currentStatus says why (e.g. CANCELLED mid-match). */
-    public record UpdateOutcome(boolean applied, com.atlas.dispatchservice.grpc.trip.TripStatus currentStatus) {
+    public record UpdateOutcome(boolean applied, com.atlas.dispatchservice.grpc.trip.TripStatus currentStatus,
+                                String currentDriverId) {
     }
 
     public static class TripUnavailableException extends RuntimeException {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Crash-recovery check: fire a burst of keyed requests at ONE dispatch pod, force-kill that pod
 # mid-burst, then confirm the stale-trip sweep leaves no REQUESTED row older than the threshold.
-# Also confirms trips survive a MySQL pod restart (PVC). Exits non-zero on any violation.
+# claimed_at is stored in UTC by the JVM, so the age check uses utc_timestamp(). Also confirms trips survive a MySQL pod restart (PVC). Exits non-zero on any violation.
 set -euo pipefail
 
 NAMESPACE=atlas
@@ -58,7 +58,7 @@ for i in $(seq 1 24); do
   sleep 10
 done
 echo "trips by status after the sweep: $(sql "select status,count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' group by status" | tr '\t\n' ' =,')"
-STALE="$(sql "select count(*) from atlas_trip.trips where status='REQUESTED' and claimed_at < (select max(claimed_at) from atlas_trip.trips) - interval $STALE_SECONDS second")"
+STALE="$(sql "select count(*) from atlas_trip.trips where status='REQUESTED' and claimed_at < utc_timestamp() - interval $STALE_SECONDS second")"
 echo "REQUESTED rows older than ${STALE_SECONDS}s (whole table): $STALE"
 [ "$LEFT" = "0" ] && [ "$STALE" = "0" ] || { echo "FAIL: stuck REQUESTED rows remain"; exit 1; }
 

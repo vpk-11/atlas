@@ -216,8 +216,12 @@ public class RideService {
                 driverAssignmentService.freeDriverForTrip(winner.driverId());
                 return RideResponse.cancelled(tripId, "Trip was cancelled while matching");
             }
-            // Another request holds the claim now (lease overrun); it owns the outcome.
+            // Another request holds the claim now (lease overrun); it owns the outcome. Release the
+            // driver this request assigned, unless the new owner ended up with the same one.
             log.warn("Trip {} outcome dropped (status {}): claim superseded", tripId, outcome.currentStatus());
+            if (!winner.driverId().equals(outcome.currentDriverId())) {
+                driverAssignmentService.freeDriverForTrip(winner.driverId());
+            }
             return RideResponse.systemError("Request superseded by a retry, try again shortly");
         }
 

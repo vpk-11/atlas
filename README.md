@@ -55,10 +55,10 @@ v2 Phases 2-5 (on `main`):
   its replacement's outcome; a cancel that lands mid-match frees the driver;
   the post-OSRM worker pool was resized from measured concurrency, which removed the
   spurious fast-503s at 500 req/s. Verified against a real MySQL (Testcontainers) and
-  with a committed evidence log: `load-testing/results/2026-10-10-7f84e31-evidence.txt`.
+  with a committed evidence log: `load-testing/results/2026-10-10-d30843d-evidence.txt`.
 - Trips left in `REQUESTED` by a crash are failed to `SYSTEM_ERROR` by a scheduled
   sweep (after 60s), and MySQL now runs on a persistent volume. A forced pod kill
-  mid-burst left 3 stuck rows in the committed run (earlier uncommitted runs left more) and
+  mid-burst left 11 stuck rows in the committed run (earlier runs left 3 and 1) and
   the sweep resolved all of them.
 
 ## Architecture
@@ -151,18 +151,18 @@ public OSRM stays the default.
 
 Measured on the local single-node Kind cluster (2 dispatch replicas, 1 pricing, 1 trip):
 
-| Scenario (commit 7f84e31, stub 50ms) | Rate | Failed (raw) | Client-perceived failed | Lost incl. dropped | p99 |
+| Scenario (commit d30843d, stub 50ms) | Rate | Failed (raw) | Client-perceived failed | Lost incl. dropped | p99 |
 |---|---|---|---|---|---|
-| 180s, warm, run 1 | 500 req/s | 0.00% | 0.00% | 0.02% (14 dropped) | 172 ms |
-| 180s, warm, run 2 | 500 req/s | 0.07% | 0.00% | 0.16% (144 dropped) | 317 ms |
-| 180s, warm, run 3 | 500 req/s | 0.00% | 0.00% | 0.00% | 77 ms |
-| 60s | 600 req/s | 0.00% | 0.00% | 0.00% | 80 ms |
+| 180s, warm, run 1 | 500 req/s | 0.00% | 0.00% | 0.00% | 103 ms |
+| 180s, warm, run 2 | 500 req/s | 0.00% | 0.00% | 0.00% | 93 ms |
+| 180s, warm, run 3 | 500 req/s | 0.00% | 0.00% | 0.00% | 84 ms |
+| 60s | 600 req/s | 0.01% | 0.00% | 0.00% | 141 ms |
 
 "Raw" is k6's `http_req_failed`, which counts every non-2xx response, including a
 transient fast `503` or the `409` that a retry gets while the first request is still
 running. "Client-perceived" is the outcome after the client's retries (a `SYSTEM_ERROR` or
 `IN_PROGRESS` body counts as failed even on HTTP 200), which is what the spec cares about.
-"Lost" adds iterations the load generator could not start. Source: `load-testing/results/2026-10-10-7f84e31-evidence.txt`, produced by
+"Lost" adds iterations the load generator could not start. Source: `load-testing/results/2026-10-10-d30843d-evidence.txt`, produced by
 `load-testing/evidence.sh` (about 25 minutes, re-runnable).
 
 So 500 req/s sustained is met against the stub, and 600 req/s also ran clean once. The
@@ -185,8 +185,8 @@ refactor: only the intentionally killed pod cycles, the survivor stays
 healthy throughout, 0 restarts on either side. On the stub path (ramp to 500 req/s,
 dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,249
 requests, 0.00% failed (3 connection resets absorbed by the retry), p99 118 ms. The
-duplicate check after the run covers the whole table (cumulative, 1,814,917 keyed trips,
-427,510 of them added by this run) and found zero duplicate (rider, key) groups; no
+duplicate check after the run covers the whole table (cumulative, 2,242,701 keyed trips,
+427,784 of them added by this run) and found zero duplicate (rider, key) groups; no
 REQUESTED trip was left older than 60 seconds.
 
 Trips left in `REQUESTED` by a crash are resolved by a scheduled sweep in
@@ -329,7 +329,10 @@ Residual gap: if the original request is still running after the 10-second lease
 retry can take over and run a second match, which may assign a second driver (still one
 trip row). Each claim carries a fencing token, so the superseded request's writes are
 dropped: it cannot overwrite the new owner's outcome or flip its row to `SYSTEM_ERROR`.
-Its driver assignment, made before that write, is not undone.
+The superseded request releases the driver it assigned, unless the new owner picked the
+same one. A replay that is still mid-match and later picks that same driver can still
+find it freed (a narrow race); a driver is not assigned exactly once, but the trip row
+has one writer at a time.
 
 San Francisco bounding box (`37.70-37.83` lat, `-122.51`--`-122.36` lng) is
 where all seeded drivers live, so pick coordinates in that range to see a

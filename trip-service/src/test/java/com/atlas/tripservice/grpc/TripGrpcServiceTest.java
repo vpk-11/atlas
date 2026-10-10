@@ -82,7 +82,7 @@ class TripGrpcServiceTest {
     void updateTripStatusDelegatesToServiceAndReturnsTripId() {
         when(tripRecordService.updateTripStatus(eq("T-00000009"), eq("tok"), eq("D-042"), anyDouble(), anyDouble(),
                 anyDouble(), any(), any()))
-                .thenReturn(new TripRecordService.UpdateResult("T-00000009", true, com.atlas.tripservice.trip.TripStatus.MATCHED));
+                .thenReturn(new TripRecordService.UpdateResult("T-00000009", true, com.atlas.tripservice.trip.TripStatus.MATCHED, "D-042"));
 
         UpdateTripStatusRequest request = UpdateTripStatusRequest.newBuilder()
                 .setTripId("T-00000009")
