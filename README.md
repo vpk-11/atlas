@@ -36,7 +36,7 @@ real load past the system's actual capacity, it now rejects fast (503,
 milliseconds) instead of hanging (10s+). See `.claude/context/decisions.md`
 for the full story, including the wrong turn and how it was found and fixed.
 
-v2 Phases 2-4 (on `main`):
+v2 Phases 2-5 (on `main`):
 - `POST /rides` takes an optional `Idempotency-Key` header, so a retry after a
   dispatch pod kill resolves to the same trip. A chaos run with the key reused on
   retry produced 75,074 keyed trips and zero duplicate keys.

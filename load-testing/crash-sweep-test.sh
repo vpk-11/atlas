@@ -6,6 +6,7 @@ set -euo pipefail
 
 NAMESPACE=atlas
 BURST="${1:-150}"
+KILL_DELAY="${KILL_DELAY:-0.3}"  # seconds into the burst before the pod is force-killed
 STALE_SECONDS=60
 TAG="burst-$(date +%s)"
 OUT="$(mktemp -d)"
@@ -26,13 +27,18 @@ for i in $(seq 1 "$BURST"); do
       -H 'Content-Type: application/json' -H "Idempotency-Key: $TAG-$i" -d "$BODY" > "$OUT/$i.code" &
   PIDS+=($!)
 done
-sleep 0.8
+sleep "$KILL_DELAY"
 kubectl -n "$NAMESPACE" delete pod "$POD" --grace-period=0 --force >/dev/null 2>&1
 wait "${PIDS[@]}"  # not a bare wait: the background port-forward never exits
 echo "client results (000 = connection died with the pod):"; cat "$OUT"/*.code | sort | uniq -c
 
 sleep 2
 echo "trips by status right after the kill: $(sql "select status,count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' group by status" | tr '\t\n' ' =,')"
+
+# The test only means something if the kill interrupted requests and left rows behind.
+STUCK="$(sql "select count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' and status='REQUESTED'")"
+echo "REQUESTED rows left by the kill: $STUCK"
+[ "$STUCK" -gt 0 ] || { echo "INCONCLUSIVE: the kill interrupted no request, rerun (try a smaller KILL_DELAY)"; exit 2; }
 
 # Sweep: wait for every REQUESTED row of this burst to resolve (threshold + one sweep interval + margin).
 for i in $(seq 1 24); do
