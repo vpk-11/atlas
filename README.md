@@ -51,12 +51,15 @@ v2 Phases 2-5 (on `main`):
   the first request is still running now gets `409` instead of assigning a second
   driver (lease-based claim in trip-service); keys are scoped per rider; status updates
   can no longer overwrite a settled trip; a cancelled-key replay reports `CANCELLED`;
+  a per-claim fencing token stops a request that outlived its lease from overwriting
+  its replacement's outcome; a cancel that lands mid-match frees the driver;
   the post-OSRM worker pool was resized from measured concurrency, which removed the
   spurious fast-503s at 500 req/s. Verified against a real MySQL (Testcontainers) and
-  with a committed evidence log: `load-testing/results/2026-10-10-evidence.txt`.
+  with a committed evidence log: `load-testing/results/2026-10-10-7f84e31-evidence.txt`.
 - Trips left in `REQUESTED` by a crash are failed to `SYSTEM_ERROR` by a scheduled
   sweep (after 60s), and MySQL now runs on a persistent volume. A forced pod kill
-  mid-burst left stuck rows (1 to 81 across runs) and the sweep resolved every one.
+  mid-burst left 3 stuck rows in the committed run (earlier uncommitted runs left more) and
+  the sweep resolved all of them.
 
 ## Architecture
 
@@ -148,27 +151,25 @@ public OSRM stays the default.
 
 Measured on the local single-node Kind cluster (2 dispatch replicas, 1 pricing, 1 trip):
 
-| Scenario (current build, stub 50ms) | Rate | Failed (raw) | Client-perceived failed | p99 |
-|---|---|---|---|---|
-| 180s, warm, run 1 | 500 req/s | 0.01% | 0.00% | 143 ms |
-| 180s, warm, run 2 | 500 req/s | 0.01% | 0.00% | 281 ms |
-| 180s, warm, run 3 | 500 req/s | 0.00% | 0.00% | 74 ms |
-| 60s | 600 req/s | 0.00% | 0.00% | 95 ms |
+| Scenario (commit 7f84e31, stub 50ms) | Rate | Failed (raw) | Client-perceived failed | Lost incl. dropped | p99 |
+|---|---|---|---|---|---|
+| 180s, warm, run 1 | 500 req/s | 0.00% | 0.00% | 0.02% (14 dropped) | 172 ms |
+| 180s, warm, run 2 | 500 req/s | 0.07% | 0.00% | 0.16% (144 dropped) | 317 ms |
+| 180s, warm, run 3 | 500 req/s | 0.00% | 0.00% | 0.00% | 77 ms |
+| 60s | 600 req/s | 0.00% | 0.00% | 0.00% | 80 ms |
 
 "Raw" is k6's `http_req_failed`, which counts every non-2xx response, including a
 transient fast `503` or the `409` that a retry gets while the first request is still
-running. "Client-perceived" is the outcome after the client's retries, which is what the
-spec cares about. Source: `load-testing/results/2026-10-10-evidence.txt`, produced by
+running. "Client-perceived" is the outcome after the client's retries (a `SYSTEM_ERROR` or
+`IN_PROGRESS` body counts as failed even on HTTP 200), which is what the spec cares about.
+"Lost" adds iterations the load generator could not start. Source: `load-testing/results/2026-10-10-7f84e31-evidence.txt`, produced by
 `load-testing/evidence.sh` (about 25 minutes, re-runnable).
 
 So 500 req/s sustained is met against the stub, and 600 req/s also ran clean once. The
-ceiling on the current build has not been located: an earlier build, before the worker
-pool and stub fixes, failed 65% at 600 req/s and 86% at 800 req/s, and higher rates were
-not re-tried on the current build. The first run right after a fresh rollout can be
-worse while the JVMs warm up (3.27% raw on an earlier build). Throughput is **not**
-measured against the public OSRM demo server at these rates, on purpose (fair-use limits,
-and its latency is not Atlas's). Against the real public default at a polite 10 req/s the
-run showed 1.97% failed, p99 615 ms (earlier build).
+ceiling on the current build has not been located. The first run right after a fresh
+rollout can be worse while the JVMs warm up, and run-to-run variance exists (run 2 above).
+Throughput is **not** measured against the public OSRM demo server at these rates, on
+purpose (fair-use limits, and its latency is not Atlas's).
 
 ### Chaos test
 
@@ -183,9 +184,10 @@ the dip and recovery. Reverified after the v2 Phase 1 close-out's async OSRM
 refactor: only the intentionally killed pod cycles, the survivor stays
 healthy throughout, 0 restarts on either side. On the stub path (ramp to 500 req/s,
 dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,249
-requests, 0.00% failed, p99 103 ms. Across the whole evidence run the database held
-1,387,257 keyed trips with zero duplicate (rider, key) groups, and no REQUESTED trip was
-left older than 60 seconds.
+requests, 0.00% failed (3 connection resets absorbed by the retry), p99 118 ms. The
+duplicate check after the run covers the whole table (cumulative, 1,814,917 keyed trips,
+427,510 of them added by this run) and found zero duplicate (rider, key) groups; no
+REQUESTED trip was left older than 60 seconds.
 
 Trips left in `REQUESTED` by a crash are resolved by a scheduled sweep in
 trip-service: rows older than 60 seconds are marked `SYSTEM_ERROR` (checked every
@@ -322,8 +324,12 @@ What a replay returns:
   the same id.
 
 A key reused by the same rider with a different body returns the first request's result.
+
 Residual gap: if the original request is still running after the 10-second lease, a
-retry can take over and assign a second driver (still one trip row).
+retry can take over and run a second match, which may assign a second driver (still one
+trip row). Each claim carries a fencing token, so the superseded request's writes are
+dropped: it cannot overwrite the new owner's outcome or flip its row to `SYSTEM_ERROR`.
+Its driver assignment, made before that write, is not undone.
 
 San Francisco bounding box (`37.70-37.83` lat, `-122.51`--`-122.36` lng) is
 where all seeded drivers live, so pick coordinates in that range to see a
@@ -365,7 +371,7 @@ cd trip-service && ./mvnw test
 ```
 
 trip-service also has MySQL integration tests (Testcontainers) for the idempotency key,
-the lease claim, the status guard and the sweep. They run when Docker is available and
+the lease claim, the fencing token, the status guard and the sweep. They run when Docker is available and
 are skipped otherwise. With colima, run them with:
 
 ```
@@ -388,3 +394,11 @@ TESTCONTAINERS_RYUK_DISABLED=true ./mvnw test
 - **v1.3.0** (2026-08-13) — minor bump
 - **v1.2.0** (2026-07-24) — minor bump
 - **v1.1.0** (2026-07-24) — minor bump
+
+## Upgrading an existing database
+
+`ddl-auto: update` adds new columns and indexes but never drops the old global key index
+or backfills rows written by an older build. Either delete the MySQL PVC (drop-and-reseed)
+or, after the new trip-service has started, run `./scripts/migrate-trip-schema.sh`
+(idempotent): it drops the legacy unique index on `idempotency_key` alone and backfills
+`claimed_at` and `claim_token`.
