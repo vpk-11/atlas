@@ -20,13 +20,15 @@ PF_PID=$!
 sleep 3
 
 BODY='{"riderId":"R-001","pickup":{"lat":37.77,"lng":-122.42},"drop":{"lat":37.80,"lng":-122.41}}'
+PIDS=()
 for i in $(seq 1 "$BURST"); do
-  ( curl -s -m 20 -o /dev/null -w "%{http_code}\n" -X POST localhost:18081/rides \
-      -H 'Content-Type: application/json' -H "Idempotency-Key: $TAG-$i" -d "$BODY" > "$OUT/$i.code" ) &
+  curl -s -m 20 -o /dev/null -w "%{http_code}\n" -X POST localhost:18081/rides \
+      -H 'Content-Type: application/json' -H "Idempotency-Key: $TAG-$i" -d "$BODY" > "$OUT/$i.code" &
+  PIDS+=($!)
 done
 sleep 0.8
 kubectl -n "$NAMESPACE" delete pod "$POD" --grace-period=0 --force >/dev/null 2>&1
-wait
+wait "${PIDS[@]}"  # not a bare wait: the background port-forward never exits
 echo "client results (000 = connection died with the pod):"; cat "$OUT"/*.code | sort | uniq -c
 
 sleep 2

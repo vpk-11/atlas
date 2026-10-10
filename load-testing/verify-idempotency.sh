@@ -18,11 +18,13 @@ PASSWORD="$(kubectl -n "$NAMESPACE" get secret mysql-credentials -o jsonpath='{.
 sql() { kubectl -n "$NAMESPACE" exec deploy/mysql -- mysql -uroot -p"$PASSWORD" -N -e "$1" 2>/dev/null; }
 
 BODY='{"riderId":"R-042","pickup":{"lat":37.77,"lng":-122.42},"drop":{"lat":37.80,"lng":-122.41}}'
+PIDS=()
 for i in $(seq 1 "$N"); do
-  ( curl -s -m 30 -o "$OUT/$i.body" -w "%{http_code}\n" -X POST localhost:18080/rides \
-      -H 'Content-Type: application/json' -H "Idempotency-Key: $KEY" -d "$BODY" > "$OUT/$i.code" ) &
+  curl -s -m 30 -o "$OUT/$i.body" -w "%{http_code}\n" -X POST localhost:18080/rides \
+      -H 'Content-Type: application/json' -H "Idempotency-Key: $KEY" -d "$BODY" > "$OUT/$i.code" &
+  PIDS+=($!)
 done
-wait
+wait "${PIDS[@]}"  # not a bare wait: the background port-forward never exits
 
 echo "status codes:"; cat "$OUT"/*.code | sort | uniq -c
 ROWS="$(sql "select count(*) from atlas_trip.trips where idempotency_key='$KEY'")"
