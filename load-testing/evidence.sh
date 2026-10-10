@@ -25,7 +25,7 @@ section() { echo; echo "=== $*"; }
   echo "host:   $(uname -sm), $(sysctl -n hw.ncpu) cpu, $(( $(sysctl -n hw.memsize) / 1073741824 )) GB; colima: $(colima list 2>/dev/null | awk 'NR==2{print $4" cpu, "$5", "$6" disk"}')"
   echo "kind:   $(kubectl get nodes -o jsonpath='{.items[0].status.nodeInfo.kubeletVersion}, {.items[0].status.capacity.cpu} cpu, {.items[0].status.capacity.memory} mem')"
   echo "osrm:   stub, STUB_LATENCY_MS=$(kubectl -n atlas get deploy osrm-stub -o jsonpath='{.spec.template.spec.containers[0].env[?(@.name=="STUB_LATENCY_MS")].value}')"
-  echo "image:  trip $(kubectl -n atlas get pod -l app=trip-service -o jsonpath='{.items[0].status.containerStatuses[0].imageID}' | cut -c1-40), dispatch $(kubectl -n atlas get pod -l app=dispatch-service -o jsonpath='{.items[0].status.containerStatuses[0].imageID}' | cut -c1-40)"
+  echo "image:  trip $(kubectl -n atlas get pod -l app=trip-service -o jsonpath='{.items[0].status.containerStatuses[0].imageID}', dispatch $(kubectl -n atlas get pod -l app=dispatch-service -o jsonpath='{.items[0].status.containerStatuses[0].imageID}'"
   echo "pods:"; kubectl -n atlas get pods --no-headers | awk '{print "  "$1, $3}'
 
   section "1. Concurrent same-key requests (verify-idempotency.sh 30)"

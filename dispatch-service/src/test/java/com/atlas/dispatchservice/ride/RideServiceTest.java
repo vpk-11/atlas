@@ -68,7 +68,7 @@ class RideServiceTest {
         rideService = new RideService(matchingService, osrmClient, pricingClient, tripClient, driverAssignmentService,
                 meterRegistry, Runnable::run);
         org.mockito.Mockito.lenient().when(tripClient.finalizeMatchedTrip(any(), any(), any(), anyDouble(), any()))
-                .thenReturn(new TripClient.UpdateOutcome(true, com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED));
+                .thenReturn(new TripClient.UpdateOutcome(true, com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED, "D-001"));
     }
 
     private RideResponse resolve(RideRequest req) throws ExecutionException, InterruptedException, TimeoutException {
@@ -299,7 +299,7 @@ class RideServiceTest {
                 .thenReturn(Mono.just(new DistanceResult(5.0, 12.0, DistanceSource.OSRM)));
         when(pricingClient.getQuote(any(), any(), any())).thenReturn(14.5);
         when(tripClient.finalizeMatchedTrip(any(), any(), any(), anyDouble(), any())).thenReturn(
-                new TripClient.UpdateOutcome(false, com.atlas.dispatchservice.grpc.trip.TripStatus.CANCELLED));
+                new TripClient.UpdateOutcome(false, com.atlas.dispatchservice.grpc.trip.TripStatus.CANCELLED, ""));
 
         RideResponse response = resolve(request);
 
@@ -309,7 +309,7 @@ class RideServiceTest {
     }
 
     @Test
-    void supersededClaimReturnsSystemErrorWithoutFreeingTheDriver() throws Exception {
+    void supersededClaimReturnsSystemErrorAndFreesTheStrandedDriver() throws Exception {
         when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000021"));
         CandidateScore winner = new CandidateScore("D-009", DriverStatus.AVAILABLE, 4.0, null);
         when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
@@ -317,11 +317,27 @@ class RideServiceTest {
                 .thenReturn(Mono.just(new DistanceResult(5.0, 12.0, DistanceSource.OSRM)));
         when(pricingClient.getQuote(any(), any(), any())).thenReturn(14.5);
         when(tripClient.finalizeMatchedTrip(any(), any(), any(), anyDouble(), any())).thenReturn(
-                new TripClient.UpdateOutcome(false, com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED));
+                new TripClient.UpdateOutcome(false, com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, ""));
 
         RideResponse response = resolve(request);
 
         assertThat(response.status()).isEqualTo("SYSTEM_ERROR");
+        verify(driverAssignmentService).freeDriverForTrip("D-009");
+    }
+
+    @Test
+    void supersededClaimKeepsTheDriverWhenTheNewOwnerPickedTheSameOne() throws Exception {
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000022"));
+        CandidateScore winner = new CandidateScore("D-009", DriverStatus.AVAILABLE, 4.0, null);
+        when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
+        when(osrmClient.distanceAndDuration(any(), any()))
+                .thenReturn(Mono.just(new DistanceResult(5.0, 12.0, DistanceSource.OSRM)));
+        when(pricingClient.getQuote(any(), any(), any())).thenReturn(14.5);
+        when(tripClient.finalizeMatchedTrip(any(), any(), any(), anyDouble(), any())).thenReturn(
+                new TripClient.UpdateOutcome(false, com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED, "D-009"));
+
+        resolve(request);
+
         verify(driverAssignmentService, never()).freeDriverForTrip(any());
     }
 }

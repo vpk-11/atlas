@@ -28,7 +28,7 @@ public class TripRecordService {
     }
 
     /** applied is false when the write was dropped (row settled, or the caller's claim token is stale). */
-    public record UpdateResult(String tripId, boolean applied, TripStatus currentStatus) {
+    public record UpdateResult(String tripId, boolean applied, TripStatus currentStatus, String currentDriverId) {
     }
 
     // Not @Transactional: a unique-key violation inside an outer transaction would mark it
@@ -74,13 +74,13 @@ public class TripRecordService {
         int updated = tripRepository.updateOutcome(tripId, claimToken, blankToNull(driverId), price, distanceKm,
                 durationMinutes, distanceSource, status, TripStatus.REQUESTED, TripStatus.SYSTEM_ERROR);
         if (updated == 1) {
-            return new UpdateResult(tripId, true, status);
+            return new UpdateResult(tripId, true, status, blankToNull(driverId));
         }
         // Dropped: the row is already settled (MATCHED, FAILED_NO_MATCH or CANCELLED) or another
         // caller holds the claim now. The caller learns the current status, e.g. a cancel that
         // landed mid-match.
         Trip current = tripRepository.findByTripId(tripId).orElseThrow(() -> new TripNotFoundException(tripId));
-        return new UpdateResult(tripId, false, current.getStatus());
+        return new UpdateResult(tripId, false, current.getStatus(), current.getDriverId());
     }
 
     @Transactional

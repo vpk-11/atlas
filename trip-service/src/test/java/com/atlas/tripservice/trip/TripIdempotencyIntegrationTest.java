@@ -168,6 +168,7 @@ class TripIdempotencyIntegrationTest {
         TripRecordService.UpdateResult stale = tripRecordService.updateTripStatus(tripId, original.claimToken(), "",
                 0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR);
         assertThat(stale.applied()).isFalse();
+        assertThat(stale.currentDriverId()).isNull();
         assertThat(tripRepository.findByTripId(tripId).orElseThrow().getStatus()).isEqualTo(TripStatus.REQUESTED);
 
         // So a third retry under a real lease still loses, and the new owner can finish.

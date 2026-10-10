@@ -70,6 +70,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
                     .setTripId(result.tripId())
                     .setApplied(result.applied())
                     .setCurrentStatus(com.atlas.tripservice.grpc.trip.TripStatus.valueOf(result.currentStatus().name()))
+                    .setCurrentDriverId(result.currentDriverId() == null ? "" : result.currentDriverId())
                     .build());
             responseObserver.onCompleted();
         } catch (TripNotFoundException e) {

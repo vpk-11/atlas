@@ -183,7 +183,7 @@ replica. Watch the Grafana "Dispatch Pod Count Over Time" panel live to see
 the dip and recovery. Reverified after the v2 Phase 1 close-out's async OSRM
 refactor: only the intentionally killed pod cycles, the survivor stays
 healthy throughout, 0 restarts on either side. On the stub path (ramp to 500 req/s,
-dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,249
+dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,251
 requests, 0.00% failed (3 connection resets absorbed by the retry), p99 118 ms. The
 duplicate check after the run covers the whole table (cumulative, 1,814,917 keyed trips,
 427,510 of them added by this run) and found zero duplicate (rider, key) groups; no
@@ -329,7 +329,10 @@ Residual gap: if the original request is still running after the 10-second lease
 retry can take over and run a second match, which may assign a second driver (still one
 trip row). Each claim carries a fencing token, so the superseded request's writes are
 dropped: it cannot overwrite the new owner's outcome or flip its row to `SYSTEM_ERROR`.
-Its driver assignment, made before that write, is not undone.
+The superseded request releases the driver it assigned, unless the new owner picked the
+same one. A replay that is still mid-match and later picks that same driver can still
+find it freed (a narrow race); a driver is not assigned exactly once, but the trip row
+has one writer at a time.
 
 San Francisco bounding box (`37.70-37.83` lat, `-122.51`--`-122.36` lng) is
 where all seeded drivers live, so pick coordinates in that range to see a

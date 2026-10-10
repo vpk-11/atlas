@@ -74,6 +74,8 @@ message UpdateTripStatusResponse {
   bool applied = 2;
   // The row's status after the call (the status written when applied).
   TripStatus current_status = 3;
+  // The row's driver_id after the call (empty if none yet).
+  string current_driver_id = 4;
 }
 
 message CancelTripRequest {
