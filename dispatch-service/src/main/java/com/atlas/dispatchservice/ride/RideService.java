@@ -31,7 +31,7 @@ public class RideService {
 
     // Admission gate for the OSRM-onward pipeline (OSRM call + postOsrmExecutor
     // stage). Prevents the failure mode found in the first async attempt: Tomcat
-    // can admit far more concurrent requests than postOsrmExecutor (30 workers,
+    // can admit far more concurrent requests than postOsrmExecutor (a bounded pool,
     // see AsyncConfig) can drain, so without a gate, excess requests queued
     // silently for 10s+ instead of failing fast - zero throughput gain, worse
     // latency than the blocking version it replaced.

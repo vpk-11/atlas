@@ -1,5 +1,6 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
+import { Counter, Rate } from "k6/metrics";
 
 // Target: 500 req/sec sustained against POST /rides.
 // BASE_URL defaults to a port-forwarded dispatch-service (see scripts/start.sh).
@@ -9,6 +10,18 @@ const BASE_URL = __ENV.BASE_URL || "http://localhost:8080";
 // RESULT line at the end (used by stub-load-test.sh). RATE unset: the ramp below.
 const RATE = __ENV.RATE ? Number(__ENV.RATE) : null;
 
+// http_req_failed counts every non-2xx response, including the 409s that are the intended answer to a
+// retry while the original request is still running. final_failed is what the client actually
+// experiences: the outcome after retries.
+const finalFailed = new Rate("final_failed");
+const responses409 = new Counter("responses_409");
+const responses5xx = new Counter("responses_5xx");
+const responses0 = new Counter("responses_0");
+
+function count(metric) {
+  return metric ? metric.values.count : 0;
+}
+
 export function handleSummary(data) {
   const m = data.metrics;
   const dropped = m.dropped_iterations ? m.dropped_iterations.values.count : 0;
@@ -16,6 +29,8 @@ export function handleSummary(data) {
   return {
     stdout: `RESULT ${mode} requests=${m.http_reqs.values.count} ` +
       `failed_pct=${(m.http_req_failed.values.rate * 100).toFixed(2)} ` +
+      `final_failed_pct=${(m.final_failed.values.rate * 100).toFixed(2)} ` +
+      `n409=${count(m.responses_409)} n5xx=${count(m.responses_5xx)} n0=${count(m.responses_0)} ` +
       `p99_ms=${m.http_req_duration.values["p(99)"].toFixed(0)} dropped=${dropped}\n`,
   };
 }
@@ -83,6 +98,13 @@ function randomRiderId() {
 // surviving endpoints, so a single retry is enough to prove failover works.
 // The Idempotency-Key is generated once per iteration and reused on the retry, so a
 // retry after a pod kill resolves to the same trip row instead of creating a second.
+function tally(res) {
+  if (res.status === 409) responses409.add(1);
+  else if (res.status === 0) responses0.add(1);
+  else if (res.status >= 500) responses5xx.add(1);
+  return res;
+}
+
 function postRide(payload) {
   const params = {
     headers: {
@@ -91,16 +113,17 @@ function postRide(payload) {
     },
     timeout: "10s",
   };
-  let res = http.post(`${BASE_URL}/rides`, payload, params);
+  let res = tally(http.post(`${BASE_URL}/rides`, payload, params));
   if (res.status === 0 || res.status >= 500) {
-    res = http.post(`${BASE_URL}/rides`, payload, params);
+    res = tally(http.post(`${BASE_URL}/rides`, payload, params));
   }
   // 409 means a request with this key may still be running (or its owner just crashed and the
   // lease has not expired yet): wait and ask again, up to ~16s, rather than counting a failure.
   for (let i = 0; i < 8 && res.status === 409; i++) {
     sleep(2);
-    res = http.post(`${BASE_URL}/rides`, payload, params);
+    res = tally(http.post(`${BASE_URL}/rides`, payload, params));
   }
+  finalFailed.add(res.status !== 200);
   return res;
 }
 
