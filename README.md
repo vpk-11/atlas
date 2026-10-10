@@ -1,7 +1,7 @@
 # Atlas
 
-<!-- version: v2.4.0 -->
-![Version](https://img.shields.io/badge/version-v2.4.0-blue)
+<!-- version: v2.4.1 -->
+![Version](https://img.shields.io/badge/version-v2.4.1-blue)
 
 A distributed rider-driver dispatch system in Java/Spring Boot. Three gRPC
 microservices: **dispatch-service** (orchestrator, REST + live grid index +
@@ -375,6 +375,7 @@ TESTCONTAINERS_RYUK_DISABLED=true ./mvnw test
 ```
 
 ## Changelog
+- **v2.4.1** (2026-10-10): patch bump
 - **v2.4.0** (2026-10-09): minor bump
 - **v2.3.0** (2026-10-09): minor bump
 - **v2.2.0** (2026-09-28): minor bump
