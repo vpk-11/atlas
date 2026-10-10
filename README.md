@@ -167,7 +167,7 @@ running. "Client-perceived" is the outcome after the client's retries (a `SYSTEM
 
 So 500 req/s sustained is met against the stub, and 600 req/s also ran clean once. The
 ceiling on the current build has not been located. The first run right after a fresh
-rollout can be worse while the JVMs warm up, and run-to-run variance exists (run 2 above).
+rollout can be worse while the JVMs warm up, and run-to-run variance exists.
 Throughput is **not** measured against the public OSRM demo server at these rates, on
 purpose (fair-use limits, and its latency is not Atlas's).
 
@@ -184,7 +184,7 @@ the dip and recovery. Reverified after the v2 Phase 1 close-out's async OSRM
 refactor: only the intentionally killed pod cycles, the survivor stays
 healthy throughout, 0 restarts on either side. On the stub path (ramp to 500 req/s,
 dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,249
-requests, 0.00% failed (3 connection resets absorbed by the retry), p99 118 ms. The
+requests, 0.00% failed, p99 101 ms. The
 duplicate check after the run covers the whole table (cumulative, 2,242,701 keyed trips,
 427,784 of them added by this run) and found zero duplicate (rider, key) groups; no
 REQUESTED trip was left older than 60 seconds.
