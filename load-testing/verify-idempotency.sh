@@ -8,10 +8,12 @@ NAMESPACE=atlas
 N="${1:-30}"
 KEY="verify-$(date +%s)-$$"
 OUT="$(mktemp -d)"
-trap 'kill $PF_PID 2>/dev/null || true; rm -rf "$OUT"' EXIT
+PF_PID=""
+trap '[ -z "$PF_PID" ] || kill "$PF_PID" 2>/dev/null || true; rm -rf "$OUT"' EXIT
 
 kubectl -n "$NAMESPACE" port-forward svc/dispatch-service 18080:8080 >/dev/null 2>&1 &
 PF_PID=$!
+disown "$PF_PID"  # no job-control "Terminated" line (it carries the script path) in logs
 sleep 3
 
 PASSWORD="$(kubectl -n "$NAMESPACE" get secret mysql-credentials -o jsonpath='{.data.root-password}' | base64 -d)"
@@ -24,7 +26,7 @@ for i in $(seq 1 "$N"); do
       -H 'Content-Type: application/json' -H "Idempotency-Key: $KEY" -d "$BODY" > "$OUT/$i.code" &
   PIDS+=($!)
 done
-wait "${PIDS[@]}"  # not a bare wait: the background port-forward never exits
+for pid in "${PIDS[@]}"; do wait "$pid" || true; done  # not a bare wait: the port-forward never exits
 
 echo "status codes:"; cat "$OUT"/*.code | sort | uniq -c
 ROWS="$(sql "select count(*) from atlas_trip.trips where idempotency_key='$KEY'")"
