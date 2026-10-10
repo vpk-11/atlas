@@ -40,30 +40,33 @@ public class TripClient {
         try {
             var response = tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).recordTrip(request);
             return new RecordedTrip(response.getTripId(), response.getReplayed(), response.getResumeGranted(),
-                    response.getStatus(), response.getDriverId(), response.getPrice());
+                    response.getStatus(), response.getDriverId(), response.getPrice(), response.getClaimToken());
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }
     }
 
-    public void finalizeMatchedTrip(String tripId, String driverId, double price, DistanceResult distance) {
-        updateStatus(tripId, driverId, price, distance, com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED);
+    public UpdateOutcome finalizeMatchedTrip(String tripId, String claimToken, String driverId, double price,
+                                             DistanceResult distance) {
+        return updateStatus(tripId, claimToken, driverId, price, distance, com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED);
     }
 
-    public void finalizeFailedNoMatch(String tripId) {
-        updateStatus(tripId, "", 0.0, new DistanceResult(0.0, 0.0, DistanceSource.FALLBACK),
+    public void finalizeFailedNoMatch(String tripId, String claimToken) {
+        updateStatus(tripId, claimToken, "", 0.0, new DistanceResult(0.0, 0.0, DistanceSource.FALLBACK),
                 com.atlas.dispatchservice.grpc.trip.TripStatus.FAILED_NO_MATCH);
     }
 
-    public void finalizeSystemError(String tripId) {
-        updateStatus(tripId, "", 0.0, new DistanceResult(0.0, 0.0, DistanceSource.FALLBACK),
+    public void finalizeSystemError(String tripId, String claimToken) {
+        updateStatus(tripId, claimToken, "", 0.0, new DistanceResult(0.0, 0.0, DistanceSource.FALLBACK),
                 com.atlas.dispatchservice.grpc.trip.TripStatus.SYSTEM_ERROR);
     }
 
-    private void updateStatus(String tripId, String driverId, double price, DistanceResult distance,
-                               com.atlas.dispatchservice.grpc.trip.TripStatus status) {
+    private UpdateOutcome updateStatus(String tripId, String claimToken, String driverId, double price,
+                                       DistanceResult distance,
+                                       com.atlas.dispatchservice.grpc.trip.TripStatus status) {
         var request = com.atlas.dispatchservice.grpc.trip.UpdateTripStatusRequest.newBuilder()
                 .setTripId(tripId)
+                .setClaimToken(claimToken == null ? "" : claimToken)
                 .setDriverId(driverId)
                 .setPrice(price)
                 .setDistanceKm(distance.distanceKm())
@@ -75,7 +78,8 @@ public class TripClient {
                 .build();
 
         try {
-            tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).updateTripStatus(request);
+            var response = tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).updateTripStatus(request);
+            return new UpdateOutcome(response.getApplied(), response.getCurrentStatus());
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }
@@ -98,11 +102,15 @@ public class TripClient {
      */
     public record RecordedTrip(String tripId, boolean replayed, boolean resumeGranted,
                                com.atlas.dispatchservice.grpc.trip.TripStatus status,
-                               String driverId, double price) {
+                               String driverId, double price, String claimToken) {
         public static RecordedTrip fresh(String tripId) {
             return new RecordedTrip(tripId, false, false,
-                    com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0);
+                    com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0, "");
         }
+    }
+
+    /** applied=false means the write was dropped; currentStatus says why (e.g. CANCELLED mid-match). */
+    public record UpdateOutcome(boolean applied, com.atlas.dispatchservice.grpc.trip.TripStatus currentStatus) {
     }
 
     public static class TripUnavailableException extends RuntimeException {

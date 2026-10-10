@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Service
 public class TripRecordService {
@@ -23,7 +24,11 @@ public class TripRecordService {
      * resumeGranted is only meaningful when replayed: true means this caller took over an unsettled
      * row and may run the match; false means the original request may still be running.
      */
-    public record RecordResult(Trip trip, boolean replayed, boolean resumeGranted) {
+    public record RecordResult(Trip trip, boolean replayed, boolean resumeGranted, String claimToken) {
+    }
+
+    /** applied is false when the write was dropped (row settled, or the caller's claim token is stale). */
+    public record UpdateResult(String tripId, boolean applied, TripStatus currentStatus) {
     }
 
     // Not @Transactional: a unique-key violation inside an outer transaction would mark it
@@ -46,31 +51,36 @@ public class TripRecordService {
                 throw e;
             }
             Trip existing = tripRepository.findByRiderIdAndIdempotencyKey(riderId, key).orElseThrow(() -> e);
-            return new RecordResult(existing, true, tryClaim(existing));
+            String newToken = tryClaim(existing);
+            return new RecordResult(existing, true, newToken != null, newToken);
         }
-        return new RecordResult(trip, false, false);
+        return new RecordResult(trip, false, false, trip.getClaimToken());
     }
 
-    private boolean tryClaim(Trip existing) {
+    /** Returns the new claim token if this caller took over the row, else null. */
+    private String tryClaim(Trip existing) {
         if (existing.getStatus() != TripStatus.REQUESTED && existing.getStatus() != TripStatus.SYSTEM_ERROR) {
-            return false;
+            return null;
         }
         Instant now = Instant.now();
+        String newToken = UUID.randomUUID().toString();
         return tripRepository.claimForResume(existing.getTripId(), TripStatus.REQUESTED, TripStatus.SYSTEM_ERROR,
-                now, now.minusSeconds(leaseSeconds)) == 1;
+                now, newToken, now.minusSeconds(leaseSeconds)) == 1 ? newToken : null;
     }
 
     @Transactional
-    public String updateTripStatus(String tripId, String driverId, double price, double distanceKm,
+    public UpdateResult updateTripStatus(String tripId, String claimToken, String driverId, double price, double distanceKm,
                                     double durationMinutes, DistanceSource distanceSource, TripStatus status) {
-        int updated = tripRepository.updateOutcome(tripId, blankToNull(driverId), price, distanceKm,
+        int updated = tripRepository.updateOutcome(tripId, claimToken, blankToNull(driverId), price, distanceKm,
                 durationMinutes, distanceSource, status, TripStatus.REQUESTED, TripStatus.SYSTEM_ERROR);
-        if (updated == 0 && tripRepository.findByTripId(tripId).isEmpty()) {
-            throw new TripNotFoundException(tripId);
+        if (updated == 1) {
+            return new UpdateResult(tripId, true, status);
         }
-        // updated == 0 with the row present: it is already settled (MATCHED, FAILED_NO_MATCH or
-        // CANCELLED), so a late write is dropped rather than overwriting it.
-        return tripId;
+        // Dropped: the row is already settled (MATCHED, FAILED_NO_MATCH or CANCELLED) or another
+        // caller holds the claim now. The caller learns the current status, e.g. a cancel that
+        // landed mid-match.
+        Trip current = tripRepository.findByTripId(tripId).orElseThrow(() -> new TripNotFoundException(tripId));
+        return new UpdateResult(tripId, false, current.getStatus());
     }
 
     @Transactional

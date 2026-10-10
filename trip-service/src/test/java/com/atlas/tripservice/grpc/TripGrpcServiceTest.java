@@ -54,7 +54,7 @@ class TripGrpcServiceTest {
         ReflectionTestUtils.invokeMethod(stored, "assignTripId");
         when(tripRecordService.recordTrip(eq("R-001"), eq("D-042"), anyDouble(), anyDouble(),
                 anyDouble(), anyDouble(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any()))
-                .thenReturn(new TripRecordService.RecordResult(stored, false, false));
+                .thenReturn(new TripRecordService.RecordResult(stored, false, false, stored.getClaimToken()));
 
         RecordTripRequest request = RecordTripRequest.newBuilder()
                 .setRiderId("R-001")
@@ -80,11 +80,13 @@ class TripGrpcServiceTest {
 
     @Test
     void updateTripStatusDelegatesToServiceAndReturnsTripId() {
-        when(tripRecordService.updateTripStatus(eq("T-00000009"), eq("D-042"), anyDouble(), anyDouble(),
-                anyDouble(), any(), any())).thenReturn("T-00000009");
+        when(tripRecordService.updateTripStatus(eq("T-00000009"), eq("tok"), eq("D-042"), anyDouble(), anyDouble(),
+                anyDouble(), any(), any()))
+                .thenReturn(new TripRecordService.UpdateResult("T-00000009", true, com.atlas.tripservice.trip.TripStatus.MATCHED));
 
         UpdateTripStatusRequest request = UpdateTripStatusRequest.newBuilder()
                 .setTripId("T-00000009")
+                .setClaimToken("tok")
                 .setDriverId("D-042")
                 .setPrice(14.5)
                 .setDistanceKm(5.0)
@@ -99,11 +101,12 @@ class TripGrpcServiceTest {
         verify(updateObserver).onNext(captor.capture());
         verify(updateObserver).onCompleted();
         assertThat(captor.getValue().getTripId()).isEqualTo("T-00000009");
+        assertThat(captor.getValue().getApplied()).isTrue();
     }
 
     @Test
     void updateTripStatusSendsNotFoundErrorWhenTripDoesNotExist() {
-        when(tripRecordService.updateTripStatus(eq("T-999"), any(), anyDouble(), anyDouble(), anyDouble(),
+        when(tripRecordService.updateTripStatus(eq("T-999"), any(), any(), anyDouble(), anyDouble(), anyDouble(),
                 any(), any())).thenThrow(new TripNotFoundException("T-999"));
 
         tripGrpcService.updateTripStatus(

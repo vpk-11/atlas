@@ -47,6 +47,9 @@ message RecordTripResponse {
   // With replayed: true when the caller now owns the row and may (re)run the match.
   // False for a replay of an unsettled row whose original request may still be running.
   bool resume_granted = 6;
+  // Fencing token for the caller that owns the row (fresh insert or granted claim); must be sent
+  // on UpdateTripStatus. Empty when the caller does not own the row.
+  string claim_token = 7;
 }
 
 // Updates the same row a prior RecordTrip call created (identified by trip_id),
@@ -61,10 +64,16 @@ message UpdateTripStatusRequest {
   double duration_minutes = 5;
   TripStatus status = 6;
   atlas.common.DistanceSource distance_source = 7;
+  // Token from RecordTripResponse. A write with a stale token is dropped.
+  string claim_token = 8;
 }
 
 message UpdateTripStatusResponse {
   string trip_id = 1;
+  // False when the write was dropped (row already settled, or a newer claim holder exists).
+  bool applied = 2;
+  // The row's status after the call (the status written when applied).
+  TripStatus current_status = 3;
 }
 
 message CancelTripRequest {

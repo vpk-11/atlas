@@ -25,11 +25,15 @@ function count(metric) {
 export function handleSummary(data) {
   const m = data.metrics;
   const dropped = m.dropped_iterations ? m.dropped_iterations.values.count : 0;
+  const ff = m.final_failed.values;
+  // Dropped iterations (the generator could not start them) never reach final_failed; count them as lost.
+  // k6 Rate counts a truthy add() as a "pass", so here passes = failed requests.
+  const lostPct = ((ff.passes + dropped) / (ff.passes + ff.fails + dropped)) * 100;
   const mode = RATE === null ? "ramp" : `rate=${RATE}`;
   return {
     stdout: `RESULT ${mode} requests=${m.http_reqs.values.count} ` +
       `failed_pct=${(m.http_req_failed.values.rate * 100).toFixed(2)} ` +
-      `final_failed_pct=${(m.final_failed.values.rate * 100).toFixed(2)} ` +
+      `final_failed_pct=${(ff.rate * 100).toFixed(2)} lost_pct=${lostPct.toFixed(2)} ` +
       `n409=${count(m.responses_409)} n5xx=${count(m.responses_5xx)} n0=${count(m.responses_0)} ` +
       `p99_ms=${m.http_req_duration.values["p(99)"].toFixed(0)} dropped=${dropped}\n`,
   };
@@ -105,6 +109,14 @@ function tally(res) {
   return res;
 }
 
+function bodyStatus(res) {
+  try {
+    return res.json("status");
+  } catch (e) {
+    return null;
+  }
+}
+
 function postRide(payload) {
   const params = {
     headers: {
@@ -123,7 +135,9 @@ function postRide(payload) {
     sleep(2);
     res = tally(http.post(`${BASE_URL}/rides`, payload, params));
   }
-  finalFailed.add(res.status !== 200);
+  // SYSTEM_ERROR (trip or pricing down) and IN_PROGRESS come back as HTTP 200/409 with a status in
+  // the body, so a 200 alone is not a success.
+  finalFailed.add(res.status !== 200 || !["MATCHED", "FAILED_NO_MATCH"].includes(bodyStatus(res)));
   return res;
 }
 
