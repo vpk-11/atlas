@@ -6,43 +6,49 @@ set -euo pipefail
 
 NAMESPACE=atlas
 BURST="${1:-150}"
-KILL_DELAY="${KILL_DELAY:-0.3}"  # seconds into the burst before the pod is force-killed
+# Seconds into the burst at which the pod is force-killed. Several delays are tried because the
+# system is fast enough that a late kill can land after every request has finished.
+KILL_DELAYS="${KILL_DELAYS:-0.3 0.15 0.05 0.5}"
 STALE_SECONDS=60
-TAG="burst-$(date +%s)"
 OUT="$(mktemp -d)"
 trap 'kill $PF_PID 2>/dev/null || true; rm -rf "$OUT"' EXIT
 
 PASSWORD="$(kubectl -n "$NAMESPACE" get secret mysql-credentials -o jsonpath='{.data.root-password}' | base64 -d)"
 sql() { kubectl -n "$NAMESPACE" exec deploy/mysql -- mysql -uroot -p"$PASSWORD" -N -e "$1" 2>/dev/null; }
 
-POD="$(kubectl -n "$NAMESPACE" get pods -l app=dispatch-service -o jsonpath='{.items[0].metadata.name}')"
-kubectl -n "$NAMESPACE" port-forward "pod/$POD" 18081:8080 >/dev/null 2>&1 &
-PF_PID=$!
-sleep 3
-
 BODY='{"riderId":"R-001","pickup":{"lat":37.77,"lng":-122.42},"drop":{"lat":37.80,"lng":-122.41}}'
-# The kill is on its own timer, started with the burst, so it lands while requests are in flight
-# no matter how long it takes to spawn the curls.
-( sleep "$KILL_DELAY"; kubectl -n "$NAMESPACE" delete pod "$POD" --grace-period=0 --force >/dev/null 2>&1 ) &
-KILL_PID=$!
-PIDS=()
-for i in $(seq 1 "$BURST"); do
-  curl -s -m 20 -o /dev/null -w "%{http_code}\n" -X POST localhost:18081/rides \
-      -H 'Content-Type: application/json' -H "Idempotency-Key: $TAG-$i" -d "$BODY" > "$OUT/$i.code" &
-  PIDS+=($!)
+STUCK=0
+for KILL_DELAY in $KILL_DELAYS; do
+  TAG="burst-$(date +%s)"
+  kubectl -n "$NAMESPACE" rollout status deploy/dispatch-service --timeout=180s >/dev/null
+  POD="$(kubectl -n "$NAMESPACE" get pods -l app=dispatch-service --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')"
+  kubectl -n "$NAMESPACE" port-forward "pod/$POD" 18081:8080 >/dev/null 2>&1 &
+  PF_PID=$!
+  sleep 3
+  rm -f "$OUT"/*.code
+  # The kill is on its own timer, started with the burst, so it lands while requests are in flight
+  # no matter how long it takes to spawn the curls.
+  ( sleep "$KILL_DELAY"; kubectl -n "$NAMESPACE" delete pod "$POD" --grace-period=0 --force >/dev/null 2>&1 ) &
+  KILL_PID=$!
+  PIDS=()
+  for i in $(seq 1 "$BURST"); do
+    curl -s -m 20 -o /dev/null -w "%{http_code}\n" -X POST localhost:18081/rides \
+        -H 'Content-Type: application/json' -H "Idempotency-Key: $TAG-$i" -d "$BODY" > "$OUT/$i.code" &
+    PIDS+=($!)
+  done
+  wait "${PIDS[@]}" "$KILL_PID"  # not a bare wait: the background port-forward never exits
+  kill $PF_PID 2>/dev/null || true
+  echo "attempt kill-delay=${KILL_DELAY}s, client results (000 = connection died with the pod):"; cat "$OUT"/*.code | sort | uniq -c
+  sleep 2
+  STUCK="$(sql "select count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' and status='REQUESTED'")"
+  echo "  trips by status right after the kill: $(sql "select status,count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' group by status" | tr '\t\n' ' =,')"
+  echo "  REQUESTED rows left by the kill: $STUCK"
+  [ "$STUCK" -gt 0 ] && break
 done
-wait "${PIDS[@]}" "$KILL_PID"  # not a bare wait: the background port-forward never exits
-echo "client results (000 = connection died with the pod):"; cat "$OUT"/*.code | sort | uniq -c
-
-sleep 2
-echo "trips by status right after the kill: $(sql "select status,count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' group by status" | tr '\t\n' ' =,')"
-
 # The test only means something if the kill interrupted requests and left rows behind.
-STUCK="$(sql "select count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' and status='REQUESTED'")"
-echo "REQUESTED rows left by the kill: $STUCK"
-[ "$STUCK" -gt 0 ] || { echo "INCONCLUSIVE: the kill interrupted no request, rerun (try a smaller KILL_DELAY)"; exit 2; }
+[ "$STUCK" -gt 0 ] || { echo "INCONCLUSIVE: no attempt left a stuck row (tried delays: $KILL_DELAYS)"; exit 2; }
 
-# Sweep: wait for every REQUESTED row of this burst to resolve (threshold + one sweep interval + margin).
+# Sweep: wait for every REQUESTED row of the last attempt to resolve (threshold + one sweep interval + margin).
 for i in $(seq 1 24); do
   LEFT="$(sql "select count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' and status='REQUESTED'")"
   echo "poll $i: REQUESTED left = $LEFT"
