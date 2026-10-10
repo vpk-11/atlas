@@ -67,6 +67,8 @@ class RideServiceTest {
         // deterministic and don't need real async waiting.
         rideService = new RideService(matchingService, osrmClient, pricingClient, tripClient, driverAssignmentService,
                 meterRegistry, Runnable::run);
+        org.mockito.Mockito.lenient().when(tripClient.finalizeMatchedTrip(any(), any(), any(), anyDouble(), any()))
+                .thenReturn(new TripClient.UpdateOutcome(true, com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED));
     }
 
     private RideResponse resolve(RideRequest req) throws ExecutionException, InterruptedException, TimeoutException {
@@ -81,7 +83,7 @@ class RideServiceTest {
         resolve(request);
 
         verify(tripClient).recordRequested(eq("R-001"), any(), any(), any());
-        verify(tripClient).finalizeFailedNoMatch("T-00000009");
+        verify(tripClient).finalizeFailedNoMatch(eq("T-00000009"), any());
     }
 
     @Test
@@ -100,7 +102,7 @@ class RideServiceTest {
     void replayedMatchedKeyReturnsStoredResultWithoutMatching() throws Exception {
         when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-1"))).thenReturn(
                 new TripClient.RecordedTrip("T-00000005", true, false,
-                        com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED, "D-007", 14.5));
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED, "D-007", 14.5, ""));
 
         RideResponse response = rideService.requestRide(request, "K-1").get(2, TimeUnit.SECONDS).getBody();
 
@@ -109,27 +111,27 @@ class RideServiceTest {
         assertThat(response.driverId()).isEqualTo("D-007");
         assertThat(response.price()).isEqualTo(14.5);
         verifyNoInteractions(matchingService, driverAssignmentService, pricingClient);
-        verify(tripClient, never()).finalizeMatchedTrip(any(), any(), anyDouble(), any());
+        verify(tripClient, never()).finalizeMatchedTrip(any(), any(), any(), anyDouble(), any());
     }
 
     @Test
     void replayedRequestedKeyResumesMatchOnExistingTripId() throws Exception {
         when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-2"))).thenReturn(
                 new TripClient.RecordedTrip("T-00000006", true, true,
-                        com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0));
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0, ""));
         when(matchingService.rankCandidates(any())).thenReturn(List.of());
 
         RideResponse response = rideService.requestRide(request, "K-2").get(2, TimeUnit.SECONDS).getBody();
 
         assertThat(response.status()).isEqualTo("FAILED_NO_MATCH");
-        verify(tripClient).finalizeFailedNoMatch("T-00000006");
+        verify(tripClient).finalizeFailedNoMatch(eq("T-00000006"), any());
     }
 
     @Test
     void replayOfInFlightKeyReturns409AndNeverMatches() throws Exception {
         when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-3"))).thenReturn(
                 new TripClient.RecordedTrip("T-00000007", true, false,
-                        com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0));
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0, ""));
 
         ResponseEntity<RideResponse> response = rideService.requestRide(request, "K-3").get(2, TimeUnit.SECONDS);
 
@@ -137,14 +139,14 @@ class RideServiceTest {
         assertThat(response.getHeaders().getFirst("Retry-After")).isEqualTo("2");
         assertThat(response.getBody().status()).isEqualTo("IN_PROGRESS");
         verifyNoInteractions(matchingService, driverAssignmentService, pricingClient);
-        verify(tripClient, never()).finalizeSystemError(any());
+        verify(tripClient, never()).finalizeSystemError(any(), any());
     }
 
     @Test
     void replayOfCancelledKeyReportsCancelledNotSystemError() throws Exception {
         when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-4"))).thenReturn(
                 new TripClient.RecordedTrip("T-00000008", true, false,
-                        com.atlas.dispatchservice.grpc.trip.TripStatus.CANCELLED, "D-1", 5.0));
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.CANCELLED, "D-1", 5.0, ""));
 
         RideResponse response = rideService.requestRide(request, "K-4").get(2, TimeUnit.SECONDS).getBody();
 
@@ -161,7 +163,7 @@ class RideServiceTest {
         RideResponse response = resolve(request);
 
         assertThat(response.status()).isEqualTo("FAILED_NO_MATCH");
-        verify(tripClient).finalizeFailedNoMatch("T-00000001");
+        verify(tripClient).finalizeFailedNoMatch(eq("T-00000001"), any());
         assertThat(meterRegistry.counter("ride_match_outcomes_total", "outcome", "failed_no_match").count())
                 .isEqualTo(1.0);
     }
@@ -182,7 +184,7 @@ class RideServiceTest {
         assertThat(response.driverId()).isEqualTo("D-001");
         assertThat(response.price()).isEqualTo(14.5);
         assertThat(response.etaNote()).isNull();
-        verify(tripClient).finalizeMatchedTrip(eq("T-00000001"), eq("D-001"), anyDouble(), any());
+        verify(tripClient).finalizeMatchedTrip(eq("T-00000001"), any(), eq("D-001"), anyDouble(), any());
         assertThat(meterRegistry.counter("ride_match_outcomes_total", "outcome", "matched").count())
                 .isEqualTo(1.0);
     }
@@ -215,8 +217,8 @@ class RideServiceTest {
         RideResponse response = resolve(request);
 
         assertThat(response.status()).isEqualTo("SYSTEM_ERROR");
-        verify(tripClient).finalizeSystemError("T-00000003");
-        verify(tripClient, never()).finalizeMatchedTrip(anyString(), anyString(), anyDouble(), any());
+        verify(tripClient).finalizeSystemError(eq("T-00000003"), any());
+        verify(tripClient, never()).finalizeMatchedTrip(any(), any(), any(), anyDouble(), any());
         assertThat(meterRegistry.getMeters()).isEmpty();
     }
 
@@ -229,7 +231,7 @@ class RideServiceTest {
                 .thenReturn(Mono.just(new DistanceResult(5.0, 12.0, DistanceSource.OSRM)));
         when(pricingClient.getQuote(any(), any(), any())).thenReturn(14.5);
         org.mockito.Mockito.doThrow(new TripClient.TripUnavailableException(new RuntimeException("down")))
-                .when(tripClient).finalizeMatchedTrip(eq("T-00000004"), anyString(), anyDouble(), any());
+                .when(tripClient).finalizeMatchedTrip(eq("T-00000004"), any(), anyString(), anyDouble(), any());
 
         RideResponse response = resolve(request);
 
@@ -270,7 +272,7 @@ class RideServiceTest {
         // The REQUESTED row written before the gate check must still get finalized,
         // just not on this response's critical path (fire-and-forget, hence timeout()
         // instead of a plain verify - it may not have run yet at this exact instant).
-        verify(tripClient, org.mockito.Mockito.timeout(1000)).finalizeSystemError("T-GATE");
+        verify(tripClient, org.mockito.Mockito.timeout(1000)).finalizeSystemError(eq("T-GATE"), any());
 
         releaseGate.countDown();
         for (CompletableFuture<ResponseEntity<RideResponse>> future : inFlight) {
@@ -286,5 +288,40 @@ class RideServiceTest {
 
         assertThat(response.status()).isEqualTo("CANCELLED");
         org.mockito.Mockito.verify(driverAssignmentService).freeDriverForTrip("D-005");
+    }
+
+    @Test
+    void cancelLandingMidMatchFreesTheDriverAndReturnsCancelled() throws Exception {
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000020"));
+        CandidateScore winner = new CandidateScore("D-009", DriverStatus.AVAILABLE, 4.0, null);
+        when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
+        when(osrmClient.distanceAndDuration(any(), any()))
+                .thenReturn(Mono.just(new DistanceResult(5.0, 12.0, DistanceSource.OSRM)));
+        when(pricingClient.getQuote(any(), any(), any())).thenReturn(14.5);
+        when(tripClient.finalizeMatchedTrip(any(), any(), any(), anyDouble(), any())).thenReturn(
+                new TripClient.UpdateOutcome(false, com.atlas.dispatchservice.grpc.trip.TripStatus.CANCELLED));
+
+        RideResponse response = resolve(request);
+
+        assertThat(response.status()).isEqualTo("CANCELLED");
+        verify(driverAssignmentService).freeDriverForTrip("D-009");
+        assertThat(meterRegistry.getMeters()).isEmpty();
+    }
+
+    @Test
+    void supersededClaimReturnsSystemErrorWithoutFreeingTheDriver() throws Exception {
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), any())).thenReturn(TripClient.RecordedTrip.fresh("T-00000021"));
+        CandidateScore winner = new CandidateScore("D-009", DriverStatus.AVAILABLE, 4.0, null);
+        when(matchingService.rankCandidates(any())).thenReturn(List.of(winner));
+        when(osrmClient.distanceAndDuration(any(), any()))
+                .thenReturn(Mono.just(new DistanceResult(5.0, 12.0, DistanceSource.OSRM)));
+        when(pricingClient.getQuote(any(), any(), any())).thenReturn(14.5);
+        when(tripClient.finalizeMatchedTrip(any(), any(), any(), anyDouble(), any())).thenReturn(
+                new TripClient.UpdateOutcome(false, com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED));
+
+        RideResponse response = resolve(request);
+
+        assertThat(response.status()).isEqualTo("SYSTEM_ERROR");
+        verify(driverAssignmentService, never()).freeDriverForTrip(any());
     }
 }

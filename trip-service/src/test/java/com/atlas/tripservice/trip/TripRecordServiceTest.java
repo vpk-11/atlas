@@ -91,13 +91,14 @@ class TripRecordServiceTest {
                 .thenThrow(new org.springframework.dao.DataIntegrityViolationException("dup"));
         when(tripRepository.findByRiderIdAndIdempotencyKey("R-001", "K-3")).thenReturn(Optional.of(stale));
         when(tripRepository.claimForResume(eq("T-00000008"), eq(TripStatus.REQUESTED), eq(TripStatus.SYSTEM_ERROR),
-                any(), any())).thenReturn(1);
+                any(), any(), any())).thenReturn(1);
 
         TripRecordService.RecordResult result = tripRecordService.recordTrip("R-001", "", 1.0, 2.0, 3.0, 4.0,
                 0.0, 0.0, 0.0, null, TripStatus.REQUESTED, "K-3");
 
         assertThat(result.replayed()).isTrue();
         assertThat(result.resumeGranted()).isTrue();
+        assertThat(result.claimToken()).isNotNull().isNotEqualTo(stale.getClaimToken());
     }
 
     @Test
@@ -115,7 +116,7 @@ class TripRecordServiceTest {
 
         assertThat(result.replayed()).isTrue();
         assertThat(result.resumeGranted()).isFalse();
-        verify(tripRepository, org.mockito.Mockito.never()).claimForResume(any(), any(), any(), any(), any());
+        verify(tripRepository, org.mockito.Mockito.never()).claimForResume(any(), any(), any(), any(), any(), any());
     }
 
     @Test
@@ -130,26 +131,27 @@ class TripRecordServiceTest {
 
     @Test
     void updateTripStatusIssuesOneUpdateAndReturnsTheTripId() {
-        when(tripRepository.updateOutcome(eq("T-00000009"), eq("D-042"), eq(14.5), eq(5.0), eq(8.0),
+        when(tripRepository.updateOutcome(eq("T-00000009"), eq("tok"), eq("D-042"), eq(14.5), eq(5.0), eq(8.0),
                 eq(DistanceSource.OSRM), eq(TripStatus.MATCHED), eq(TripStatus.REQUESTED), eq(TripStatus.SYSTEM_ERROR)))
                 .thenReturn(1);
 
-        String result = tripRecordService.updateTripStatus("T-00000009", "D-042", 14.5, 5.0, 8.0,
-                DistanceSource.OSRM, TripStatus.MATCHED);
+        TripRecordService.UpdateResult result = tripRecordService.updateTripStatus("T-00000009", "tok", "D-042",
+                14.5, 5.0, 8.0, DistanceSource.OSRM, TripStatus.MATCHED);
 
-        assertThat(result).isEqualTo("T-00000009");
+        assertThat(result.tripId()).isEqualTo("T-00000009");
+        assertThat(result.applied()).isTrue();
         verify(tripRepository, org.mockito.Mockito.never()).save(any());
         verify(tripRepository, org.mockito.Mockito.never()).findByTripId(any());
     }
 
     @Test
     void updateTripStatusBlankDriverIdBecomesNull() {
-        when(tripRepository.updateOutcome(any(), any(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any(), any()))
+        when(tripRepository.updateOutcome(any(), any(), any(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any(), any()))
                 .thenReturn(1);
 
-        tripRecordService.updateTripStatus("T-1", "", 0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR);
+        tripRecordService.updateTripStatus("T-1", "tok", "", 0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR);
 
-        verify(tripRepository).updateOutcome(eq("T-1"), org.mockito.ArgumentMatchers.isNull(), anyDouble(),
+        verify(tripRepository).updateOutcome(eq("T-1"), eq("tok"), org.mockito.ArgumentMatchers.isNull(), anyDouble(),
                 anyDouble(), anyDouble(), any(), any(), any(), any());
     }
 
@@ -157,20 +159,23 @@ class TripRecordServiceTest {
     void updateTripStatusOnAnAlreadySettledRowDropsTheLateWriteWithoutError() {
         Trip settled = new Trip("R-001", "D-1", 1.0, 2.0, 3.0, 4.0, 9.0, 1.0, 1.0,
                 DistanceSource.OSRM, TripStatus.CANCELLED);
-        when(tripRepository.updateOutcome(any(), any(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any(), any()))
+        when(tripRepository.updateOutcome(any(), any(), any(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any(), any()))
                 .thenReturn(0);
         when(tripRepository.findByTripId("T-5")).thenReturn(Optional.of(settled));
 
-        assertThat(tripRecordService.updateTripStatus("T-5", "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM,
-                TripStatus.MATCHED)).isEqualTo("T-5");
+        TripRecordService.UpdateResult result = tripRecordService.updateTripStatus("T-5", "tok", "D-1", 9.0, 1.0,
+                1.0, DistanceSource.OSRM, TripStatus.MATCHED);
+
+        assertThat(result.applied()).isFalse();
+        assertThat(result.currentStatus()).isEqualTo(TripStatus.CANCELLED);
     }
 
     @Test
     void updateTripStatusThrowsWhenTripNotFound() {
-        when(tripRepository.updateOutcome(any(), any(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any(), any()))
+        when(tripRepository.updateOutcome(any(), any(), any(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any(), any()))
                 .thenReturn(0);
 
-        assertThatThrownBy(() -> tripRecordService.updateTripStatus("T-999", "D-001", 0.0, 0.0, 0.0,
+        assertThatThrownBy(() -> tripRecordService.updateTripStatus("T-999", "tok", "D-001", 0.0, 0.0, 0.0,
                 DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR))
                 .isInstanceOf(TripNotFoundException.class);
     }

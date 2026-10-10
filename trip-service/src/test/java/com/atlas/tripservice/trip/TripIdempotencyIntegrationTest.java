@@ -122,7 +122,8 @@ class TripIdempotencyIntegrationTest {
     void replayOfARetriableSystemErrorIsGrantedOnceAndReopensTheRow() {
         TripRecordService.RecordResult first = record(tripRecordService, "R-001", "K-SE");
         String tripId = first.trip().getTripId();
-        tripRecordService.updateTripStatus(tripId, "", 0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR);
+        tripRecordService.updateTripStatus(tripId, first.claimToken(), "", 0.0, 0.0, 0.0, DistanceSource.FALLBACK,
+                TripStatus.SYSTEM_ERROR);
 
         TripRecordService.RecordResult replay = record(tripRecordService, "R-001", "K-SE");
         TripRecordService.RecordResult second = record(tripRecordService, "R-001", "K-SE");
@@ -134,27 +135,61 @@ class TripIdempotencyIntegrationTest {
 
     @Test
     void settledTripsAreNeverReclaimedOrOverwritten() {
-        String tripId = record(tripRecordService, "R-001", "K-OK").trip().getTripId();
-        tripRecordService.updateTripStatus(tripId, "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM, TripStatus.MATCHED);
+        TripRecordService.RecordResult owner = record(tripRecordService, "R-001", "K-OK");
+        String tripId = owner.trip().getTripId();
+        String token = owner.claimToken();
+        tripRecordService.updateTripStatus(tripId, token, "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM, TripStatus.MATCHED);
 
         assertThat(record(tripRecordService, "R-001", "K-OK").resumeGranted()).isFalse();
 
         // A late SYSTEM_ERROR must not overwrite MATCHED, and a late MATCHED must not undo CANCELLED.
-        tripRecordService.updateTripStatus(tripId, "", 0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR);
+        tripRecordService.updateTripStatus(tripId, token, "", 0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR);
         assertThat(tripRepository.findByTripId(tripId).orElseThrow().getStatus()).isEqualTo(TripStatus.MATCHED);
 
         tripRecordService.cancelTrip(tripId);
-        tripRecordService.updateTripStatus(tripId, "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM, TripStatus.MATCHED);
+        TripRecordService.UpdateResult late = tripRecordService.updateTripStatus(tripId, token, "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM, TripStatus.MATCHED);
+        assertThat(late.applied()).isFalse();
+        assertThat(late.currentStatus()).isEqualTo(TripStatus.CANCELLED);
         assertThat(tripRepository.findByTripId(tripId).orElseThrow().getStatus()).isEqualTo(TripStatus.CANCELLED);
     }
 
     @Test
+    void aTakeoverFencesOffTheOriginalOwnerEvenWhenItFailsLate() {
+        TripRecordService.RecordResult original = record(tripRecordService, "R-001", "K-FENCE");
+        String tripId = original.trip().getTripId();
+
+        // The original outlives its lease; a replay takes over and holds a new token.
+        TripRecordService expired = new TripRecordService(tripRepository, 0);
+        TripRecordService.RecordResult takeover = record(expired, "R-001", "K-FENCE");
+        assertThat(takeover.resumeGranted()).isTrue();
+        assertThat(takeover.claimToken()).isNotEqualTo(original.claimToken());
+
+        // The original now fails: its SYSTEM_ERROR must not touch the new owner's live row.
+        TripRecordService.UpdateResult stale = tripRecordService.updateTripStatus(tripId, original.claimToken(), "",
+                0.0, 0.0, 0.0, DistanceSource.FALLBACK, TripStatus.SYSTEM_ERROR);
+        assertThat(stale.applied()).isFalse();
+        assertThat(tripRepository.findByTripId(tripId).orElseThrow().getStatus()).isEqualTo(TripStatus.REQUESTED);
+
+        // So a third retry under a real lease still loses, and the new owner can finish.
+        assertThat(record(new TripRecordService(tripRepository, 3600), "R-001", "K-FENCE").resumeGranted()).isFalse();
+        assertThat(tripRecordService.updateTripStatus(tripId, takeover.claimToken(), "D-1", 9.0, 1.0, 1.0,
+                DistanceSource.OSRM, TripStatus.MATCHED).applied()).isTrue();
+
+        // The original's late MATCHED is dropped too.
+        assertThat(tripRecordService.updateTripStatus(tripId, original.claimToken(), "D-2", 9.0, 1.0, 1.0,
+                DistanceSource.OSRM, TripStatus.MATCHED).applied()).isFalse();
+        assertThat(tripRepository.findByTripId(tripId).orElseThrow().getDriverId()).isEqualTo("D-1");
+    }
+
+    @Test
     void aLateFinalizeAfterTheSweepStillSettlesTheTrip() {
-        String tripId = record(tripRecordService, "R-001", "K-LATE").trip().getTripId();
+        TripRecordService.RecordResult owner = record(tripRecordService, "R-001", "K-LATE");
+        String tripId = owner.trip().getTripId();
         new TripReconciler(tripRepository, new SimpleMeterRegistry(), 0).sweep();
         assertThat(tripRepository.findByTripId(tripId).orElseThrow().getStatus()).isEqualTo(TripStatus.SYSTEM_ERROR);
 
-        tripRecordService.updateTripStatus(tripId, "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM, TripStatus.MATCHED);
+        tripRecordService.updateTripStatus(tripId, owner.claimToken(), "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM,
+                TripStatus.MATCHED);
 
         assertThat(tripRepository.findByTripId(tripId).orElseThrow().getStatus()).isEqualTo(TripStatus.MATCHED);
     }
@@ -162,8 +197,9 @@ class TripIdempotencyIntegrationTest {
     @Test
     void sweepFailsOnlyStaleRequestedRows() {
         String stale = record(tripRecordService, "R-001", "K-STALE").trip().getTripId();
-        String settled = record(tripRecordService, "R-002", "K-SETTLED").trip().getTripId();
-        tripRecordService.updateTripStatus(settled, "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM, TripStatus.MATCHED);
+        TripRecordService.RecordResult settledOwner = record(tripRecordService, "R-002", "K-SETTLED");
+        String settled = settledOwner.trip().getTripId();
+        tripRecordService.updateTripStatus(settled, settledOwner.claimToken(), "D-1", 9.0, 1.0, 1.0, DistanceSource.OSRM, TripStatus.MATCHED);
 
         int tooFresh = new TripReconciler(tripRepository, new SimpleMeterRegistry(), 3600).sweep();
         int swept = new TripReconciler(tripRepository, new SimpleMeterRegistry(), 0).sweep();

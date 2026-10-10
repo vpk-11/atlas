@@ -46,6 +46,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
                 .setTripId(trip.getTripId())
                 .setReplayed(result.replayed())
                 .setResumeGranted(result.resumeGranted())
+                .setClaimToken(result.claimToken() == null ? "" : result.claimToken())
                 .setStatus(com.atlas.tripservice.grpc.trip.TripStatus.valueOf(trip.getStatus().name()))
                 .setDriverId(trip.getDriverId() == null ? "" : trip.getDriverId())
                 .setPrice(trip.getPrice())
@@ -56,15 +57,20 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
     @Override
     public void updateTripStatus(UpdateTripStatusRequest request, StreamObserver<UpdateTripStatusResponse> responseObserver) {
         try {
-            String tripId = tripRecordService.updateTripStatus(
+            TripRecordService.UpdateResult result = tripRecordService.updateTripStatus(
                     request.getTripId(),
+                    request.getClaimToken(),
                     request.getDriverId(),
                     request.getPrice(),
                     request.getDistanceKm(),
                     request.getDurationMinutes(),
                     toDomainDistanceSource(request.getDistanceSource()),
                     toDomainStatus(request.getStatus()));
-            responseObserver.onNext(UpdateTripStatusResponse.newBuilder().setTripId(tripId).build());
+            responseObserver.onNext(UpdateTripStatusResponse.newBuilder()
+                    .setTripId(result.tripId())
+                    .setApplied(result.applied())
+                    .setCurrentStatus(com.atlas.tripservice.grpc.trip.TripStatus.valueOf(result.currentStatus().name()))
+                    .build());
             responseObserver.onCompleted();
         } catch (TripNotFoundException e) {
             responseObserver.onError(Status.NOT_FOUND.withDescription(e.getMessage()).asRuntimeException());

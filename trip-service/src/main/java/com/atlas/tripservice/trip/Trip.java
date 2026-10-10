@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "trips",
@@ -73,6 +74,11 @@ public class Trip {
     @Column(name = "claimed_at")
     private Instant claimedAt;
 
+    // Fencing token: whoever holds the current token owns the match. A replay that takes over
+    // the row replaces it, so every write from the previous owner is rejected.
+    @Column(name = "claim_token", length = 36)
+    private String claimToken;
+
     protected Trip() {
     }
 
@@ -92,6 +98,7 @@ public class Trip {
         this.status = status;
         this.createdAt = Instant.now();
         this.claimedAt = this.createdAt;
+        this.claimToken = UUID.randomUUID().toString();
     }
 
     @PostPersist
@@ -109,6 +116,10 @@ public class Trip {
 
     public Instant getClaimedAt() {
         return claimedAt;
+    }
+
+    public String getClaimToken() {
+        return claimToken;
     }
 
     public String getIdempotencyKey() {

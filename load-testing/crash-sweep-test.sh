@@ -11,7 +11,8 @@ BURST="${1:-150}"
 KILL_DELAYS="${KILL_DELAYS:-0.3 0.15 0.05 0.5}"
 STALE_SECONDS=60
 OUT="$(mktemp -d)"
-trap 'kill $PF_PID 2>/dev/null || true; rm -rf "$OUT"' EXIT
+PF_PID=""
+trap '[ -z "$PF_PID" ] || kill "$PF_PID" 2>/dev/null || true; rm -rf "$OUT"' EXIT
 
 PASSWORD="$(kubectl -n "$NAMESPACE" get secret mysql-credentials -o jsonpath='{.data.root-password}' | base64 -d)"
 sql() { kubectl -n "$NAMESPACE" exec deploy/mysql -- mysql -uroot -p"$PASSWORD" -N -e "$1" 2>/dev/null; }
@@ -24,6 +25,7 @@ for KILL_DELAY in $KILL_DELAYS; do
   POD="$(kubectl -n "$NAMESPACE" get pods -l app=dispatch-service --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')"
   kubectl -n "$NAMESPACE" port-forward "pod/$POD" 18081:8080 >/dev/null 2>&1 &
   PF_PID=$!
+  disown "$PF_PID"  # no job-control "Terminated" line (it carries the script path) in logs
   sleep 3
   rm -f "$OUT"/*.code
   # The kill is on its own timer, started with the burst, so it lands while requests are in flight
@@ -36,8 +38,8 @@ for KILL_DELAY in $KILL_DELAYS; do
         -H 'Content-Type: application/json' -H "Idempotency-Key: $TAG-$i" -d "$BODY" > "$OUT/$i.code" &
     PIDS+=($!)
   done
-  wait "${PIDS[@]}" "$KILL_PID"  # not a bare wait: the background port-forward never exits
-  kill $PF_PID 2>/dev/null || true
+  for pid in "${PIDS[@]}" "$KILL_PID"; do wait "$pid" || true; done  # not a bare wait: the port-forward never exits
+  kill "$PF_PID" 2>/dev/null || true
   echo "attempt kill-delay=${KILL_DELAY}s, client results (000 = connection died with the pod):"; cat "$OUT"/*.code | sort | uniq -c
   sleep 2
   STUCK="$(sql "select count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' and status='REQUESTED'")"
@@ -56,7 +58,7 @@ for i in $(seq 1 24); do
   sleep 10
 done
 echo "trips by status after the sweep: $(sql "select status,count(*) from atlas_trip.trips where idempotency_key like '$TAG-%' group by status" | tr '\t\n' ' =,')"
-STALE="$(sql "select count(*) from atlas_trip.trips where status='REQUESTED' and claimed_at < now() - interval $STALE_SECONDS second")"
+STALE="$(sql "select count(*) from atlas_trip.trips where status='REQUESTED' and claimed_at < (select max(claimed_at) from atlas_trip.trips) - interval $STALE_SECONDS second")"
 echo "REQUESTED rows older than ${STALE_SECONDS}s (whole table): $STALE"
 [ "$LEFT" = "0" ] && [ "$STALE" = "0" ] || { echo "FAIL: stuck REQUESTED rows remain"; exit 1; }
 

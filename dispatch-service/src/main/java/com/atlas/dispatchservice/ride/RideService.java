@@ -86,6 +86,7 @@ public class RideService {
             return ok(RideResponse.systemError("Unable to process this ride, try again shortly"));
         }
         String tripId = recorded.tripId();
+        String token = recorded.claimToken();
 
         // Replay of an idempotency key. Settled outcomes are returned as stored, with no
         // matching/pricing/assignment. An unsettled row (REQUESTED or retriable SYSTEM_ERROR)
@@ -121,12 +122,12 @@ public class RideService {
             ranked = matchingService.rankCandidates(pickup);
         } catch (Exception e) {
             log.error("Driver DB unreachable while ranking candidates for rider {}: {}", request.riderId(), e.toString());
-            logSystemError(request.riderId(), tripId);
+            logSystemError(request.riderId(), tripId, token);
             return ok(RideResponse.systemError("Unable to process this ride, try again shortly"));
         }
 
         if (ranked.isEmpty()) {
-            return ok(noMatch(request.riderId(), tripId));
+            return ok(noMatch(request.riderId(), tripId, token));
         }
 
         CandidateScore winner = ranked.get(0);
@@ -141,7 +142,7 @@ public class RideService {
             // finalizing, but this must stay fast (the whole point of fail-fast), so
             // don't block the response on it, and don't use postOsrmExecutor - that's
             // the pool most likely to also be saturated right when this path fires.
-            CompletableFuture.runAsync(() -> logSystemError(request.riderId(), tripId));
+            CompletableFuture.runAsync(() -> logSystemError(request.riderId(), tripId, token));
             return CompletableFuture.completedFuture(
                     ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                             .body(RideResponse.systemError("System at capacity, please retry")));
@@ -151,7 +152,7 @@ public class RideService {
         return osrmClient.distanceAndDuration(pickup, drop)
                 .toFuture()
                 .thenApplyAsync(tripDistance ->
-                        finishMatch(request, tripId, pickup, drop, winner, tripDistance), postOsrmExecutor)
+                        finishMatch(request, tripId, token, pickup, drop, winner, tripDistance), postOsrmExecutor)
                 .handle((response, throwable) -> {
                     admissionGate.release();
                     log.debug("OSRM-onward pipeline took {}ms for rider {}",
@@ -167,7 +168,7 @@ public class RideService {
                     Throwable cause = throwable instanceof CompletionException ? throwable.getCause() : throwable;
                     // Same reasoning as the admission-gate rejection above: finalize the
                     // REQUESTED row without blocking this already-failing response on it.
-                    CompletableFuture.runAsync(() -> logSystemError(request.riderId(), tripId));
+                    CompletableFuture.runAsync(() -> logSystemError(request.riderId(), tripId, token));
                     if (cause instanceof TaskRejectedException) {
                         log.warn("Post-OSRM executor at capacity, rejecting ride for rider {}: {}",
                                 request.riderId(), cause.toString());
@@ -180,14 +181,14 @@ public class RideService {
                 });
     }
 
-    private RideResponse finishMatch(RideRequest request, String tripId, Coordinate pickup, Coordinate drop,
+    private RideResponse finishMatch(RideRequest request, String tripId, String token, Coordinate pickup, Coordinate drop,
                                       CandidateScore winner, DistanceResult tripDistance) {
         double price;
         try {
             price = pricingClient.getQuote(pickup, drop, tripDistance);
         } catch (PricingClient.PricingUnavailableException e) {
             log.error("Pricing unreachable for rider {}: {}", request.riderId(), e.toString());
-            logSystemError(request.riderId(), tripId);
+            logSystemError(request.riderId(), tripId, token);
             return RideResponse.systemError("Unable to price this ride, try again shortly");
         }
 
@@ -196,16 +197,28 @@ public class RideService {
         } catch (Exception e) {
             log.error("Driver DB unreachable while assigning driver {} for rider {}: {}",
                     winner.driverId(), request.riderId(), e.toString());
-            logSystemError(request.riderId(), tripId);
+            logSystemError(request.riderId(), tripId, token);
             return RideResponse.systemError("Unable to process this ride, try again shortly");
         }
 
+        TripClient.UpdateOutcome outcome;
         try {
-            tripClient.finalizeMatchedTrip(tripId, winner.driverId(), price, tripDistance);
+            outcome = tripClient.finalizeMatchedTrip(tripId, token, winner.driverId(), price, tripDistance);
         } catch (TripClient.TripUnavailableException e) {
             log.error("Trip unreachable for rider {} after driver {} assigned: {}",
                     request.riderId(), winner.driverId(), e.toString());
             return RideResponse.systemError("Match succeeded but could not be recorded, try again shortly");
+        }
+        if (!outcome.applied()) {
+            if (outcome.currentStatus() == com.atlas.dispatchservice.grpc.trip.TripStatus.CANCELLED) {
+                // Cancelled while the match ran: cancel could not know the driver yet, so free it here.
+                log.info("Trip {} was cancelled mid-match, freeing driver {}", tripId, winner.driverId());
+                driverAssignmentService.freeDriverForTrip(winner.driverId());
+                return RideResponse.cancelled(tripId, "Trip was cancelled while matching");
+            }
+            // Another request holds the claim now (lease overrun); it owns the outcome.
+            log.warn("Trip {} outcome dropped (status {}): claim superseded", tripId, outcome.currentStatus());
+            return RideResponse.systemError("Request superseded by a retry, try again shortly");
         }
 
         String etaNote = null;
@@ -219,9 +232,9 @@ public class RideService {
                 request.pickup(), request.drop(), price, (int) Math.round(winner.totalTimeToPickupMinutes()), etaNote);
     }
 
-    private RideResponse noMatch(String riderId, String tripId) {
+    private RideResponse noMatch(String riderId, String tripId, String token) {
         try {
-            tripClient.finalizeFailedNoMatch(tripId);
+            tripClient.finalizeFailedNoMatch(tripId, token);
         } catch (TripClient.TripUnavailableException e) {
             log.error("Trip unreachable while logging FAILED_NO_MATCH for rider {}: {}", riderId, e.toString());
             return RideResponse.systemError("Unable to process this ride, try again shortly");
@@ -230,9 +243,9 @@ public class RideService {
         return RideResponse.failedNoMatch("No available or soon-to-be-available drivers found");
     }
 
-    private void logSystemError(String riderId, String tripId) {
+    private void logSystemError(String riderId, String tripId, String token) {
         try {
-            tripClient.finalizeSystemError(tripId);
+            tripClient.finalizeSystemError(tripId, token);
         } catch (TripClient.TripUnavailableException e) {
             log.error("Trip also unreachable while logging SYSTEM_ERROR for rider {}: {}", riderId, e.toString());
         }
