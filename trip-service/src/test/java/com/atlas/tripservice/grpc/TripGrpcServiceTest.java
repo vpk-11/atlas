@@ -54,7 +54,7 @@ class TripGrpcServiceTest {
         ReflectionTestUtils.invokeMethod(stored, "assignTripId");
         when(tripRecordService.recordTrip(eq("R-001"), eq("D-042"), anyDouble(), anyDouble(),
                 anyDouble(), anyDouble(), anyDouble(), anyDouble(), anyDouble(), any(), any(), any()))
-                .thenReturn(new TripRecordService.RecordResult(stored, false));
+                .thenReturn(new TripRecordService.RecordResult(stored, false, false));
 
         RecordTripRequest request = RecordTripRequest.newBuilder()
                 .setRiderId("R-001")
@@ -75,6 +75,7 @@ class TripGrpcServiceTest {
         verify(recordObserver).onCompleted();
         assertThat(captor.getValue().getTripId()).isEqualTo("T-00000001");
         assertThat(captor.getValue().getReplayed()).isFalse();
+        assertThat(captor.getValue().getResumeGranted()).isFalse();
     }
 
     @Test

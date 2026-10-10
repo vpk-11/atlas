@@ -10,11 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 import java.time.Instant;
 
 @Entity
-@Table(name = "trips", indexes = @Index(name = "idx_trips_status_created_at", columnList = "status, created_at"))
+@Table(name = "trips",
+        uniqueConstraints = @UniqueConstraint(name = "uk_trips_rider_idempotency_key", columnNames = {"rider_id", "idempotency_key"}),
+        indexes = @Index(name = "idx_trips_status_claimed_at", columnList = "status, claimed_at"))
 public class Trip {
 
     @Id
@@ -24,7 +27,7 @@ public class Trip {
     @Column(name = "trip_id", unique = true)
     private String tripId;
 
-    @Column(name = "idempotency_key", unique = true)
+    @Column(name = "idempotency_key")
     private String idempotencyKey;
 
     @Column(name = "rider_id", nullable = false)
@@ -65,6 +68,11 @@ public class Trip {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
+    // Lease on an unsettled row: set at insert, renewed when a replay takes over the match.
+    // The sweep and replay claims both key off this, not created_at.
+    @Column(name = "claimed_at")
+    private Instant claimedAt;
+
     protected Trip() {
     }
 
@@ -83,6 +91,7 @@ public class Trip {
         this.distanceSource = distanceSource;
         this.status = status;
         this.createdAt = Instant.now();
+        this.claimedAt = this.createdAt;
     }
 
     @PostPersist
@@ -96,6 +105,10 @@ public class Trip {
 
     public String getTripId() {
         return tripId;
+    }
+
+    public Instant getClaimedAt() {
+        return claimedAt;
     }
 
     public String getIdempotencyKey() {

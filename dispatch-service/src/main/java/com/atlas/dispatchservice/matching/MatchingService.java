@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MatchingService {
@@ -45,9 +47,15 @@ public class MatchingService {
         Instant now = Instant.now();
 
         List<CandidateScore> scored = new ArrayList<>();
-        // One IN query for all candidates, not one SELECT per candidate.
+        // One IN query for all candidates, not one SELECT per candidate. Iterate in nearest-first
+        // order (not the DB's return order) so equal scores keep the same tie-break as before.
+        Map<String, Driver> byId = new HashMap<>();
         for (Driver driver : driverRepository.findAllById(nearest.stream().map(QuadTree.IndexedPoint::id).toList())) {
-            if (driver.getStatus() == DriverStatus.OFFLINE) {
+            byId.put(driver.getDriverId(), driver);
+        }
+        for (QuadTree.IndexedPoint point : nearest) {
+            Driver driver = byId.get(point.id());
+            if (driver == null || driver.getStatus() == DriverStatus.OFFLINE) {
                 continue;
             }
             scored.add(score(driver, pickup, now));

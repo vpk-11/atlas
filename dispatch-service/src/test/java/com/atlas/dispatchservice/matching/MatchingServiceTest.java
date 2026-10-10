@@ -78,6 +78,27 @@ class MatchingServiceTest {
         assertThat(ranked).isEmpty();
     }
 
+    @Test
+    void equalScoresKeepNearestFirstOrderRegardlessOfDatabaseReturnOrder() {
+        Driver a = new Driver("D-010", 37.7760, -122.4200, DriverStatus.AVAILABLE);
+        Driver b = new Driver("D-011", 37.7760, -122.4200, DriverStatus.AVAILABLE); // identical position, equal score
+        List<QuadTree.IndexedPoint> points = List.of(
+                new QuadTree.IndexedPoint(a.getDriverId(), a.getCurrentLat(), a.getCurrentLng()),
+                new QuadTree.IndexedPoint(b.getDriverId(), b.getCurrentLat(), b.getCurrentLng()));
+        when(gridIndex.candidatesNear(anyDouble(), anyDouble())).thenReturn(points);
+        // The database returns the drivers in the opposite order to the index.
+        when(driverRepository.findAllById(any())).thenReturn(List.of(b, a));
+
+        QuadTree tree = new QuadTree(com.atlas.dispatchservice.domain.BoundingBox.SAN_FRANCISCO);
+        points.forEach(pt -> tree.insert(pt.id(), pt.lat(), pt.lng()));
+        List<String> expected = tree.kNearest(PICKUP.lat(), PICKUP.lng(), 20).stream()
+                .map(QuadTree.IndexedPoint::id).toList();
+
+        List<String> actual = matchingService.rankCandidates(PICKUP).stream().map(CandidateScore::driverId).toList();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
     private void mockCandidates(Driver... drivers) {
         List<QuadTree.IndexedPoint> points = List.of(drivers).stream()
                 .map(d -> new QuadTree.IndexedPoint(d.getDriverId(), d.getCurrentLat(), d.getCurrentLng()))

@@ -1,5 +1,5 @@
 import http from "k6/http";
-import { check } from "k6";
+import { check, sleep } from "k6";
 
 // Target: 500 req/sec sustained against POST /rides.
 // BASE_URL defaults to a port-forwarded dispatch-service (see scripts/start.sh).
@@ -93,6 +93,12 @@ function postRide(payload) {
   };
   let res = http.post(`${BASE_URL}/rides`, payload, params);
   if (res.status === 0 || res.status >= 500) {
+    res = http.post(`${BASE_URL}/rides`, payload, params);
+  }
+  // 409 means a request with this key may still be running (or its owner just crashed and the
+  // lease has not expired yet): wait and ask again, up to ~16s, rather than counting a failure.
+  for (let i = 0; i < 8 && res.status === 409; i++) {
+    sleep(2);
     res = http.post(`${BASE_URL}/rides`, payload, params);
   }
   return res;

@@ -13,6 +13,10 @@ spring:
     open-in-view: false
 
 trip:
+  claim:
+    # How long an unsettled row belongs to its original request before a replay may take over.
+    # Must exceed a live request's worst case (gRPC deadlines 2s each, OSRM 0.5s).
+    lease-seconds: ${TRIP_CLAIM_LEASE_SECONDS:10}
   reconcile:
     stale-seconds: ${TRIP_STALE_REQUESTED_SECONDS:60}
     interval-seconds: ${TRIP_SWEEP_INTERVAL_SECONDS:30}

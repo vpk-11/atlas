@@ -45,6 +45,7 @@ public class TripGrpcService extends TripServiceGrpc.TripServiceImplBase {
         responseObserver.onNext(RecordTripResponse.newBuilder()
                 .setTripId(trip.getTripId())
                 .setReplayed(result.replayed())
+                .setResumeGranted(result.resumeGranted())
                 .setStatus(com.atlas.tripservice.grpc.trip.TripStatus.valueOf(trip.getStatus().name()))
                 .setDriverId(trip.getDriverId() == null ? "" : trip.getDriverId())
                 .setPrice(trip.getPrice())

@@ -20,6 +20,14 @@ public record RideResponse(
                 estimatedPickupMinutes, etaNote, null);
     }
 
+    public static RideResponse cancelled(String tripId, String message) {
+        return new RideResponse("CANCELLED", tripId, null, null, null, null, null, null, null, message);
+    }
+
+    public static RideResponse inProgress(String tripId, String message) {
+        return new RideResponse("IN_PROGRESS", tripId, null, null, null, null, null, null, null, message);
+    }
+
     public static RideResponse failedNoMatch(String message) {
         return new RideResponse("FAILED_NO_MATCH", null, null, null, null, null, null, null, null, message);
     }

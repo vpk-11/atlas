@@ -12,6 +12,7 @@ data:
   TRIP_DB_USER: "root"
   TRIP_STALE_REQUESTED_SECONDS: "60"
   TRIP_SWEEP_INTERVAL_SECONDS: "30"
+  TRIP_CLAIM_LEASE_SECONDS: "10"
 ---
 apiVersion: apps/v1
 kind: Deployment
