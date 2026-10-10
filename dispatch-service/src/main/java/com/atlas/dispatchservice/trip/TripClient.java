@@ -39,8 +39,8 @@ public class TripClient {
 
         try {
             var response = tripStub.withDeadlineAfter(DEADLINE_MS, TimeUnit.MILLISECONDS).recordTrip(request);
-            return new RecordedTrip(response.getTripId(), response.getReplayed(), response.getStatus(),
-                    response.getDriverId(), response.getPrice());
+            return new RecordedTrip(response.getTripId(), response.getReplayed(), response.getResumeGranted(),
+                    response.getStatus(), response.getDriverId(), response.getPrice());
         } catch (Exception e) {
             throw new TripUnavailableException(e);
         }
@@ -92,12 +92,15 @@ public class TripClient {
         }
     }
 
-    /** Result of the first write. For a replayed idempotency key, status/driverId/price describe the existing row. */
-    public record RecordedTrip(String tripId, boolean replayed,
+    /**
+     * Result of the first write. For a replayed idempotency key, status/driverId/price describe the existing row
+     * and resumeGranted says whether this caller may run the match for it.
+     */
+    public record RecordedTrip(String tripId, boolean replayed, boolean resumeGranted,
                                com.atlas.dispatchservice.grpc.trip.TripStatus status,
                                String driverId, double price) {
         public static RecordedTrip fresh(String tripId) {
-            return new RecordedTrip(tripId, false,
+            return new RecordedTrip(tripId, false, false,
                     com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0);
         }
     }

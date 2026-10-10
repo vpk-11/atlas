@@ -99,7 +99,7 @@ class RideServiceTest {
     @Test
     void replayedMatchedKeyReturnsStoredResultWithoutMatching() throws Exception {
         when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-1"))).thenReturn(
-                new TripClient.RecordedTrip("T-00000005", true,
+                new TripClient.RecordedTrip("T-00000005", true, false,
                         com.atlas.dispatchservice.grpc.trip.TripStatus.MATCHED, "D-007", 14.5));
 
         RideResponse response = rideService.requestRide(request, "K-1").get(2, TimeUnit.SECONDS).getBody();
@@ -115,7 +115,7 @@ class RideServiceTest {
     @Test
     void replayedRequestedKeyResumesMatchOnExistingTripId() throws Exception {
         when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-2"))).thenReturn(
-                new TripClient.RecordedTrip("T-00000006", true,
+                new TripClient.RecordedTrip("T-00000006", true, true,
                         com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0));
         when(matchingService.rankCandidates(any())).thenReturn(List.of());
 
@@ -123,6 +123,34 @@ class RideServiceTest {
 
         assertThat(response.status()).isEqualTo("FAILED_NO_MATCH");
         verify(tripClient).finalizeFailedNoMatch("T-00000006");
+    }
+
+    @Test
+    void replayOfInFlightKeyReturns409AndNeverMatches() throws Exception {
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-3"))).thenReturn(
+                new TripClient.RecordedTrip("T-00000007", true, false,
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.REQUESTED, "", 0.0));
+
+        ResponseEntity<RideResponse> response = rideService.requestRide(request, "K-3").get(2, TimeUnit.SECONDS);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+        assertThat(response.getHeaders().getFirst("Retry-After")).isEqualTo("2");
+        assertThat(response.getBody().status()).isEqualTo("IN_PROGRESS");
+        verifyNoInteractions(matchingService, driverAssignmentService, pricingClient);
+        verify(tripClient, never()).finalizeSystemError(any());
+    }
+
+    @Test
+    void replayOfCancelledKeyReportsCancelledNotSystemError() throws Exception {
+        when(tripClient.recordRequested(eq("R-001"), any(), any(), eq("K-4"))).thenReturn(
+                new TripClient.RecordedTrip("T-00000008", true, false,
+                        com.atlas.dispatchservice.grpc.trip.TripStatus.CANCELLED, "D-1", 5.0));
+
+        RideResponse response = rideService.requestRide(request, "K-4").get(2, TimeUnit.SECONDS).getBody();
+
+        assertThat(response.status()).isEqualTo("CANCELLED");
+        assertThat(response.tripId()).isEqualTo("T-00000008");
+        verifyNoInteractions(matchingService);
     }
 
     @Test

@@ -36,22 +36,27 @@ real load past the system's actual capacity, it now rejects fast (503,
 milliseconds) instead of hanging (10s+). See `.claude/context/decisions.md`
 for the full story, including the wrong turn and how it was found and fixed.
 
-v2 Phases 2-4 (on `main`):
-- `POST /rides` takes an optional `Idempotency-Key` header, so a retry after a
-  dispatch pod kill resolves to the same trip. A chaos run with the key reused on
-  retry produced 75,074 keyed trips and zero duplicate keys.
+v2 Phases 2-5 (on `main`):
+- `POST /rides` takes an optional `Idempotency-Key` header (scoped per rider), so a
+  retry after a dispatch pod kill resolves to the same trip, and a double-submit while
+  the first request is still running gets `409` instead of a second driver.
 - A local OSRM stub and `load-testing/stub-load-test.sh` measure Atlas without the
   public OSRM demo API.
-- v2 Phase 5 (throughput to spec): the ride path now meets 500 req/s sustained against
-  the stub (0.05-0.31% failed, p99 116-187 ms over 3 minutes, warm) after removing
-  wasted database work and throttles: one `IN` query instead of 20 `SELECT`s per
-  ride's candidate lookup, insert-first and single-statement updates in trip-service,
-  a 40-connection trip pool, MySQL without the unused binary log, and removing a CPU
-  and listen-backlog bottleneck in the stub itself. Ceiling is between 500 and 600
-  req/s here.
+- v2 Phase 5 (throughput to spec): the ride path meets 500 req/s sustained against
+  the stub after removing wasted database work and throttles: one `IN` query instead
+  of 20 `SELECT`s per ride's candidate lookup, insert-first and single-statement
+  updates in trip-service, a 40-connection trip pool, MySQL without the unused binary
+  log, and a CPU and listen-backlog bottleneck in the stub itself.
+- v2 Phase 6 (idempotency hardening, from an external review): a double-submit while
+  the first request is still running now gets `409` instead of assigning a second
+  driver (lease-based claim in trip-service); keys are scoped per rider; status updates
+  can no longer overwrite a settled trip; a cancelled-key replay reports `CANCELLED`;
+  the post-OSRM worker pool was resized from measured concurrency, which removed the
+  spurious fast-503s at 500 req/s. Verified against a real MySQL (Testcontainers) and
+  with a committed evidence log: `load-testing/results/2026-10-10-evidence.txt`.
 - Trips left in `REQUESTED` by a crash are failed to `SYSTEM_ERROR` by a scheduled
   sweep (after 60s), and MySQL now runs on a persistent volume. A forced pod kill
-  mid-burst left 81 stuck rows and the sweep resolved all 81.
+  mid-burst left stuck rows (1 to 81 across runs) and the sweep resolved every one.
 
 ## Architecture
 
@@ -143,18 +148,27 @@ public OSRM stays the default.
 
 Measured on the local single-node Kind cluster (2 dispatch replicas, 1 pricing, 1 trip):
 
-| Scenario | Rate | Failed | p99 |
-|---|---|---|---|
-| Stub, 50ms, warm, 3 min | 500 req/s | 0.05%, 0.21%, 0.31% (3 runs) | 116-187 ms |
-| Stub, first run after a fresh rollout (cold JVMs) | 500 req/s | 3.27% | 1.87 s |
-| Stub, 800ms (every call times out at 500ms and falls back), 60s | 500 req/s | 0.84% | 262 ms |
-| Stub, 60s | 600 req/s | 65.07% | 4.07 s |
-| Stub, 60s | 800 req/s | 85.76% | 2.02 s |
+| Scenario (current build, stub 50ms) | Rate | Failed (raw) | Client-perceived failed | p99 |
+|---|---|---|---|---|
+| 180s, warm, run 1 | 500 req/s | 0.01% | 0.00% | 143 ms |
+| 180s, warm, run 2 | 500 req/s | 0.01% | 0.00% | 281 ms |
+| 180s, warm, run 3 | 500 req/s | 0.00% | 0.00% | 74 ms |
+| 60s | 600 req/s | 0.00% | 0.00% | 95 ms |
 
-So 500 req/s sustained is met against the stub, and the ceiling sits between 500 and
-600 req/s on this hardware. It is **not** measured against the public OSRM demo server at
-that rate, on purpose (fair-use limits, and its latency is not Atlas's). Against the real
-public default at a polite 10 req/s the run showed 1.97% failed, p99 615 ms.
+"Raw" is k6's `http_req_failed`, which counts every non-2xx response, including a
+transient fast `503` or the `409` that a retry gets while the first request is still
+running. "Client-perceived" is the outcome after the client's retries, which is what the
+spec cares about. Source: `load-testing/results/2026-10-10-evidence.txt`, produced by
+`load-testing/evidence.sh` (about 25 minutes, re-runnable).
+
+So 500 req/s sustained is met against the stub, and 600 req/s also ran clean once. The
+ceiling on the current build has not been located: an earlier build, before the worker
+pool and stub fixes, failed 65% at 600 req/s and 86% at 800 req/s, and higher rates were
+not re-tried on the current build. The first run right after a fresh rollout can be
+worse while the JVMs warm up (3.27% raw on an earlier build). Throughput is **not**
+measured against the public OSRM demo server at these rates, on purpose (fair-use limits,
+and its latency is not Atlas's). Against the real public default at a polite 10 req/s the
+run showed 1.97% failed, p99 615 ms (earlier build).
 
 ### Chaos test
 
@@ -168,8 +182,9 @@ replica. Watch the Grafana "Dispatch Pod Count Over Time" panel live to see
 the dip and recovery. Reverified after the v2 Phase 1 close-out's async OSRM
 refactor: only the intentionally killed pod cycles, the survivor stays
 healthy throughout, 0 restarts on either side. On the stub path (ramp to 500 req/s,
-dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,277
-requests, 0.03% failed, p99 106 ms, zero duplicate trip keys, and no REQUESTED trip
+dispatch pod killed 20s in, client retry reusing the `Idempotency-Key`): 101,249
+requests, 0.00% failed, p99 103 ms. Across the whole evidence run the database held
+1,387,257 keyed trips with zero duplicate (rider, key) groups, and no REQUESTED trip was
 left older than 60 seconds.
 
 Trips left in `REQUESTED` by a crash are resolved by a scheduled sweep in
@@ -284,9 +299,10 @@ curl -X POST http://localhost:8080/rides \
 curl -X POST http://localhost:8080/trips/T-00000001/cancel
 ```
 
-`POST /rides` accepts an optional `Idempotency-Key` header. Retrying with the
-same key returns the same trip instead of creating a second one, including
-after a dispatch pod is killed mid-request:
+`POST /rides` accepts an optional `Idempotency-Key` header. The key is scoped to the
+rider, so two riders can use the same key string independently. Retrying with the same
+key returns the same trip instead of creating a second one, including after a dispatch
+pod is killed mid-request:
 
 ```
 curl -X POST http://localhost:8080/rides \
@@ -294,8 +310,20 @@ curl -X POST http://localhost:8080/rides \
   -d '{"riderId":"R-001","pickup":{"lat":37.7749,"lng":-122.4194},"drop":{"lat":37.7849,"lng":-122.4094}}'
 ```
 
-A replay of a matched ride returns the stored result without the ETA fields. A
-key reused with a different body returns the first request's result.
+What a replay returns:
+- **Settled ride** (matched or no match): the stored result, with no new matching. A
+  replayed match omits the ETA fields and `driverStatus`, which are not stored.
+- **Cancelled ride**: status `CANCELLED` with the trip id.
+- **Original request still running**: `409` with `Retry-After: 2` and status
+  `IN_PROGRESS`, so a double-submit can never assign a second driver. Retry after the
+  header interval.
+- **Original crashed or failed** (unsettled for longer than a 10-second lease, or marked
+  `SYSTEM_ERROR`): the retry takes the ride over and runs the match, and the trip keeps
+  the same id.
+
+A key reused by the same rider with a different body returns the first request's result.
+Residual gap: if the original request is still running after the 10-second lease, a
+retry can take over and assign a second driver (still one trip row).
 
 San Francisco bounding box (`37.70-37.83` lat, `-122.51`--`-122.36` lng) is
 where all seeded drivers live, so pick coordinates in that range to see a
@@ -334,6 +362,16 @@ reconnecting to the same socket.
 cd dispatch-service && ./mvnw test
 cd pricing-service && ./mvnw test
 cd trip-service && ./mvnw test
+```
+
+trip-service also has MySQL integration tests (Testcontainers) for the idempotency key,
+the lease claim, the status guard and the sweep. They run when Docker is available and
+are skipped otherwise. With colima, run them with:
+
+```
+DOCKER_HOST=unix://$HOME/.colima/default/docker.sock \
+TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock \
+TESTCONTAINERS_RYUK_DISABLED=true ./mvnw test
 ```
 
 ## Changelog

@@ -44,6 +44,9 @@ message RecordTripResponse {
   TripStatus status = 3;
   string driver_id = 4;
   double price = 5;
+  // With replayed: true when the caller now owns the row and may (re)run the match.
+  // False for a replay of an unsettled row whose original request may still be running.
+  bool resume_granted = 6;
 }
 
 // Updates the same row a prior RecordTrip call created (identified by trip_id),

@@ -31,7 +31,7 @@ public class RideService {
 
     // Admission gate for the OSRM-onward pipeline (OSRM call + postOsrmExecutor
     // stage). Prevents the failure mode found in the first async attempt: Tomcat
-    // can admit far more concurrent requests than postOsrmExecutor (30 workers,
+    // can admit far more concurrent requests than postOsrmExecutor (a bounded pool,
     // see AsyncConfig) can drain, so without a gate, excess requests queued
     // silently for 10s+ instead of failing fast - zero throughput gain, worse
     // latency than the blocking version it replaced.
@@ -88,9 +88,9 @@ public class RideService {
         String tripId = recorded.tripId();
 
         // Replay of an idempotency key. Settled outcomes are returned as stored, with no
-        // matching/pricing/assignment. REQUESTED (crash-interrupted) and SYSTEM_ERROR
-        // (retriable failure) fall through and resume the match on the existing row, so
-        // the retry is served and no second row is created.
+        // matching/pricing/assignment. An unsettled row (REQUESTED or retriable SYSTEM_ERROR)
+        // resumes the match only if trip-service granted this caller the claim; otherwise the
+        // original request may still be running, so answer 409 rather than assign a second driver.
         if (recorded.replayed()) {
             switch (recorded.status()) {
                 case MATCHED -> {
@@ -102,9 +102,17 @@ public class RideService {
                     return ok(RideResponse.failedNoMatch("No available or soon-to-be-available drivers found"));
                 }
                 case CANCELLED -> {
-                    return ok(RideResponse.systemError("Trip for this idempotency key was cancelled"));
+                    return ok(RideResponse.cancelled(tripId, "Trip for this idempotency key was cancelled"));
                 }
-                default -> log.info("Resuming replayed trip {} (status {})", tripId, recorded.status());
+                default -> {
+                    if (!recorded.resumeGranted()) {
+                        log.info("Replay of in-flight trip {} (status {}), not resuming", tripId, recorded.status());
+                        return CompletableFuture.completedFuture(ResponseEntity.status(HttpStatus.CONFLICT)
+                                .header("Retry-After", "2")
+                                .body(RideResponse.inProgress(tripId, "A request with this idempotency key is still in progress")));
+                    }
+                    log.info("Resuming replayed trip {} (status {})", tripId, recorded.status());
+                }
             }
         }
 
